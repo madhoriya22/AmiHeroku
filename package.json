@@ -1,0 +1,24 @@
+{
+  "name": "nodelightning",
+  "version": "1.0.0",
+  "description": "Lightning out for Node.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "@salesforce-ux/design-system": "^1.0.0",
+    "bookshelf": "^0.10.2",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "knex": "*",
+    "nforce": "*",
+    "pg": "*"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "3.10.x"
+  },
+  "author": "mohith",
+  "license": "ISC"
+}

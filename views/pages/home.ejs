@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     <% include ../partials/ldOut %>
+	 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="slds">
+    <header>
+    </header>
+    <main>
+      <div class="container">
+			<div class="jumbotron">
+				<h1>Lightning Out on Heroku</h1>
+				<button id="chatterFeedButton" class="btn btn-primary btn-lg" onclick="createChatterFeed('NEWS')" >
+					Create Chatter Feed
+				</button>
+				<button id="sfAccountList" class="btn btn-primary btn-lg" onclick="showAccountList('NEWS')">
+					Show Account List
+				</button>
+			</div>
+			<div id="renderLtngComp"/>
+		</div>
+    </main>
+        <footer>
+        </footer>
+        <script>
+			var url = "<%= ouathLightningURL %>";
+			var token = "Bearer "+"<%= oauthtoken %>";
+			console.log(token);
+			$Lightning.use("c:loTest", function() {},url,token );
+			function createChatterFeed(type, subjectId) {
+				document.getElementById("renderLtngComp").innerHTML = "";
+				$Lightning.createComponent("forceChatter:feed", {type: type, subjectId: subjectId}, "renderLtngComp"); 
+			}
+
+			function showAccountList(type, subjectId) {
+				document.getElementById("renderLtngComp").innerHTML = "";
+				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
+			}
+        </script>
+  </body>
+</html>
