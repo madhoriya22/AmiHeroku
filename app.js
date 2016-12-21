@@ -25,7 +25,7 @@ app.get('/oauthcallback', function(req, res) {
 });
 
 app.get('/renewUserAccess', function(req, res) {
-	oauth.authenticate(req, res, app);
+	oauth.redirectAuthURI(res);
 });
 
 // Served Localhost
