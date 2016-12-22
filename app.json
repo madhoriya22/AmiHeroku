@@ -1,0 +1,39 @@
+{
+  "name": "AmiHeroku",
+  "scripts": {
+  },
+  "env": {
+    "ADMINIUM_URL": {
+      "required": true
+    },
+    "LIGHTNING_END_POINT_URI": {
+      "required": true
+    },
+    "POSTGRES_DATABASE_HOST": {
+      "required": true
+    },
+    "POSTGRES_DATABASE_NAME": {
+      "required": true
+    },
+    "POSTGRES_DATABASE_PASS": {
+      "required": true
+    },
+    "POSTGRES_DATABASE_USER": {
+      "required": true
+    },
+    "REDIRECT_URI": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "adminium",
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
