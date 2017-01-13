@@ -23,11 +23,11 @@
 			$Lightning.use("c:loTest", function(cmp) {createChatterFeed('NEWS');},url,token );
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
-				var successStatus = getUrlVars()["successflag"];
-				console.log('Flag: '+successStatus);
+				var successflag = getUrlVars()["successflag"];
+				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id,test:successStatus,successflag:successStatus}, "renderLtngComp");
+				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id,test:successflag,successflag:successflag}, "renderLtngComp");
 			}
 			function getUrlVars()
 			{
