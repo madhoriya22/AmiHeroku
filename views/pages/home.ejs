@@ -27,7 +27,7 @@
 				alert(id);
 				alert(successStatus);
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id,successflag:successStatus}, "renderLtngComp");
+				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
 			}
 			function getUrlVars()
 			{
