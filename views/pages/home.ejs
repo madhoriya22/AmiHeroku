@@ -25,6 +25,7 @@
 				var id = getUrlVars()["oppId"];
 				var successStatus = getUrlVars()["successflag"];
 				alert(id);
+				alert(successStatus);
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id,successflag:successStatus}, "renderLtngComp");
 			}
