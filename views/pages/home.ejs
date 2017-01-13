@@ -24,8 +24,8 @@
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
 				var successStatus = getUrlVars()["successflag"];
-				alert(id);
-				alert(successStatus);
+				console.log('Flag: '+successStatus);
+				console.log('Opp Id: '+id);
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
 			}
