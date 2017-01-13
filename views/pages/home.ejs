@@ -26,8 +26,8 @@
 				var successStatus = getUrlVars()["successflag"];
 				console.log('Flag: '+successStatus);
 				console.log('Opp Id: '+id);
-				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id,successflag:successStatus}, "renderLtngComp");
+				document.getElementById("renderLtngComp").innerHTML = ""; 
+				$Lightning.createComponent("c:MainComponent", {type: type, subjectId: subjectId,oppId:id,test:successStatus,successflag:successStatus}, "renderLtngComp");
 			}
 			function getUrlVars()
 			{
