@@ -8,36 +8,60 @@
     <header>
     </header>
     <main>
-      <div class="container">
-			<div class="jumbotron">
-				<h1>Lightning Out on Heroku</h1>
-				<button id="chatterFeedButton" class="btn btn-primary btn-lg" onclick="createChatterFeed('NEWS')" >
-					Create Chatter Feed
-				</button>
-				<button id="sfAccountList" class="btn btn-primary btn-lg" onclick="showAccountList('NEWS')">
-					Show Account List
-				</button>
-			</div>
+      			
 			<div id="renderLtngComp"/>
-		</div>
+		   
+	
     </main>
         <footer>
+         <div id="liveagent_button_online_573j00000000088">
+		       <div  onclick="liveagent.startChat('573j00000000088')">Chat Now</div>
+		    </div>
+		    
+		    <div id="liveagent_button_offline_573j00000000088">
+		       <div>Chat Unavailable</div>
+		    </div>
         </footer>
-        <script>
+        <script> 
 			var url = "<%= ouathLightningURL %>";
 			console.log('oauth url - '+url);
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
-			$Lightning.use("c:loTest", function() {},url,token );
+			$Lightning.use("c:loTest", function(cmp) {createChatterFeed('NEWS');},url,token );
 			function createChatterFeed(type, subjectId) {
+				var id = getUrlVars()["oppId"];
+				var successflag = getUrlVars()["successflag"];
+				console.log('Flag: '+successflag);
+				console.log('Opp Id: '+id);
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("forceChatter:feed", {type: type, subjectId: subjectId}, "renderLtngComp"); 
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
 			}
-
+			function getUrlVars()
+			{
+			    var vars = [], hash;
+			    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+			    for(var i = 0; i < hashes.length; i++)
+			    {
+			        hash = hashes[i].split('=');
+			        vars.push(hash[0]);
+			        vars[hash[0]] = hash[1];
+			    }
+			    return vars;
+			}
 			function showAccountList(type, subjectId) {
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
 			}
-        </script>
+			
+	</script>
+	<script type="text/javascript">
+	if (!window._laq) { window._laq = []; }
+			window._laq.push(function(){liveagent.showWhenOnline('573j00000000088', document.getElementById('liveagent_button_online_573j00000000088'));
+			liveagent.showWhenOffline('573j00000000088', document.getElementById('liveagent_button_offline_573j00000000088'));
+			});</script>
+	<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/38.0/deployment.js'></script>
+	<script type='text/javascript'>
+		liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '572j0000000009i', '00Dj0000000JSsz');
+	</script>        
   </body>
 </html>
