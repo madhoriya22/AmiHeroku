@@ -27,7 +27,7 @@
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
 			$Lightning.use("c:loTest", function(cmp) {
-			console.log(cmp);
+			console.log(cmp); 
 			createChatterFeed('NEWS');
 			},url,token );
 			function createChatterFeed(type, subjectId) {
