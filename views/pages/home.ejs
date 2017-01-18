@@ -23,7 +23,7 @@
 		    </div>
         </footer>
         <script> 
-			var url = "<%= ouathLightningURL %>";
+			var url = "<%= lightningEndPointURI %>";
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
 			$Lightning.use("c:loTest", function(cmp) {createChatterFeed('NEWS');},url,token );
