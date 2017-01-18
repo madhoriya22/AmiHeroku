@@ -16,15 +16,19 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
+	console.log('RedirectToHome call');
+	
 	oauth.redirectToHome(res, app);
 	//oauth.redirectAuthURI(res);
 });
 
 app.get('/oauthcallback', function(req, res) {
+	console.log('oauthcallback call');
 	oauth.authenticate(req, res, app);
 });
 
 app.get('/renewUserAccess', function(req, res) {
+	console.log('renewUserAccess call');
 	oauth.redirectAuthURI(res);
 });
 
