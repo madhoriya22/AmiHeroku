@@ -33,7 +33,7 @@
 				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
 				document.getElementById("renderLtngComp").innerHTML = "";
-				//$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
 			}
 			function getUrlVars()
 			{
@@ -49,7 +49,7 @@
 			}
 			function showAccountList(type, subjectId) {
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
+				//$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
 			}
 			
 	</script>
