@@ -36,6 +36,8 @@
 				var successflag = getUrlVars()["successflag"];
 				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
+				var buttonId = '';
+				var deploymentId = '';
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:REN_LT_MainComponent", 
 				{type: type, subjectId: subjectId,oppId:id}, 
@@ -43,18 +45,19 @@
 				function(cmp) {
                     console.log("Component created!");
                     console.log(cmp);
-                    var action = cmp.get("c.getLogo");
-			        action.setCallback(this, function(response) {
+                    var action = cmp.get("c.getLiveAgentDetails");
+                    action.setCallback(this, function(response) {
 			            var state = response.getState(), res;
 			            if (cmp.isValid() && state === "SUCCESS") {
 			                res = response.getReturnValue();
-			                cmp.set("v.logoId", response.getReturnValue());
 			                console.log('in d action '+response.getReturnValue());
+			                buttonId = res.REN_LT_Chat_button_Id__c;
+			                console.log('buttonID : '+buttonId);
 			            }
 			        });
 			         $A.enqueueAction(action);
                 }); 
-						
+				 console.log('buttonID after: '+buttonId);		
 			}
 			function getUrlVars()
 			{
