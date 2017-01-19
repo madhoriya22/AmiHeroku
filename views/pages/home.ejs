@@ -34,10 +34,8 @@
 				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp", 
-				function(cmp) {
-				console.log(cmp);
-				});			
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp"); 
+						
 			}
 			function getUrlVars()
 			{
