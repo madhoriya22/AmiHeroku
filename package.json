@@ -13,7 +13,8 @@
     "express": "^4.13.4",
     "knex": "*",
     "nforce": "*",
-    "pg": "*"
+    "pg": "*",
+    "basic-auth":"*"
   },
   "engines": {
     "node": "0.10.x",
