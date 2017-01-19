@@ -14,13 +14,9 @@
 	
     </main>
         <footer>
-         <div id="liveagent_button_online_573j00000000088">
-		       <div  onclick="liveagent.startChat('573j00000000088')">Chat Now</div>
-		    </div>
-		    
-		    <div id="liveagent_button_offline_573j00000000088">
-		       <div>Chat Unavailable</div>
-		    </div>
+        <div id="chatbutton">
+         
+		  </div>
         </footer>
         
 		<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/38.0/deployment.js'></script>
@@ -53,10 +49,13 @@
 					setTimeout(function(){ 
 						buttonId = cmp.$attributeSet$.$values$.buttonId;
                     	console.log('buttonID after: '+buttonId);
+                    	
                     	if (!window._laq) { window._laq = []; }
 						window._laq.push(function(){
-						liveagent.showWhenOnline('573j00000000088', document.getElementById('liveagent_button_online_573j00000000088'));
-						liveagent.showWhenOffline('573j00000000088', document.getElementById('liveagent_button_offline_573j00000000088'));
+						document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div >Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
+						liveagent.showWhenOnline('573j00000000088', document.getElementById('liveagent_button_online'));
+						liveagent.showWhenOffline('573j00000000088', document.getElementById('liveagent_button_offline'));
+						"chatbutton"
 						});
                      }, 10000);
                     
