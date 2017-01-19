@@ -34,7 +34,7 @@ app.get('/renewUserAccess', function(req, res) {
 
 app.get('/revokeAccess', function(req, res) {
 	console.log('revokeAccess call');
-	oauth.revokeAccess(res);
+	oauth.revokeAccess(req);
 });
 
 
