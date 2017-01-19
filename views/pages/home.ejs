@@ -27,19 +27,17 @@
 			console.log('oauth url - '+url);
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
-			$Lightning.use("c:loTest", function(cmp) {
-			createChatterFeed('NEWS');
-			var label = cmp.get("v.livechatId");
-			console.log('cmp : '+ label);
-			},
-			url,token );
+			$Lightning.use("c:loTest", function(cmp) {},url,token );
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
 				var successflag = getUrlVars()["successflag"];
 				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp", 
+				function(cmp) {
+				console.log(cmp);
+				});			
 			}
 			function getUrlVars()
 			{
