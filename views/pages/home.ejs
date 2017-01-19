@@ -54,8 +54,9 @@
 						buttonId = cmp.$attributeSet$.$values$.buttonId;
                     	console.log('buttonID after: '+buttonId);
                     	if (!window._laq) { window._laq = []; }
-						window._laq.push(function(){liveagent.showWhenOnline(buttonId, document.getElementById('liveagent_button_online_573j00000000088'));
-						liveagent.showWhenOffline(buttonId, document.getElementById('liveagent_button_offline_573j00000000088'));
+						window._laq.push(function(){
+						liveagent.showWhenOnline('573j00000000088', document.getElementById('liveagent_button_online_573j00000000088'));
+						liveagent.showWhenOffline('573j00000000088', document.getElementById('liveagent_button_offline_573j00000000088'));
 						});
                      }, 10000);
                     
