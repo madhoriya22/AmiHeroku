@@ -26,7 +26,10 @@
 			var url = "<%= lightningEndPointURI %>";
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
-			$Lightning.use("c:loTest", function(cmp) {createChatterFeed('NEWS');},url,token );
+			$Lightning.use("c:loTest", function(cmp) {
+			console.log(cmp); 
+			createChatterFeed('NEWS');
+			},url,token );
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
 				var successflag = getUrlVars()["successflag"];
@@ -49,7 +52,7 @@
 			}
 			function showAccountList(type, subjectId) {
 				document.getElementById("renderLtngComp").innerHTML = "";
-				//$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
+				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
 			}
 			
 	</script>
