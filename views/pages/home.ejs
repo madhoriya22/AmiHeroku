@@ -45,7 +45,7 @@
 				function(cmp) {
                     console.log("Component created!");
                     console.log(cmp);
-                    var action = cmp.get("c.getLogo");
+                    var action = cmp.get("c.getClientDetails");
                     action.setCallback(this, function(response) {
 			            var state = response.getState(), res;
 			            if (cmp.isValid() && state === "SUCCESS") {
