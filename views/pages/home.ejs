@@ -45,7 +45,8 @@
 				function(cmp) {
                     console.log("Component created!");
                     console.log(cmp);
-                    console.log('Values : '+cmp.$attributeSet$.$values$);
+                    console.log('Values : '+cmp.$attributeSet$.$values$.buttonId);
+                    buttonId = cmp.$attributeSet$.$values$.buttonId;
                     
                 }); 
 				 console.log('buttonID after: '+buttonId);		
