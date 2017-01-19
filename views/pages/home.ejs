@@ -50,13 +50,16 @@
 						buttonId = cmp.$attributeSet$.$values$.buttonId;
                     	console.log('buttonID after: '+buttonId);
                     	
-                    	if (!window._laq) { window._laq = []; }
+                    	//if (!window._laq) { 
+                    	window._laq = []; 
+                    	console.log(!window._laq);
+                    	//}
 						window._laq.push(function(){
 						document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div >Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
 						console.log(document.getElementById("chatbutton"));
 						liveagent.showWhenOnline('573j00000000088', document.getElementById('liveagent_button_online'));
 						liveagent.showWhenOffline('573j00000000088', document.getElementById('liveagent_button_offline'));
-						
+						console.log(window._laq.push);
 						});
                      }, 10000);
                     
