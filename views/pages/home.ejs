@@ -55,7 +55,7 @@
                     		console.log(!window._laq);
                     	}
 						window._laq.push(function(){
-							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div >Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
+							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="liveagent.startChat(buttonId)">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
 							console.log(document.getElementById("chatbutton"));
 							liveagent.showWhenOnline(buttonId, document.getElementById('liveagent_button_online'));
 							liveagent.showWhenOffline(buttonId, document.getElementById('liveagent_button_offline'));
