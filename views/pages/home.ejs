@@ -55,21 +55,23 @@
                     		console.log(!window._laq);
                     	}
 						window._laq.push(function(){
-							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="alert(buttonId);">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
+							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="setTimeout(myFunction, 5000)">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
 							console.log(document.getElementById("chatbutton"));
 							liveagent.showWhenOnline(buttonId, document.getElementById('liveagent_button_online'));
 							liveagent.showWhenOffline(buttonId, document.getElementById('liveagent_button_offline'));
 							console.log(window._laq.push);
-							function startChat() {						
-								console.log('In d StartChat '+buttonId);
-								liveagent.startChat(buttonId);
-							}
+							
 						});
 						liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '572j0000000009i', '00Dj0000000JSsz');
 						
 							console.log(window._laq.length); 
                      }, 10000);
-                    
+                    function myFunction() {
+                    	console.log('In the myFunction');
+                    	buttonId = cmp.$attributeSet$.$values$.buttonId;
+                    	Console.log('BUtton ID in chat : '+buttonId);
+                    	liveagent.startChat(buttonId);
+                    }
                     
                 }); 
 				 console.log('buttonID after fn: '+buttonId);		
