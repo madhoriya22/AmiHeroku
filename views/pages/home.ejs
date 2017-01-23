@@ -56,8 +56,7 @@
                     	}
 						window._laq.push(function(){
 							console.log('BUtton ID in chat : '+buttonId);
-							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="doChat(buttonId)">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
-							console.log(document.getElementById("chatbutton"));
+							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="doChat()">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
 							liveagent.showWhenOnline(buttonId, document.getElementById('liveagent_button_online'));
 							liveagent.showWhenOffline(buttonId, document.getElementById('liveagent_button_offline'));
 							console.log(window._laq.push);
@@ -88,8 +87,8 @@
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
 			}
-			function doChat(buttonId) {
-				alert(buttonId);
+			function doChat() {
+				liveagent.startChat('573j00000000088');
 			}
 			
 	</script>      
