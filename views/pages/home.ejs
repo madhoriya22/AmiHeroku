@@ -23,6 +23,7 @@
         <script> 
 			var url = "<%= ouathLightningURL %>";
 			var objButton;
+			var buttonId = '';
 			console.log('oauth url - '+url);
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
@@ -35,7 +36,7 @@
 				var successflag = getUrlVars()["successflag"];
 				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
-				var buttonId = '';
+				
 				var deploymentId = '';
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:REN_LT_MainComponent", 
@@ -88,6 +89,7 @@
 				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
 			}
 			function doChat() {
+				console.log(buttonId);
 				liveagent.startChat('573j00000000088');
 			}
 			
