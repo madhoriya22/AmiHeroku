@@ -14,9 +14,8 @@
 	
     </main>
         <footer>
-        <div id="chatbutton">
-         
-		  </div>
+        <div id="chatbutton" />   
+		<div id="footerlinks" />
         </footer>
         
 		<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/38.0/deployment.js'></script>
@@ -30,6 +29,7 @@
 			$Lightning.use("c:loTest", function(cmp) {
 			console.log(cmp); 
 			createChatterFeed('NEWS');
+			showFooterLinks();
 			},url,token ); 
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
@@ -71,8 +71,7 @@
                      }, 10000);
                     /**/
                     
-                }); 
-				 console.log('buttonID after fn: '+buttonId);		
+                }); 	
 			}
 			function getUrlVars() 
 			{
@@ -93,6 +92,10 @@
 			function doChat() {
 				console.log(buttonId);
 				liveagent.startChat(buttonId);
+			}
+			function showFooterLinks() {				
+                document.getElementById("footerlinks").innerHTML = "";
+				$Lightning.createComponent("REN_LT_Footer", {}, "footerlinks");	
 			}
 			
 	</script>      
