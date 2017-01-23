@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
 	console.log('RedirectToHome call');
 	
-	oauth.redirectToHome(res, app);
+	oauth.redirectToHome(req, res, app);
 	//oauth.redirectAuthURI(res);
 });
 
