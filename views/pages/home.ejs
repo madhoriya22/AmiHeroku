@@ -28,7 +28,7 @@
 			console.log(token);
 			$Lightning.use("c:LDLT", function(cmp) {
 			console.log(cmp); 
-			createChatterFeed('NEWS');
+			createChatterFeed('NEWS'); 
 			},url,token );
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
