@@ -29,7 +29,7 @@
 			$Lightning.use("c:loTest", function(cmp) {
 			console.log(cmp); 
 			createChatterFeed('NEWS');
-			showFooterLinks();
+			//showFooterLinks();
 			},url,token ); 
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
@@ -71,7 +71,9 @@
                      }, 10000);
                     /**/
                     
-                }); 	
+                }); 
+                document.getElementById("footerlinks").innerHTML = "";
+				$Lightning.createComponent("REN_LT_Footer", {}, "footerlinks");	
 			}
 			function getUrlVars() 
 			{
