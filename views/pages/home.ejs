@@ -23,7 +23,7 @@
         <script> 
 			var url = "<%= ouathLightningURL %>";
 			var objButton;
-			var buttonId = '';
+			var buttonId = '', deploymentId = '', deploymentURL = '' ;
 			console.log('oauth url - '+url);
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
@@ -49,6 +49,8 @@
                     
 					setTimeout(function(){ 
 						buttonId = cmp.$attributeSet$.$values$.buttonId;
+						deploymentId = cmp.$attributeSet$.$values$.deploymentId;
+						deploymentURL = cmp.$attributeSet$.$values$.deploymentURL;
                     	console.log('buttonID after: '+buttonId);
                     	
                     	if (!window._laq) { 
@@ -56,14 +58,14 @@
                     		console.log(!window._laq);
                     	}
 						window._laq.push(function(){
-							console.log('BUtton ID in chat : '+buttonId);
+							console.log('IDs in push : '+buttonId+' : '+deploymentId + ':' +deploymentURL);
 							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="doChat()">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
 							liveagent.showWhenOnline(buttonId, document.getElementById('liveagent_button_online'));
 							liveagent.showWhenOffline(buttonId, document.getElementById('liveagent_button_offline'));
 							console.log(window._laq.push);
 							
 						});
-						liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '572j0000000009i', '00Dj0000000JSsz');
+						liveagent.init(deploymentURL, deploymentId, '00Dj0000000JSsz');
 						
 							console.log(window._laq.length); 
                      }, 10000);
