@@ -14,7 +14,7 @@
 	
     </main>
         <footer>
-        <div id="chatbutton" />   
+           
 		<div id="footerlinks" />
         </footer>
         
@@ -72,8 +72,6 @@
                     /**/
                     
                 }); 
-                document.getElementById("footerlinks").innerHTML = "";
-				$Lightning.createComponent("REN_LT_Footer", {}, "footerlinks");	
 			}
 			function getUrlVars() 
 			{
@@ -92,12 +90,8 @@
 				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
 			}
 			function doChat() {
-				console.log(buttonId);
+				console.log('in d doChat : '+buttonId);
 				liveagent.startChat(buttonId);
-			}
-			function showFooterLinks() {				
-                document.getElementById("footerlinks").innerHTML = "";
-				$Lightning.createComponent("REN_LT_Footer", {}, "footerlinks");	
 			}
 			
 	</script>      
