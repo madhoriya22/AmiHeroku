@@ -57,12 +57,6 @@
 						window._laq.push(function(){
 							console.log('BUtton ID in chat : '+buttonId);
 							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="doChat()">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
-							function doChat() {
-		                    	console.log('In the myFunction');
-		                    	//buttonId = cmp.$attributeSet$.$values$.buttonId;
-		                    	console.log('BUtton ID in doChat : '+buttonId);
-		                    	liveagent.startChat(buttonId);
-		                    }
 							console.log(document.getElementById("chatbutton"));
 							liveagent.showWhenOnline(buttonId, document.getElementById('liveagent_button_online'));
 							liveagent.showWhenOffline(buttonId, document.getElementById('liveagent_button_offline'));
@@ -93,6 +87,9 @@
 			function showAccountList(type, subjectId) {
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
+			}
+			function doChat() {
+				alert('hi');
 			}
 			
 	</script>      
