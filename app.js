@@ -2,6 +2,8 @@
 var express = require('express');
 var oauth = require('./lib/oAuth/oauth');
 var port = process.env.PORT || 3000;
+var redis = require('redis');
+var client = redis.createClient();
 
 var app = express();
 
