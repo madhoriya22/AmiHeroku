@@ -26,10 +26,11 @@
             window.close(); 
 			var url = "<%= lightningEndPointURI %>";
 			var token = "Bearer "+"<%= oauthtoken %>";
+			var accessToken = "<%= oauthtoken %>";
 			console.log(token);
-			$Lightning.use("c:loTest", function(cmp) {
+			$Lightning.use("c:lotest", function(cmp) {
 			console.log(cmp); 
-			createChatterFeed('NEWS');
+			createChatterFeed('NEWS'); 
 			},url,token );
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
@@ -37,7 +38,7 @@
 				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
 			}
 			function getUrlVars()
 			{
