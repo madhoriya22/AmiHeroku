@@ -14,8 +14,7 @@
 	
     </main>
         <footer>
-           
-		<div id="footerlinks" />
+           <div id="chatbutton" style="cursor: pointer; cursor: hand;"/>
         </footer>
         
 		<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/38.0/deployment.js'></script>
@@ -25,7 +24,9 @@
 			var buttonId = '', deploymentId = '', deploymentURL = '' ;
 			console.log('oauth url - '+url);
 			var token = "Bearer "+"<%= oauthtoken %>";
+			var accessToken = "<%= oauthtoken %>";
 			console.log(token);
+			console.log('oauthId : '+accessToken);
 			$Lightning.use("c:loTest", function(cmp) {
 			console.log(cmp); 
 			createChatterFeed('NEWS');
@@ -40,7 +41,7 @@
 				var deploymentId = '';
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:REN_LT_MainComponent", 
-				{type: type, subjectId: subjectId,oppId:id}, 
+				{type: type, subjectId: subjectId,oppId:id,oauthId:accessToken }, 
 				"renderLtngComp",
 				function(cmp) {
                     console.log("Component created!");
