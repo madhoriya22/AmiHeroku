@@ -14,7 +14,12 @@
     </footer>
     <script> 
     	alert("OAuth Successful");
-        window.close();
+        window.onload =function(){
+        	var vars = getUrlVars();
+        	if(vars["action"]=="oauth"){
+        		window.close();
+        	}
+        }	
 		var url = "<%= ouathLightningURL %>";
 		var token = "Bearer "+"<%= oauthtoken %>";
 		var accessToken = "<%= oauthtoken %>";
