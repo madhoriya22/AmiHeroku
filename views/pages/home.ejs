@@ -20,13 +20,12 @@
 		var accessToken = "<%= oauthtoken %>";
 		console.log(token);
 		$Lightning.use("c:LDLT", function(cmp) {
-									loadComponent('onload'); 
+									LDT_loadComponent('onload'); 
 								},url,token);
-		function loadComponent(type, subjectId) {
+		function LDT_loadComponent(type, subjectId) {
 			var id = getUrlVars()["oppId"];
 			var successflag = getUrlVars()["successflag"];
-			//console.log('Flag: '+successflag);
-			//console.log('Opp Id: '+id);
+			
 			document.getElementById("renderLtngComp").innerHTML = "";
 			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
 		}
