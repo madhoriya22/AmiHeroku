@@ -8,63 +8,40 @@
     <header>
     </header>
     <main>
-      			
-			<div id="renderLtngComp"/>
-		   
-	
-    </main>
-        <footer>
-         <div id="liveagent_button_online_573j00000000088">
-		       <div  onclick="liveagent.startChat('573j00000000088')">Chat Now</div>
-		    </div>
-		    
-		    <div id="liveagent_button_offline_573j00000000088">
-		       <div>Chat Unavailable</div>
-		    </div>
-        </footer>
-        <script> 
-			var url = "<%= ouathLightningURL %>";
-			var token = "Bearer "+"<%= oauthtoken %>";
-			var accessToken = "<%= oauthtoken %>";
-			console.log(token);
-			$Lightning.use("c:LDLT", function(cmp) {
-			console.log(cmp); 
-			createChatterFeed('NEWS'); 
-			},url,token );
-			function createChatterFeed(type, subjectId) {
-				var id = getUrlVars()["oppId"];
-				var successflag = getUrlVars()["successflag"];
-				console.log('Flag: '+successflag);
-				console.log('Opp Id: '+id);
-				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
-			}
-			function getUrlVars()
-			{
-			    var vars = [], hash;
-			    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-			    for(var i = 0; i < hashes.length; i++)
-			    {
-			        hash = hashes[i].split('=');
-			        vars.push(hash[0]);
-			        vars[hash[0]] = hash[1];
-			    }
-			    return vars;
-			}
-			function showAccountList(type, subjectId) {
-				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
-			}
+    	<div id="renderLtngComp"/>
+	</main>
+    <footer>
+    </footer>
+    <script> 
+		var url = "<%= ouathLightningURL %>";
+		var token = "Bearer "+"<%= oauthtoken %>";
+		var accessToken = "<%= oauthtoken %>";
+		console.log(token);
+		$Lightning.use("c:LDLT", function(cmp) {
+									loadComponent('onload'); 
+								},url,token);
+		function loadComponent(type, subjectId) {
+			var id = getUrlVars()["oppId"];
+			var successflag = getUrlVars()["successflag"];
+			//console.log('Flag: '+successflag);
+			//console.log('Opp Id: '+id);
+			document.getElementById("renderLtngComp").innerHTML = "";
+			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
+		}
+		function getUrlVars()
+		{
+		    var vars = [], hash;
+		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		    for(var i = 0; i < hashes.length; i++)
+		    {
+		        hash = hashes[i].split('=');
+		        vars.push(hash[0]);
+		        vars[hash[0]] = hash[1];
+		    }
+		    return vars;
+		}
 			
 	</script>
-	<script type="text/javascript">
-	if (!window._laq) { window._laq = []; }
-			window._laq.push(function(){liveagent.showWhenOnline('573j00000000088', document.getElementById('liveagent_button_online_573j00000000088'));
-			liveagent.showWhenOffline('573j00000000088', document.getElementById('liveagent_button_offline_573j00000000088'));
-			});</script>
-	<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/38.0/deployment.js'></script>
-	<script type='text/javascript'>
-		liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '572j0000000009i', '00Dj0000000JSsz');
-	</script>        
+	       
   </body>
 </html>
