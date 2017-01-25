@@ -16,9 +16,8 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-	console.log('RedirectToHome call');
 	
-	oauth.redirectToHome(res, app);
+	oauth.redirectToHome(req, res, app);
 	//oauth.redirectAuthURI(res);
 });
 
@@ -29,6 +28,7 @@ app.get('/oauthcallback', function(req, res) {
 
 app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call');
+	app.locals.lightningEndPointURI = req.query.sfdcUrl;
 	oauth.redirectAuthURI(res);
 });
 
