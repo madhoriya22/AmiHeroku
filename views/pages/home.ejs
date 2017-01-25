@@ -13,10 +13,11 @@
     <footer>
     </footer>
     <script> 
-    	alert("OAuth Successful");
+    	
         window.onload =function(){
         	var vars = getUrlVars();
         	if(vars["action"]=="oauth"){
+        		alert("OAuth Successful");
         		window.close();
         	}
         }	
@@ -34,8 +35,7 @@
 			document.getElementById("renderLtngComp").innerHTML = "";
 			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
 		}
-		function getUrlVars()
-		{
+		function getUrlVars(){
 		    var vars = [], hash;
 		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 		    for(var i = 0; i < hashes.length; i++)
