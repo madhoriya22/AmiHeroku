@@ -13,68 +13,29 @@
 		   
 	
     </main>
-        <footer> 
-           <div id="chatbutton" style="cursor: pointer; cursor: hand;"/>
+        <footer>
+         <div id="liveagent_button_online_573j00000000088">
+		       <div  onclick="liveagent.startChat('573j00000000088')">Chat Now</div>
+		    </div>
+		    
+		    <div id="liveagent_button_offline_573j00000000088">
+		       <div>Chat Unavailable</div>
+		    </div>
         </footer>
-        
-		<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/38.0/deployment.js'></script>
         <script> 
 			var url = "<%= ouathLightningURL %>";
-			var objButton;
-			var buttonId = '', deploymentId = '', deploymentURL = '' ;
-			console.log('oauth url - '+url);
 			var token = "Bearer "+"<%= oauthtoken %>";
-			var accessToken = "<%= oauthtoken %>";
 			console.log(token);
-			console.log('oauthId : '+accessToken);
-			$Lightning.use("c:loTest", function(cmp) {
-			console.log(cmp); 
-			createChatterFeed('NEWS');
-			//showFooterLinks();
-			},url,token ); 
+			$Lightning.use("c:LDLT", function(cmp) {createChatterFeed('NEWS');},url,token );
 			function createChatterFeed(type, subjectId) {
 				var id = getUrlVars()["oppId"];
 				var successflag = getUrlVars()["successflag"];
 				console.log('Flag: '+successflag);
 				console.log('Opp Id: '+id);
-				
-				var deploymentId = '';
 				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:REN_LT_MainComponent", 
-				{type: type, subjectId: subjectId,oppId:id,oauthId:accessToken }, 
-				"renderLtngComp",
-				function(cmp) {
-                    console.log("Component created!");
-                    console.log(cmp);
-                    console.log(cmp.$attributeSet$.$values$);
-                    
-					setTimeout(function(){ 
-						buttonId = cmp.$attributeSet$.$values$.buttonId;
-						deploymentId = cmp.$attributeSet$.$values$.deploymentId;
-						deploymentURL = cmp.$attributeSet$.$values$.deploymentURL;
-                    	console.log('buttonID after: '+buttonId);
-                    	
-                    	if (!window._laq) { 
-                    		window._laq = []; 
-                    		console.log(!window._laq);
-                    	}
-						window._laq.push(function(){
-							console.log('IDs in push : '+buttonId+' : '+deploymentId + ':' +deploymentURL);
-							document.getElementById("chatbutton").innerHTML = '<div id="liveagent_button_online"><div onclick="doChat()">Chat Now</div></div><div id="liveagent_button_offline"><div>Chat Unavailable</div></div>';
-							liveagent.showWhenOnline(buttonId, document.getElementById('liveagent_button_online'));
-							liveagent.showWhenOffline(buttonId, document.getElementById('liveagent_button_offline'));
-							console.log(window._laq.push);
-							
-						});
-						liveagent.init(deploymentURL, deploymentId, '00Dj0000000JSsz');
-						
-							console.log(window._laq.length); 
-                     }, 10000);
-                    /**/
-                    
-                }); 
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
 			}
-			function getUrlVars() 
+			function getUrlVars()
 			{
 			    var vars = [], hash;
 			    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -90,11 +51,16 @@
 				document.getElementById("renderLtngComp").innerHTML = "";
 				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
 			}
-			function doChat() {
-				console.log('in d doChat : '+buttonId);
-				liveagent.startChat(buttonId);
-			}
 			
-	</script>      
+	</script>
+	<script type="text/javascript">
+	if (!window._laq) { window._laq = []; }
+			window._laq.push(function(){liveagent.showWhenOnline('573j00000000088', document.getElementById('liveagent_button_online_573j00000000088'));
+			liveagent.showWhenOffline('573j00000000088', document.getElementById('liveagent_button_offline_573j00000000088'));
+			});</script>
+	<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/38.0/deployment.js'></script>
+	<script type='text/javascript'>
+		liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '572j0000000009i', '00Dj0000000JSsz');
+	</script>        
   </body>
 </html>
