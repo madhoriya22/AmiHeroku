@@ -8,49 +8,6 @@
     <header>
     </header>
     <main>
-      			
-			<div id="renderLtngComp"/>
-		   
-	
-    </main>
-        <footer>
-         <div id="liveagent_button_online_573j00000000088">
-		       <div  onclick="liveagent.startChat('573j00000000088')">Chat Now</div>
-		    </div>
-		    
-		    <div id="liveagent_button_offline_573j00000000088">
-		       <div>Chat Unavailable</div>
-		    </div>
-        </footer>
-        <script> 
-			var url = "<%= ouathLightningURL %>";
-			var token = "Bearer "+"<%= oauthtoken %>";
-			console.log(token);
-			$Lightning.use("c:LDLT", function(cmp) {createChatterFeed('NEWS');},url,token );
-			function createChatterFeed(type, subjectId) {
-				var id = getUrlVars()["oppId"];
-				var successflag = getUrlVars()["successflag"];
-				console.log('Flag: '+successflag);
-				console.log('Opp Id: '+id);
-				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
-			}
-			function getUrlVars()
-			{
-			    var vars = [], hash;
-			    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-			    for(var i = 0; i < hashes.length; i++)
-			    {
-			        hash = hashes[i].split('=');
-			        vars.push(hash[0]);
-			        vars[hash[0]] = hash[1];
-			    }
-			    return vars;
-			}
-			function showAccountList(type, subjectId) {
-				document.getElementById("renderLtngComp").innerHTML = "";
-				$Lightning.createComponent("c:AccountList", {type: type, subjectId: subjectId}, "renderLtngComp"); 
-			}
     	<div id="renderLtngComp"/>
 	</main>
     <footer>
