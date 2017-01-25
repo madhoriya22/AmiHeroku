@@ -18,10 +18,7 @@
         	var vars = getUrlVars();
         	if(vars["action"]=="oauth"){
         		alert("OAuth Successful");
-        		window.open(window.location.href, '_self', '');
-				window.close();
-        		
-        		//window.close();
+        		window.close();
         	}
         }	
 		var url = "<%= ouathLightningURL %>";
