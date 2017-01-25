@@ -12,7 +12,7 @@ var routesHome = require('./routes/home');
 app.use(express.static(__dirname + '/public'));
 
 app.use('/home', routesHome);
-
+ 
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
@@ -32,6 +32,10 @@ app.get('/renewUserAccess', function(req, res) {
 	oauth.redirectAuthURI(res);
 });
 
+app.get('/revokeAccess', function(req, res) {
+	console.log('revokeAccess call');
+	oauth.revokeAccess(req,res);
+});
 // Served Localhost
 console.log('Served: http://localhost:' + port);
 app.listen(port);
