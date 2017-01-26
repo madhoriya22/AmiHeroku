@@ -14,7 +14,15 @@
 			var url = "<%= ouathLightningURL %>";
 			var token = "Bearer "+"<%= oauthtoken %>";
 			console.log(token);
-			
+			$Lightning.use("c:loTest", function(cmp) {createMainComponent('NEWS');},url,token );
+			function createMainComponent(type, subjectId) {
+				var id = getUrlVars()["oppId"];
+				var successflag = getUrlVars()["successflag"];
+				console.log('Flag: '+successflag);
+				console.log('Opp Id: '+id);
+				document.getElementById("renderLtngComp").innerHTML = "";
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id}, "renderLtngComp");
+			}
 			function getUrlVars()
 			{
 			    var vars = [], hash;
