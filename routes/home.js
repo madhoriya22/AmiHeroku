@@ -6,12 +6,12 @@ var redisClient = redis.createClient();
 redisClient.on('connect', function() {
     console.log('connected');
 });
-redisClient.get((req.ordid + req.userid), function(err, reply){
-	console.log('reply --> '+reply);
-	req.app.locals.oauthtoken = reply;
-});
 
 router.get('/', function(req, res) {
+		redisClient.get((req.orgid + req.userid), function(err, reply){
+			console.log('reply --> '+reply);
+			req.app.locals.oauthtoken = reply;
+		});
 	    res.render('pages/home', {
 	    	oauthtoken: req.app.locals.oauthtoken,
 	        ouathLightningURL: req.app.locals.lightningEndPointURI
