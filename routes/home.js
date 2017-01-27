@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var oauth = require('./lib/oAuth/oauth');
-
+//var oauth = require('./lib/oAuth/oauth');
+var redis = require('redis');
+var redisClient = redis.createClient();
+redisClient.on('connect', function() {
+    console.log('connected');
+});
 oauth.redisClient.get((req.ordid + req.userid), function(err, reply){
 	req.app.locals.oauthtoken = reply;
 });
