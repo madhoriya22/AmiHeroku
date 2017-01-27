@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 //var oauth = require('./lib/oAuth/oauth');
 var redis = require('redis');
-var redisClient = redis.createClient();
+var port = process.env.PORT || 3000;
+var redisClient = redis.createClient(port);
 redisClient.on('connect', function() {
     console.log('connected');
 });
