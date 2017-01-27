@@ -6,7 +6,8 @@ var redisClient = redis.createClient();
 redisClient.on('connect', function() {
     console.log('connected');
 });
-oauth.redisClient.get((req.ordid + req.userid), function(err, reply){
+redisClient.get((req.ordid + req.userid), function(err, reply){
+	console.log('reply --> '+reply);
 	req.app.locals.oauthtoken = reply;
 });
 
