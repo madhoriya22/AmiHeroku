@@ -20,23 +20,19 @@
         		alert("OAuth Successful");
         		window.open(window.location.href, '_self', '');
 				window.close();
-        		
-        		//window.close();
         	}
         }	
 		var url = "<%= ouathLightningURL %>";
 		var token = "Bearer "+"<%= oauthtoken %>";
 		var accessToken = "<%= oauthtoken %>";
 		console.log(token);
-		$Lightning.use("c:LDLT", function(cmp) {
-									LDT_loadComponent('onload'); 
-								},url,token);
+		$Lightning.use("c:LDLT", function(cmp){LDT_loadComponent('onload');}, url, token);
 		function LDT_loadComponent(type, subjectId) {
 			var id = getUrlVars()["oppId"];
 			var successflag = getUrlVars()["successflag"];
 			
 			document.getElementById("renderLtngComp").innerHTML = "";
-			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
+			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
 		}
 		function getUrlVars(){
 		    var vars = [], hash;
