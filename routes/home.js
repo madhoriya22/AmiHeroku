@@ -5,7 +5,7 @@ var redis = require('redis');
 var port = process.env.PORT || 3000;
 var redisClient = redis.createClient(port, 'localhost');
 redisClient.on('connect', function() {
-    console.log('connected');
+    console.log('Redis connected home ejs');
 });
 
 router.get('/', function(req, res) {
