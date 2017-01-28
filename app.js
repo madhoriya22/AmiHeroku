@@ -37,5 +37,5 @@ app.get('/revokeAccess', function(req, res) {
 	oauth.revokeAccess(req,res);
 });
 // Served Localhost
-console.log('Served: '+process.env.HOSTNAME + port);
+console.log('Served: http://localhost:' + port);
 app.listen(port);
