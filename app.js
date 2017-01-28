@@ -3,7 +3,12 @@ var express = require('express');
 var oauth = require('./lib/oAuth/oauth');
 var port = process.env.PORT || 3000;
 
-var app = express();
+var app = express()
+, sessions = require('./sessions.js')
+, session = require('express-session')
+, redisStore = require('connect-redis')(session);
+
+app.use(sessions.createSession());
 
 // Require Routes js
 var routesHome = require('./routes/home');
