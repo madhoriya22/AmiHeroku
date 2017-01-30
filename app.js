@@ -4,7 +4,7 @@ var oauth = require('./lib/oAuth/oauth');
 var port = process.env.PORT || 3000;
 
 var app = express()
-, sessions = require('./sessions.js')
+, sessions = require('.lib/Services/sessions.js')
 , session = require('express-session')
 , redisStore = require('connect-redis')(session);
 
