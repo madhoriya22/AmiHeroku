@@ -34,6 +34,7 @@ app.get('/oauthcallback', function(req, res) {
 app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call');
 	app.locals.lightningEndPointURI = req.query.sfdcUrl;
+	req.session.sfdcUrl = req.query.sfdcUrl;
 	oauth.redirectAuthURI(res);
 });
 
