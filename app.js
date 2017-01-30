@@ -4,9 +4,7 @@ var oauth = require('./lib/oAuth/oauth');
 var port = process.env.PORT || 3000;
 
 var app = express()
-, sessions = require('./lib/Services/sessions.js')
-, session = require('express-session')
-, redisStore = require('connect-redis')(session);
+, sessions = require('./lib/Services/sessions.js');
 
 app.use(sessions.createSession());
 
@@ -25,7 +23,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/accesstoken', function(req, res){
-	
+	console.log('Redis Session - '+JSON.stringify(req.session));
 	oauth.redirectToHome(req, res, app);
 });
 
@@ -36,8 +34,7 @@ app.get('/oauthcallback', function(req, res) {
 
 app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call');
-	app.locals.lightningEndPointURI = req.query.sfdcUrl;
-	req.session.sfdcUrl = req.query.sfdcUrl;
+	req.session.sfdcurl = req.query.sfdcurl;
 	oauth.redirectAuthURI(res);
 });
 
