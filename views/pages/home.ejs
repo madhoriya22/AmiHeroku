@@ -22,11 +22,11 @@
 				window.close();
         	}
         }	
-		var url = "<%= sfdcurl %>";
+		var sfdcurl = "<%= sfdcurl %>";
 		var token = "Bearer "+"<%= accesstoken %>";
 		var accessToken = "<%= accesstoken %>";
 		console.log(sfdcurl);
-		$Lightning.use("c:LDLT", function(cmp){LDT_loadComponent('onload');}, url, token);
+		$Lightning.use("c:LDLT", function(cmp){LDT_loadComponent('onload');}, sfdcurl, token);
 		function LDT_loadComponent(type, subjectId) {
 			var id = getUrlVars()["oppId"];
 			var successflag = getUrlVars()["successflag"];
