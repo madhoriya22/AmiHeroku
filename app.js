@@ -21,9 +21,12 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
+	oauth.redirectToHome(req, res, app);
+});
+
+app.get('/accesstoken', function(req, res){
 	
 	oauth.redirectToHome(req, res, app);
-	//oauth.redirectAuthURI(res);
 });
 
 app.get('/oauthcallback', function(req, res) {
