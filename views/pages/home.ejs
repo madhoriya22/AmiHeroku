@@ -26,6 +26,7 @@
 		var token = "Bearer "+"<%= accesstoken %>";
 		var accessToken = "<%= accesstoken %>";
 		console.log(sfdcurl);
+		console.log(token);
 		$Lightning.use("c:LDLT", function(cmp){LDT_loadComponent('onload');}, sfdcurl, token);
 		function LDT_loadComponent(type, subjectId) {
 			var id = getUrlVars()["oppId"];
