@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
      <% include ../partials/ldOut %>
-	<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
+	 <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
   </head>
   <body class="slds">
     <header>
@@ -20,23 +20,20 @@
         		alert("OAuth Successful");
         		window.open(window.location.href, '_self', '');
 				window.close();
-        		
-        		//window.close();
         	}
         }	
-		var url = "<%= ouathLightningURL %>";
-		var token = "Bearer "+"<%= oauthtoken %>";
-		var accessToken = "<%= oauthtoken %>";
+		var sfdcurl = "<%= sfdcurl %>";
+		var token = "Bearer "+"<%= accesstoken %>";
+		var accessToken = "<%= accesstoken %>";
+		console.log(sfdcurl);
 		console.log(token);
-		$Lightning.use("c:LDLT", function(cmp) {
-									LDT_loadComponent('onload'); 
-								},url,token);
+		$Lightning.use("c:LDLT", function(cmp){LDT_loadComponent('onload');}, sfdcurl, token);
 		function LDT_loadComponent(type, subjectId) {
 			var id = getUrlVars()["oppId"];
 			var successflag = getUrlVars()["successflag"];
 			
 			document.getElementById("renderLtngComp").innerHTML = "";
-			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
+			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
 		}
 		function getUrlVars(){
 		    var vars = [], hash;
@@ -49,8 +46,6 @@
 		    }
 		    return vars;
 		}
-			
 	</script>
-	       
   </body>
 </html>
