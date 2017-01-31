@@ -18,23 +18,15 @@
 				"use strict";
 
 				//===Methods===============================================================
-				function callLightningComponent(accessToken) {
+				function callLightningComponent() {
 					//===Variables=============================================================
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					console.log(sfdcurl);
 					console.log(accessToken);
 					$Lightning.use("c:LDLT", function(cmp){
-						LDT_loadComponent('onload');
-						}, sfdcurl, "Bearer "+accessToken);
-						function LDT_loadComponent(type, subjectId) {
-							var id = getUrlVars()["oppId"];
-							var successflag = getUrlVars()["successflag"];
-
-							document.getElementById("renderLtngComp").innerHTML = "";
-							$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
-					}
-					
+						LDT_loadComponent('onload', accessToken);
+					}, sfdcurl, "Bearer "+accessToken);
 				}            
 				
 				function onWinLoad() {
@@ -46,6 +38,14 @@
 					}
 				}
 				
+				function LDT_loadComponent(type, accessToken, subjectId) {
+					var id = getUrlVars()["oppId"];
+					var successflag = getUrlVars()["successflag"];
+
+					document.getElementById("renderLtngComp").innerHTML = "";
+					$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
+				}
+
 				function getUrlVars(){
 				    var vars = [], hash;
 				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
