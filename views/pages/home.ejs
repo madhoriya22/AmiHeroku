@@ -31,14 +31,6 @@
 					}
 				}
 				
-				function LDT_loadComponent(type, accessToken, subjectId) {
-					console.log("Access token within Load Comp :"+accessToken);
-					var id = getUrlVars()["oppId"];
-					var successflag = getUrlVars()["successflag"];
-					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
-				}
-
 				function getUrlVars(){
 				    var vars = [], hash;
 				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -53,7 +45,7 @@
 
 				
 				return {
-					LDT_loadComponent: LDT_loadComponent,
+					getUrlVars : getUrlVars,
 					onWinLoad : onWinLoad
 				};
 
@@ -64,8 +56,16 @@
 			}
 
 			$Lightning.use("c:LDLT", function(cmp){
-				SS.LightningActions.LDT_loadComponent('onload', accessToken);
+				LDT_loadComponent('onload', accessToken);
 			}, sfdcurl, "Bearer "+accessToken);
+			
+			function LDT_loadComponent(type, accessToken, subjectId) {
+				console.log("Access token within Load Comp :"+accessToken);
+				var id = SS.LightningActions.getUrlVars()["oppId"];
+				var successflag = SS.LightningActions.SS.LightningActions.getUrlVars()["successflag"];
+				document.getElementById("renderLtngComp").innerHTML = "";
+				$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
+			}
 		</script>
 	</body>
 </html>
