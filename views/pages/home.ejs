@@ -14,21 +14,14 @@
 		</footer>
 		<script> 
 			var SS = SS || { };
+			var accessToken="<%= accesstoken %>";
+			var sfdcurl = "<%= sfdcurl %>";
+			console.log(sfdcurl);
+			console.log(accessToken);
+
 			SS.LightningActions = (function() {
 				"use strict";
 
-				//===Methods===============================================================
-				function callLightningComponent() {
-					//===Variables=============================================================
-					var accessToken="<%= accesstoken %>";
-					var sfdcurl = "<%= sfdcurl %>";
-					console.log(sfdcurl);
-					console.log(accessToken);
-					$Lightning.use("c:LDLT", function(cmp){
-						LDT_loadComponent('onload', accessToken);
-					}, sfdcurl, "Bearer "+accessToken);
-				}            
-				
 				function onWinLoad() {
 					var vars = getUrlVars();
 					if(vars["action"]=="oauth"){
@@ -60,7 +53,7 @@
 
 				
 				return {
-					callLightningComponent: callLightningComponent,
+					LDT_loadComponent: LDT_loadComponent,
 					onWinLoad : onWinLoad
 				};
 
@@ -70,7 +63,9 @@
 				SS.LightningActions.onWinLoad();
 			}
 
-			SS.LightningActions.callLightningComponent();		
+			$Lightning.use("c:LDLT", function(cmp){
+				SS.LightningActions.LDT_loadComponent('onload', accessToken);
+			}, sfdcurl, "Bearer "+accessToken);
 		</script>
 	</body>
 </html>
