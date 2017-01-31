@@ -37,32 +37,37 @@
 					
 				}            
 				
+				function onWinLoad() {
+					var vars = getUrlVars();
+					if(vars["action"]=="oauth"){
+						alert("OAuth Successful");
+						window.open(window.location.href, '_self', '');
+							window.close();
+					}
+				}
+				
+				function getUrlVars(){
+				    var vars = [], hash;
+				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				    for(var i = 0; i < hashes.length; i++)
+				    {
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				    }
+				    return vars;
+				}
 
+				
 				return {
-					callLightningComponent: callLightningComponent
+					callLightningComponent: callLightningComponent,
+					onWinLoad : onWinLoad
 				};
 
-	        }());
-	
+			}());
+
 			window.onload =function(){
-				var vars = getUrlVars();
-				if(vars["action"]=="oauth"){
-					alert("OAuth Successful");
-					window.open(window.location.href, '_self', '');
-						window.close();
-				}
-			}	
-			
-			function getUrlVars(){
-			    var vars = [], hash;
-			    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-			    for(var i = 0; i < hashes.length; i++)
-			    {
-				hash = hashes[i].split('=');
-				vars.push(hash[0]);
-				vars[hash[0]] = hash[1];
-			    }
-			    return vars;
+				SS.LightningActions.onWinLoad();
 			}
 
 			SS.LightningActions.callLightningComponent();		
