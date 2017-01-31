@@ -25,14 +25,14 @@
 					console.log(sfdcurl);
 					console.log(accessToken);
 					$Lightning.use("c:LDLT", function(cmp){
-						LDT_loadComponent('onload');}, sfdcurl, "Bearer "+accessToken);
+						LDT_loadComponent('onload');
+						}, sfdcurl, "Bearer "+accessToken);
 						function LDT_loadComponent(type, subjectId) {
 							var id = getUrlVars()["oppId"];
 							var successflag = getUrlVars()["successflag"];
 
 							document.getElementById("renderLtngComp").innerHTML = "";
 							$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
-						}
 					}
 					function getUrlVars(){
 					    var vars = [], hash;
@@ -51,7 +51,7 @@
 					callLightningComponent: callLightningComponent
 				};
 
-	        	}());
+	        }());
 	
 			window.onload =function(){
 				var vars = getUrlVars();
