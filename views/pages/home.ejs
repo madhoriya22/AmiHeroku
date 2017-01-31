@@ -39,9 +39,9 @@
 				}
 				
 				function LDT_loadComponent(type, accessToken, subjectId) {
+					console.log("Access token within Load Comp :"+accessToken);
 					var id = getUrlVars()["oppId"];
 					var successflag = getUrlVars()["successflag"];
-					console.log("Access token within Load Comp :"+accessToken);
 					document.getElementById("renderLtngComp").innerHTML = "";
 					$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
 				}
