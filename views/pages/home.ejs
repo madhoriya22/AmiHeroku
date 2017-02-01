@@ -47,7 +47,7 @@
 					console.log(sfdcurl);
 					console.log(accessToken);
 				
-					$Lightning.use("c:LDLT", function(cmp){
+					$Lightning.use(namespace + "LDLT", function(cmp){
 						console.log('before calling load component');
 						LDT_loadComponent('onload', accessToken);
 					}, sfdcurl, "Bearer "+accessToken);
