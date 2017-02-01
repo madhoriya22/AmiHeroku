@@ -47,7 +47,7 @@
 					console.log(sfdcurl);
 					console.log(accessToken);
 				
-					$Lightning.use(namespace + "LDLT", function(cmp){
+					$Lightning.use("<%= namespace %>LDLT", function(cmp){
 						console.log('before calling load component');
 						LDT_loadComponent('onload', accessToken);
 					}, sfdcurl, "Bearer "+accessToken);
@@ -58,7 +58,7 @@
 					var id = getUrlVars()["oppId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent(namespace + "REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
 				}
 				
 				return {
