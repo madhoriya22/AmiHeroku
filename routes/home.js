@@ -6,7 +6,8 @@ router.get('/', function(req, res) {
 	console.log('url from redis '+req.session.sfdcurl);
 	    res.render('pages/home', {
 	    	accesstoken: req.session.accesstoken,
-	    	sfdcurl: req.session.sfdcurl
+	    	sfdcurl: req.session.sfdcurl,
+	    	namespace: process.env['SF_NAMESPACE']
     });
 });
 

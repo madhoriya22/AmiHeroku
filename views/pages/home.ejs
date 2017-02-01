@@ -42,6 +42,7 @@
 				function LDLTCMPCreate() {
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
+					var namespace = "<%= namespace %>";
 					console.log(sfdcurl);
 					console.log(accessToken);
 				
@@ -56,7 +57,7 @@
 					var id = getUrlVars()["oppId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
+					$Lightning.createComponent(namespace + "REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
 				}
 				
 				return {
