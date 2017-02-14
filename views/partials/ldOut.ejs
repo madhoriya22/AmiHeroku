@@ -260,6 +260,8 @@ $Lightning._delegate = (function() {
 					var stringLocator = $A.util.isString(locator);
 					var hostEl = stringLocator ? document.getElementById(locator) : locator;
 
+}
+
 					if (!hostEl) {
 						error = "Invalid locator specified - "
 								+ (stringLocator ? "no element found in the DOM with id=" + locator : "locator element not provided");
@@ -309,9 +311,5 @@ $Lightning._delegate = (function() {
 	};
  
 })(); 
-
-}
-
-
 </script>
 
