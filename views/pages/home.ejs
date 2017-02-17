@@ -1,57 +1,71 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-     <!--<% include ../partials/ldOut %>-->
-     <script src="https://sedreambmo-dev-ed.lightning.force.com/lightning/lightning.out.js" > </script>
-	 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
-  </head>
-  <body>
-    <header>
-    </header>
-    <main>
-    	<div id="renderLtngComp"/>
-	</main>
-    <footer>
-    </footer>
-    <script> 
-    	
-        window.onload =function(){
-        	var vars = getUrlVars();
-        	if(vars["action"]=="oauth"){
-        		alert("OAuth Successful");
-        		window.open(window.location.href, '_self', '');
-				window.close();
-        		
-        		//window.close();
-        	}
-        }	
-		var url = "<%= ouathLightningURL %>";
-		var token = "Bearer "+"<%= oauthtoken %>";
-		var accessToken = "<%= oauthtoken %>";
-		console.log(token); 
-		$Lightning.use("c:LDLT", function(cmp) {
-									LDT_loadComponent('onload'); 
-								},url,token);
-		function LDT_loadComponent(type, subjectId) {
-			var id = getUrlVars()["oppId"];
-			var successflag = getUrlVars()["successflag"];
+	<head>
+		<% include ../partials/ldOut %>
+		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+	</head>
+	<body class="slds">
+		<header>
+		</header>
+		<main>
+			<div id="renderLtngComp"/>
+		</main>
+		<footer>
+		</footer>
+		<script> 
+			var SS = SS || { };
+			SS.LightningActions = (function() {
+				"use strict";
+				function onWinLoad() {
+					var vars = getUrlVars();
+					if(vars["action"]=="oauth"){
+						alert("OAuth Successful");
+						window.open(window.location.href, '_self', '');
+							window.close();
+					}
+				}
+				
+				function getUrlVars(){
+				    var vars = [], hash;
+				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				    for(var i = 0; i < hashes.length; i++)
+				    {
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				    }
+				    return vars;
+				}
+				
+				function LDLTCMPCreate() {
+					var accessToken="<%= accesstoken %>";
+					var sfdcurl = "<%= sfdcurl %>";
+					console.log(sfdcurl);
+					console.log(accessToken);
+				
+					$Lightning.use("<%= namespace %>LDLT", function(cmp){
+						console.log('before calling load component');
+						LDT_loadComponent('onload', accessToken);
+					}, sfdcurl, accessToken);
+				}
 			
-			document.getElementById("renderLtngComp").innerHTML = "";
-			$Lightning.createComponent("c:REN_LT_MainComponent", {type: type, subjectId: subjectId,oppId:id,oauthId:accessToken}, "renderLtngComp");
-		}
-		function getUrlVars(){
-		    var vars = [], hash;
-		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-		    for(var i = 0; i < hashes.length; i++)
-		    {
-		        hash = hashes[i].split('=');
-		        vars.push(hash[0]);
-		        vars[hash[0]] = hash[1];
-		    }
-		    return vars;
-		}
+				function LDT_loadComponent(type, accessToken, subjectId) {
+					console.log("Access token within Load Comp :"+accessToken);
+					var id = getUrlVars()["oppId"];
+					var successflag = getUrlVars()["successflag"];
+					document.getElementById("renderLtngComp").innerHTML = "";
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
+				}
+				
+				return {
+					LDLTCMPCreate : LDLTCMPCreate,
+					onWinLoad : onWinLoad
+				};
+			}());
+			window.onload =function(){
+				SS.LightningActions.onWinLoad();
+			}
 			
-	</script>
-	       
-  </body>
+			SS.LightningActions.LDLTCMPCreate();
+		</script>
+	</body>
 </html>
