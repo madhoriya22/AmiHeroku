@@ -1,68 +1,409 @@
 @-webkit-keyframes auraPlaceholderSpin {
-  from {-webkit-transform:rotate(0deg)}
-  to {-webkit-transform:rotate(720deg)}
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(720deg)
+    }
 }
 @keyframes auraPlaceholderSpin {
-  from {-webkit-transform:rotate(0deg); -ms-transform:rotate(0deg); transform:rotate(0deg)}
-  to {-webkit-transform:rotate(720deg); -ms-transform:rotate(720deg); transform:rotate(720deg)}
+    from {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(720deg);
+        -ms-transform: rotate(720deg);
+        transform: rotate(720deg)
+    }
 }
-.auraPlaceholder.spin {display:inline-block; border:1px solid #666; background-color:#888; border-radius:16px; width:9px; height:9px; -webkit-animation-iteration-count:infinite; animation-iteration-count:infinite; -webkit-animation-name:auraPlaceholderSpin; animation-name:auraPlaceholderSpin; -webkit-animation-duration:.75s; animation-duration:.75s; -webkit-animation-timing-function:ease-in-out; animation-timing-function:ease-in-out}
-.auraPlaceholder.spin:AFTER, .auraPlaceholder.spin:BEFORE {content:""; border-radius:4px; background-color:#666; position:absolute}
-.auraPlaceholder.spin:AFTER {height:1px; width:17px; margin-top:4px; margin-left:-4px}
-.auraPlaceholder.spin:BEFORE {height:17px; width:1px; margin-left:4px; margin-top:-4px}.uiMenuItem a {display:block; overflow:hidden}
-.uiMenuItem a[aria-disabled=true] {pointer-events:none; cursor:default}div.uiPopupTarget {display:none; position:absolute; z-index:9999}
-.uiPopupTarget .popupTargetContainer, .uiPopupTarget.popupTargetContainer {position:absolute; border-radius:3px; background-color:#fff; box-shadow:0 1px 5px rgba(0, 0, 0, .75)}
-.uiPopupTarget.popupCurtain {width:100%; height:100%; position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(0, 0, 0, .4)}
-div.uiPopupTarget.visible {display:block}
-.uiPopupTarget ul {list-style:none; margin:0; padding:0}.uiPopupTrigger a[aria-disabled=true] {pointer-events:none; cursor:default}.uiMenu {position:relative}div.uiMenuList.visible {display:block}
-.uiMenuList ul {list-style:none; margin:0; padding:0}.uiMenuList--default {display:none; position:absolute; border-radius:3px; background-color:#fff; box-shadow:0 1px 5px rgba(0, 0, 0, .75); z-index:1}
-.uiMenuList--default .uiMenuSeparator {border-top:1px solid #cccccc}
-.uiMenuList--default .menu__header {padding:.5rem .75rem; text-transform:uppercase; letter-spacing:.0625em; font-size:.9rem; color:#6d6d6d}
-.uiMenuList--default .uiMenuItem>a, .uiMenuList--default .uiMenuItem>span {color:#222; display:block; height:1.1em; padding:3px 9px; text-decoration:none}
-.uiMenuList--default .uiMenuItem>a:hover, .uiMenuList--default .uiMenuItem>a:focus, .uiMenuList--default .uiMenuItem>span:hover, .uiMenuList--default .uiMenuItem>span:focus {outline:none; border-radius:8px; color:#015ba7; text-decoration:underline; background-color:#cfeef8}
-.uiMenuList--default .uiMenuItem>a:active, .uiMenuList--default .uiMenuItem>span:active {outline:none; color:#222}
-.uiMenuList--default .uiMenuItem>a[aria-disabled=true], .uiMenuList--default .uiMenuItem>span[aria-disabled=true] {text-decoration:none; color:lightgray; cursor:default}
-.uiMenuList--default .uiMenuItem>a[aria-disabled=true]:hover, .uiMenuList--default .uiMenuItem>span[aria-disabled=true]:hover {background-color:transparent}
-.uiMenuList--default.menu--nubbin-top {margin-top:.5rem}
-.uiMenuList--default.menu--nubbin-top:before {width:1rem; height:1rem; position:absolute; -webkit-transform:rotate(45deg); -ms-transform:rotate(45deg); transform:rotate(45deg); content:""; background-color:white; left:50%; top:-.5rem; margin-left:-.5rem}
-.uiMenuList--default.menu--nubbin-top:after {width:1rem; height:1rem; position:absolute; -webkit-transform:rotate(45deg); -ms-transform:rotate(45deg); transform:rotate(45deg); content:""; background-color:white; left:50%; top:-.5rem; margin-left:-.5rem}
-.uiMenuList--default.menu--nubbin-top:before {background:white}
-.uiMenuList--default.menu--nubbin-top:after {background:white; box-shadow:-1px -1px 0 0 rgba(0, 0, 0, 0.16); z-index:-1}.uiTab.scrolling {overflow:auto}
-.uiTab.tabs__content {display:none}
-.uiTab.active {display:block}.uiTabItem {list-style:none; white-space:nowrap; display:inline-block}
-.uiTabItem a {display:block; text-decoration:none}
-.uiTabItem .close {display:inline-block; width:15px; height:15px; position:relative; text-align:center; margin-left:10px}
-.uiTabItem.hidden {display:none!important}.uiTabOverflowMenuItem {display:inline-block}
-.uiTabOverflowMenuItem .tabHeader .title {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.uiTabOverflowMenuItem.hidden {display:none}.uiTabBar .tabs__nav {padding:0; margin:0}.uiBlock, .uiBlock .bBody {overflow:hidden; vertical-align:top}
-.uiBlock .bLeft {float:left}
-.uiBlock .bLeft img {display:block}
-.uiBlock .bRight {float:right}
-.uiBlock.overflow>.bBody {display:table-cell; vertical-align:top; width:10000px}
-.uiBlock.overflow, .uiBlock.overflow>.bBody {overflow:visible}
-.uiBlock.overflow:before, .uiBlock.overflow:after {content:""; display:table}
-.uiBlock.overflow:after {clear:both}
-.uiBlock.overflow>.bLeft {float:left}
-.uiBlock.overflow>.bRight {float:right}.uiImage.empty {background-image:url(/auraFW/resources/aura/s.gif)}.uiTabset--default .tabs__nav {padding:0; margin:0}
-.uiTabset--default .tabs__item {background:#eee; border-radius:5px 5px 0 0; margin-right:2px; white-space:nowrap}
-.uiTabset--default .tabs__item>a {margin:0; color:#363c40; padding:5px 10px}
-.uiTabset--default .tabs__item.active>a {background:#dc595c; border-radius:5px 5px 0 0}.auraDebug.debugWindow {height:100%; width:100%}.cREN_LT_Spinner .hidden {display:none}
-.cREN_LT_Spinner .spinner-container {position:relative; height:71px; width:71px; margin:auto}
-.cREN_LT_Spinner .spinner {height:50px; width:50px; position:absolute; top:50%; left:50%; margin:-25px 0 0 -25px; -webkit-animation:rotation 1s infinite linear; animation:rotation 1s infinite linear; border:6px solid rgba(0,0,0,.2); border-radius:100%; z-index:999999}
-.cREN_LT_Spinner .spinner:before {content:""; display:block; position:absolute; left:-6px; top:-6px; height:100%; width:100%; border-top:6px solid rgba(0,0,0,.8); border-left:6px solid transparent; border-bottom:6px solid transparent; border-right:6px solid transparent; border-radius:100%}
+.auraPlaceholder.spin {
+    display: inline-block;
+    border: 1px solid #666;
+    background-color: #888;
+    border-radius: 16px;
+    width: 9px;
+    height: 9px;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: auraPlaceholderSpin;
+    animation-name: auraPlaceholderSpin;
+    -webkit-animation-duration: .75s;
+    animation-duration: .75s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out
+}
+.auraPlaceholder.spin:AFTER,
+.auraPlaceholder.spin:BEFORE {
+    content: "";
+    border-radius: 4px;
+    background-color: #666;
+    position: absolute
+}
+.auraPlaceholder.spin:AFTER {
+    height: 1px;
+    width: 17px;
+    margin-top: 4px;
+    margin-left: -4px
+}
+.auraPlaceholder.spin:BEFORE {
+    height: 17px;
+    width: 1px;
+    margin-left: 4px;
+    margin-top: -4px
+}
+.uiMenuItem a {
+    display: block;
+    overflow: hidden
+}
+.uiMenuItem a[aria-disabled=true] {
+    pointer-events: none;
+    cursor: default
+}
+div.uiPopupTarget {
+    display: none;
+    position: absolute;
+    z-index: 9999
+}
+.uiPopupTarget .popupTargetContainer,
+.uiPopupTarget.popupTargetContainer {
+    position: absolute;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .75)
+}
+.uiPopupTarget.popupCurtain {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4)
+}
+div.uiPopupTarget.visible {
+    display: block
+}
+.uiPopupTarget ul {
+    list-style: none;
+    margin: 0;
+    padding: 0
+}
+.uiPopupTrigger a[aria-disabled=true] {
+    pointer-events: none;
+    cursor: default
+}
+.uiMenu {
+    position: relative
+}
+div.uiMenuList.visible {
+    display: block
+}
+.uiMenuList ul {
+    list-style: none;
+    margin: 0;
+    padding: 0
+}
+.uiMenuList--default {
+    display: none;
+    position: absolute;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .75);
+    z-index: 1
+}
+.uiMenuList--default .uiMenuSeparator {
+    border-top: 1px solid #cccccc
+}
+.uiMenuList--default .menu__header {
+    padding: .5rem .75rem;
+    text-transform: uppercase;
+    letter-spacing: .0625em;
+    font-size: .9rem;
+    color: #6d6d6d
+}
+.uiMenuList--default .uiMenuItem>a,
+.uiMenuList--default .uiMenuItem>span {
+    color: #222;
+    display: block;
+    height: 1.1em;
+    padding: 3px 9px;
+    text-decoration: none
+}
+.uiMenuList--default .uiMenuItem>a:hover,
+.uiMenuList--default .uiMenuItem>a:focus,
+.uiMenuList--default .uiMenuItem>span:hover,
+.uiMenuList--default .uiMenuItem>span:focus {
+    outline: none;
+    border-radius: 8px;
+    color: #015ba7;
+    text-decoration: underline;
+    background-color: #cfeef8
+}
+.uiMenuList--default .uiMenuItem>a:active,
+.uiMenuList--default .uiMenuItem>span:active {
+    outline: none;
+    color: #222
+}
+.uiMenuList--default .uiMenuItem>a[aria-disabled=true],
+.uiMenuList--default .uiMenuItem>span[aria-disabled=true] {
+    text-decoration: none;
+    color: lightgray;
+    cursor: default
+}
+.uiMenuList--default .uiMenuItem>a[aria-disabled=true]:hover,
+.uiMenuList--default .uiMenuItem>span[aria-disabled=true]:hover {
+    background-color: transparent
+}
+.uiMenuList--default.menu--nubbin-top {
+    margin-top: .5rem
+}
+.uiMenuList--default.menu--nubbin-top:before {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    content: "";
+    background-color: white;
+    left: 50%;
+    top: -.5rem;
+    margin-left: -.5rem
+}
+.uiMenuList--default.menu--nubbin-top:after {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    content: "";
+    background-color: white;
+    left: 50%;
+    top: -.5rem;
+    margin-left: -.5rem
+}
+.uiMenuList--default.menu--nubbin-top:before {
+    background: white
+}
+.uiMenuList--default.menu--nubbin-top:after {
+    background: white;
+    box-shadow: -1px -1px 0 0 rgba(0, 0, 0, 0.16);
+    z-index: -1
+}
+.uiTab.scrolling {
+    overflow: auto
+}
+.uiTab.tabs__content {
+    display: none
+}
+.uiTab.active {
+    display: block
+}
+.uiTabItem {
+    list-style: none;
+    white-space: nowrap;
+    display: inline-block
+}
+.uiTabItem a {
+    display: block;
+    text-decoration: none
+}
+.uiTabItem .close {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    text-align: center;
+    margin-left: 10px
+}
+.uiTabItem.hidden {
+    display: none!important
+}
+.uiTabOverflowMenuItem {
+    display: inline-block
+}
+.uiTabOverflowMenuItem .tabHeader .title {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+.uiTabOverflowMenuItem.hidden {
+    display: none
+}
+.uiTabBar .tabs__nav {
+    padding: 0;
+    margin: 0
+}
+.uiBlock,
+.uiBlock .bBody {
+    overflow: hidden;
+    vertical-align: top
+}
+.uiBlock .bLeft {
+    float: left
+}
+.uiBlock .bLeft img {
+    display: block
+}
+.uiBlock .bRight {
+    float: right
+}
+.uiBlock.overflow>.bBody {
+    display: table-cell;
+    vertical-align: top;
+    width: 10000px
+}
+.uiBlock.overflow,
+.uiBlock.overflow>.bBody {
+    overflow: visible
+}
+.uiBlock.overflow:before,
+.uiBlock.overflow:after {
+    content: "";
+    display: table
+}
+.uiBlock.overflow:after {
+    clear: both
+}
+.uiBlock.overflow>.bLeft {
+    float: left
+}
+.uiBlock.overflow>.bRight {
+    float: right
+}
+.uiImage.empty {
+    background-image: url(/auraFW/resources/aura/s.gif)
+}
+.uiTabset--default .tabs__nav {
+    padding: 0;
+    margin: 0
+}
+.uiTabset--default .tabs__item {
+    background: #eee;
+    border-radius: 5px 5px 0 0;
+    margin-right: 2px;
+    white-space: nowrap
+}
+.uiTabset--default .tabs__item>a {
+    margin: 0;
+    color: #363c40;
+    padding: 5px 10px
+}
+.uiTabset--default .tabs__item.active>a {
+    background: #dc595c;
+    border-radius: 5px 5px 0 0
+}
+.auraDebug.debugWindow {
+    height: 100%;
+    width: 100%
+}
+.cREN_LT_Spinner .hidden {
+    display: none
+}
+.cREN_LT_Spinner .spinner-container {
+    position: relative;
+    height: 71px;
+    width: 71px;
+    margin: auto
+}
+.cREN_LT_Spinner .spinner {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    -webkit-animation: rotation 1s infinite linear;
+    animation: rotation 1s infinite linear;
+    border: 6px solid rgba(0, 0, 0, .2);
+    border-radius: 100%;
+    z-index: 999999
+}
+.cREN_LT_Spinner .spinner:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    height: 100%;
+    width: 100%;
+    border-top: 6px solid rgba(0, 0, 0, .8);
+    border-left: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-radius: 100%
+}
 @-webkit-keyframes rotation {
-  from {-webkit-transform:rotate(0deg)}
-  to {-webkit-transform:rotate(359deg)}
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(359deg)
+    }
 }
 @keyframes rotation {
-  from {-webkit-transform:rotate(0deg); -ms-transform:rotate(0deg); transform:rotate(0deg)}
-  to {-webkit-transform:rotate(359deg); -ms-transform:rotate(359deg); transform:rotate(359deg)}
-}.uiMessage {color:#464646; padding:5px; margin:5px; border-width:1px; border-style:solid; border-radius:5px; font-size:13px; line-height:18px; border-color:#ccc; background-color:#eee; opacity:1; -webkit-transition:opacity .2s ease-out; transition:opacity .2s ease-out}
-.uiMessage.hide {opacity:0}
-.uiMessage .close {font-size:20px; font-weight:bold; line-height:18px; color:black; text-shadow:0 1px 0 white; opacity:.2}
-.uiMessage h4 {font-weight:bold; font-size:16px}
-.uiMessage .bBody p {margin:0}
-.uiMessage.warning {border-color:#f8e38e; background-color:#ffffdc}
-.uiMessage.error {border-color:#f2a199; background-color:#fdedea}
-.uiMessage.confirm {border-color:#9bebb3; background-color:#edfff1}
-.uiMessage.info {border-color:#bee6ff; background-color:#f5fcff}
+    from {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+        -ms-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
+}
+.uiMessage {
+    color: #464646;
+    padding: 5px;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 18px;
+    border-color: #ccc;
+    background-color: #eee;
+    opacity: 1;
+    -webkit-transition: opacity .2s ease-out;
+    transition: opacity .2s ease-out
+}
+.uiMessage.hide {
+    opacity: 0
+}
+.uiMessage .close {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 18px;
+    color: black;
+    text-shadow: 0 1px 0 white;
+    opacity: .2
+}
+.uiMessage h4 {
+    font-weight: bold;
+    font-size: 16px
+}
+.uiMessage .bBody p {
+    margin: 0
+}
+.uiMessage.warning {
+    border-color: #f8e38e;
+    background-color: #ffffdc
+}
+.uiMessage.error {
+    border-color: #f2a199;
+    background-color: #fdedea
+}
+.uiMessage.confirm {
+    border-color: #9bebb3;
+    background-color: #edfff1
+}
+.uiMessage.info {
+    border-color: #bee6ff;
+    background-color: #f5fcff
+}
