@@ -53,7 +53,7 @@
 					var id = getUrlVars()["renId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, oppId:id, oauthId: accessToken}, "renderLtngComp");
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: accessToken}, "renderLtngComp");
 				}
 				
 				return {
