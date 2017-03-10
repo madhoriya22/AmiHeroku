@@ -46,7 +46,7 @@
 							console.log('before calling load component');
 							LDT_loadComponent('onload', accessToken);
 						}, sfdcurl, accessToken);
-						setTimeout(function(){ window.open('/revokeAccessToken', '_self', '');
+						setTimeout(function(){ window.open('/revokeAccessToken?orgid=00Dj0000000JSszEAG', '_self', '');
 							 }, 10000);
 					} catch(err) {
 						console.log('err::'+err);
