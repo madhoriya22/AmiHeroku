@@ -47,7 +47,7 @@
 							LDT_loadComponent('onload', accessToken);
 						}, sfdcurl, accessToken);
 						setTimeout(function(){ window.open('/revokeAccessToken', '_self', '');
-							window.close(); }, 10000);
+							 }, 10000);
 					} catch(err) {
 						console.log('err::'+err);
 					}
