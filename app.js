@@ -3,7 +3,10 @@ var express = require('express');
 var oauth = require('./lib/oAuth/oauth');
 var port = process.env.PORT || 3000;
 
-var app = express();
+var app = express()
+, sessions = require('./lib/Services/sessions.js');
+
+app.use(sessions.createSession());
 
 // Require Routes js
 var routesHome = require('./routes/home');
@@ -16,10 +19,12 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-	console.log('RedirectToHome call');
-	
-	oauth.redirectToHome(res, app);
-	//oauth.redirectAuthURI(res);
+	oauth.redirectToHome(req, res, app);
+});
+
+app.get('/accesstoken', function(req, res){
+	console.log('Redis Session - '+JSON.stringify(req.session));
+	oauth.redirectToHome(req, res, app);
 });
 
 app.get('/oauthcallback', function(req, res) {
@@ -29,6 +34,7 @@ app.get('/oauthcallback', function(req, res) {
 
 app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call');
+	req.session.sfdcurl = req.query.sfdcurl;
 	oauth.redirectAuthURI(res);
 });
 
