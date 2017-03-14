@@ -47,8 +47,8 @@
 							console.log('before calling load component');
 							LDT_loadComponent('onload', accessToken);
 						}, sfdcurl, accessToken);
-						setTimeout(function(){ window.open('/revokeAccessToken?orgid=00Dj0000000JSszEAG&renId='+id, '_self', '');
-							 }, 120000);
+						//setTimeout(function(){ window.open('/revokeAccessToken?orgid=00Dj0000000JSszEAG&renId='+id, '_self', '');
+						//	 }, 120000);
 					} catch(err) {
 						console.log('err::'+err);
 					}
