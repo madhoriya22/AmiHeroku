@@ -53,7 +53,7 @@
 					
 					    //Zero the idle timer on mouse movement.
 					    $(this).mousemove(function (e) {
-					        console.log(idleTime);
+					        console.log('mousemove : '+idleTime);
 					        idleTime = 0;
 					    });
 					    $(this).keypress(function (e) {
@@ -66,7 +66,7 @@
 
 						function timerIncrement() {
 						    idleTime = idleTime + 1;
-						    if (idleTime > 2) { // 20 minutes
+						    if (idleTime > 14) { // 20 minutes
 						        //window.location.reload();
 						        //alert('You are idle for 5 mins');
 						        window.open('/revokeAccessToken?orgid=00Dj0000000JSszEAG&renId='+id, '_self', '');
