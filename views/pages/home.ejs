@@ -39,9 +39,11 @@
 				function LDLTCMPCreate() {
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
+					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					console.log(sfdcurl);
 					console.log(accessToken);
+					console.log('orgId= '+orgid);
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
