@@ -8,6 +8,9 @@
 		</header>
 		<main>
 			<div id="renderLtngComp"/>
+			<div id="dialog" title="Session time Expired">
+			  <p>You are idle for more than 2 minutes.</p>
+			</div>
 		</main>
 		<footer>
 		</footer>
@@ -71,7 +74,8 @@
 							    idleTime = idleTime + 1;
 							    if (idleTime > 2) { // 20 minutes
 							        //window.location.reload();
-							        alert('You are idle for more than 2 mins');
+							        //alert('You are idle for more than 2 mins');
+							        $( "#dialog" ).dialog();
 							        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							    }
 							}
