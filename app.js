@@ -43,10 +43,6 @@ app.get('/revokeAccess', function(req, res) {
 	oauth.revokeAccess(req,res);
 });
 
-app.get('/revokeAccessToken', function(req, res) {
-	console.log('revokeAccesstoken call'+JSON.stringify(req.session)+'::');
-	oauth.revokeAccessToken(req,res,app);
-});
 // Served Localhost
 console.log('Served: http://localhost:' + port);
 app.listen(port);

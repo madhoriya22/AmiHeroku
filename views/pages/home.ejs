@@ -1,16 +1,12 @@
 <html lang="en">
 	<head>
 		<% include ../partials/ldOut %>
-		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
 	</head>
 	<body class="slds">
 		<header>
 		</header>
 		<main>
 			<div id="renderLtngComp"/>
-			<div id="dialog" title="Session time Expired">
-			  <p>You are idle for more than 2 minutes.</p>
-			</div>
 		</main>
 		<footer>
 		</footer>
@@ -44,9 +40,11 @@
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
+					var idletime = "<%= idletime %>";
 					console.log(sfdcurl);
 					console.log(accessToken);
 					console.log('orgId= '+orgid);
+					console.log('idletime : '+idletime);
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
@@ -72,23 +70,20 @@
 	
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
-							    if (idleTime > 2) { // 20 minutes
+							    if (idleTime > idletime) { // 20 minutes
 							        //window.location.reload();
-							        //alert('You are idle for more than 2 mins');
-							        $( "#dialog" ).dialog();
+							        alert('You are idle for more than '+idletime+' minutes');
 							        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							    }
 							}
 						});
-						//setTimeout(function(){ window.open('/revokeAccessToken?orgid=00Dj0000000JSszEAG&renId='+id, '_self', '');
-						//	 }, 120000);
 					} catch(err) {
 						console.log('err::'+err);
 					}
 				}
 			
 				function LDT_loadComponent(type, accessToken, subjectId) {
-					console.log("Access token within Load Comp :"+accessToken);
+					//console.log("Access token within Load Comp :"+accessToken);
 					var id = getUrlVars()["renId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";

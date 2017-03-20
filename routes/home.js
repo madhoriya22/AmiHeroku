@@ -8,7 +8,8 @@ router.get('/', function(req, res) {
 	    	accesstoken: req.session.accesstoken,
 	    	sfdcurl: req.session.sfdcurl,
 	    	orgid: req.session.orgid,
-	    	namespace: process.env['SF_NAMESPACE']
+	    	namespace: process.env['SF_NAMESPACE'],
+	    	idletime: process.env['IDLE_TIME']
     });
 });
 
