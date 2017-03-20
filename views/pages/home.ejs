@@ -50,20 +50,20 @@
 							console.log('before calling load component');
 							LDT_loadComponent('onload', accessToken);
 						}, sfdcurl, accessToken);
-						csm$(document).ready(function () {
+						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
 						    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 						
 						    //Zero the idle timer on mouse movement.
-						    csm$(this).mousemove(function (e) {
+						    $(this).mousemove(function (e) {
 						        console.log('mousemove : '+idleTime);
 						        idleTime = 0;
 						    });
-						    csm$(this).keypress(function (e) {
+						    $(this).keypress(function (e) {
 						        idleTime = 0;
 						    });
-						    csm$(this).mousedown(function (e) {
+						    $(this).mousedown(function (e) {
 						        console.log('mousedown : '+idleTime);
 						        idleTime = 0;
 						    });
