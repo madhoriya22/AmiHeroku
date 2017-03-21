@@ -12,13 +12,7 @@
 		<footer>
 		</footer>
 		<script> 
-			var SS = SS || { };
-			var jsPath = "<%= sfdcurl %>/resource/CSM_Resources/vendor/jquery/jquery-1.11.1.min.js"
-			console.log(jsPath);
-			var fileref=document.createElement("script");
-            fileref.setAttribute("src", );
-            fileref.setAttribute("type", "text/javascript");                    
-            document.getElementsByTagName("head")[0].appendChild(fileref);
+			var SS = SS || { };			
             
 			SS.LightningActions = (function() {
 				"use strict";
@@ -50,6 +44,12 @@
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var idletime = "<%= idletime %>";
+					var jsPath = sfdcurl+"/resource/CSM_Resources/vendor/jquery/jquery-1.11.1.min.js";
+					console.log(jsPath);
+					var fileref=document.createElement("script");
+		            fileref.setAttribute("src", );
+		            fileref.setAttribute("type", "text/javascript");                    
+		            document.getElementsByTagName("head")[0].appendChild(fileref);
 					console.log(sfdcurl);
 					console.log(accessToken);
 					console.log('orgId= '+orgid);
