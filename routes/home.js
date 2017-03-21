@@ -7,7 +7,9 @@ router.get('/', function(req, res) {
 	    res.render('pages/home', {
 	    	accesstoken: req.session.accesstoken,
 	    	sfdcurl: req.session.sfdcurl,
-	    	namespace: process.env['SF_NAMESPACE']
+	    	orgid: req.session.orgid,
+	    	namespace: process.env['SF_NAMESPACE'],
+	    	idletime: process.env['IDLE_TIME']
     });
 });
 
