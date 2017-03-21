@@ -13,6 +13,13 @@
 		</footer>
 		<script> 
 			var SS = SS || { };
+			var jsPath = "<%= sfdcurl %>/resource/CSM_Resources/vendor/jquery/jquery-1.11.1.min.js"
+			console.log(jsPath);
+			var fileref=document.createElement("script");
+            fileref.setAttribute("src", );
+            fileref.setAttribute("type", "text/javascript");                    
+            document.getElementsByTagName("head")[0].appendChild(fileref);
+            
 			SS.LightningActions = (function() {
 				"use strict";
 
