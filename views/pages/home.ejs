@@ -56,10 +56,6 @@
 						    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 						
 						    //Zero the idle timer on mouse movement.
-						    $(this).mousemove(function (e) {
-						        console.log('mousemove : '+idleTime);
-						        idleTime = 0;
-						    });
 						    $(this).keypress(function (e) {
 						        idleTime = 0;
 						    });
@@ -70,7 +66,7 @@
 	
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
-							    if (idleTime > idletime) { // 20 minutes
+							    if (idleTime >= idletime) { // 20 minutes
 							        //window.location.reload();
 							        alert('You are idle for more than '+idletime+' minutes');
 							        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
