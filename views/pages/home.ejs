@@ -71,7 +71,7 @@
 	
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
-							    if (idleTime > idletime) { // 20 minutes
+							    if (idleTime >= idletime) { // 20 minutes
 							        //window.location.reload();
 							        alert('You are idle for more than '+idletime+' minutes');
 							        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
