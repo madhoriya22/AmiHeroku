@@ -52,6 +52,7 @@
 						}, sfdcurl, accessToken);
 						$(document).ready(function () {
 							var idleTime = 0;
+							var sessionTime = 0;
 						    //Increment the idle time counter every minute.
 						    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 						
@@ -66,7 +67,8 @@
 	
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
-							    if (idleTime >= sessionIdleTime) { // 20 minutes
+							    if (idleTime >= sessionIdleTime && sessionTime == 0) { // 20 minutes
+							        sessionTime = sessionIdleTime;
 							        //alert('You are idle for more than '+idletime+' minutes');
 							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							        var dynamicDialog = $('<div id="conformBox">'+
@@ -92,7 +94,7 @@
 					                                text : "Close the app",
 					                                click : function() {							                                        
 					                                        $(this).dialog("close");
-					                                        window.close();
+					                                        setTimeout (window.close, 5000);
 					                                }
 					                        }]
 							        });
