@@ -40,11 +40,11 @@
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
-					var idletime = "<%= idletime %>";
+					var sessionIdleTime = "<%= idletime %>";
 					console.log(sfdcurl);
 					console.log(accessToken);
 					console.log('orgId= '+orgid);
-					console.log('idletime : '+idletime);
+					console.log('sessionIdleTime : '+sessionIdleTime);
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
@@ -66,10 +66,36 @@
 	
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
-							    if (idleTime >= idletime) { // 20 minutes
-							        //window.location.reload();
-							        alert('You are idle for more than '+idletime+' minutes');
-							        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+							    if (idleTime >= sessionIdleTime) { // 20 minutes
+							        //alert('You are idle for more than '+idletime+' minutes');
+							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+							        var dynamicDialog = $('<div id="conformBox">'+
+							        '<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">'+
+							        '</span>For your security, your session will be refresh, due to '+sessionIdleTime+' minutes of Idle time. <br/> Do you want to refresh the Session? </div>');
+							        dynamicDialog.dialog({
+							                title : "Session Expiration Warning",
+							                closeOnEscape: true,
+							                modal : true,
+							                resizable: false,
+							                height: "auto",
+							                top: 5,
+							                width: 500,
+							        
+							                buttons : 
+					                        [{
+					                                text : "Refresh Session",
+					                                click : function() {
+					                                        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+					                                }
+					                        },
+					                        {
+					                                text : "Close the app",
+					                                click : function() {							                                        
+					                                        $(this).dialog("close");
+					                                        window.close();
+					                                }
+					                        }]
+							        });
 							    }
 							}
 						});
