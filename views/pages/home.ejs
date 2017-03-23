@@ -93,8 +93,8 @@
 					                        {
 					                                text : "Close the app",
 					                                click : function() {							                                        
-					                                        $(this).dialog("close");
-					                                        setTimeout (window.close, 5000);
+					                                        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+					                                        window.close();
 					                                }
 					                        }]
 							        });
