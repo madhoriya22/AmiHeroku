@@ -74,12 +74,12 @@
 							        '</span>For your security, your session will be refresh, due to '+sessionIdleTime+' minutes of Idle time. <br/> Do you want to refresh the Session? </div>');
 							        dynamicDialog.dialog({
 							                title : "Session Expiration Warning",
-							                closeOnEscape: true,
+							                closeOnEscape: false,
 							                modal : true,
 							                resizable: false,
 							                height: "auto",
-							                top: 5,
-							                width: 500,
+							                position: ['center',80],
+							                width: 700,
 							        
 							                buttons : 
 					                        [{
