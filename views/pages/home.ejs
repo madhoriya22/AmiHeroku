@@ -57,7 +57,7 @@
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
-						    var idleInterval = setInterval(timerIncrement, 60200); // 1 minute
+						    var idleInterval = setInterval(timerIncrement, 80000); // 1 minute
 						    console.log('idleInterval : '+idleInterval);
 						    //Zero the idle timer on mouse movement.
 						    
@@ -73,7 +73,7 @@
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
 							        //window.location.reload();
-							        alert('You are idle for more than '+idletime+' minutes');
+							        alert('You are idle for more than '+sessionIdleTime+' minutes');
 							        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							    }
 							}
