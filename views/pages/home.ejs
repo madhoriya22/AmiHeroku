@@ -18,6 +18,7 @@
 				"use strict";
 				function onWinLoad() {
 					var vars = getUrlVars();
+					 $("#modalWarning").hide();
 					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
@@ -114,6 +115,7 @@
 			
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
+		
 		
 		<div id="modalWarning" class="modal-overlay">
 			<div class="container">
