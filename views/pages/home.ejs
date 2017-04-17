@@ -81,7 +81,12 @@
 						        console.log('mousedown : '+idleTime);
 						        idleTime = 0;
 						    });
-	
+						    
+							function okConfirmation() {
+							    console.log(' aokConfirmation called   ');
+					        	window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+				          	}
+			  
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
@@ -126,7 +131,7 @@
                 		<div class="warning-content clearfix">
                     		Your session has expired. Click Ok to restart it.
                     		<br/><br/>
-                    		<button style="float:right;width:100px;" class="btn btn-outline-info">Ok</button>
+                    		<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirmation();">Ok</button>
                		 	</div>
 					</div>
 					<div class="col-md-3"></div>
