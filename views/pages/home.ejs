@@ -18,8 +18,9 @@
 			SS.LightningActions = (function() {
 				"use strict";
 				function onWinLoad() {
+				    $("#modalWarning").hide();
+					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
-					 $("#modalWarning").hide();
 					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
@@ -46,7 +47,8 @@
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
        					   alert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
 					if(!navigator.cookieEnabled && isSafari){
-        				alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
+        				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
+        				$("#modalSafariEnable").dialog();
         			}
         			return false;
 				}
@@ -144,7 +146,6 @@
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 		
-		
 		<div id="modalWarning" class="modal-overlay">
 			<div class="container">
     			<div class="row">
@@ -159,5 +160,21 @@
 					<div class="col-md-3"></div>
     		</div>
 		</div>
+		
+		<div id="modalSafariEnable" class="modal-overlay">
+			<div class="container">
+    			<div class="row">
+       				<div class="col-md-3"></div>
+					<div class="col-md-6">
+                		<div class="warning-content clearfix">
+                    		The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.
+                    		<br/><br/>
+                    		<button style="float:right;width:100px;" class="btn btn-outline-info">Ok</button>
+               		 	</div>
+					</div>
+					<div class="col-md-3"></div>
+    		</div>
+		</div>
+		
 	</body>
 </html>
