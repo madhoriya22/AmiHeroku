@@ -118,9 +118,11 @@
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
 							        //window.location.reload();
 							        // alert('You are idle for more than '+sessionIdleTime+' minutes');
-							        var modal = document.getElementById('modalWarning');
-                                    modal.style.display = "block";
+							        console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
+                                    document.getElementById('modalWarning').style.display = "block";
+							        console.log('ModalWarning check ::  11');
 							        $("#modalWarning").dialog();
+							        console.log('ModalWarning check ::  22');
 							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							    }
 							}
