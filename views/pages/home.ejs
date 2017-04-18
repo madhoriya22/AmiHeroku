@@ -2,9 +2,7 @@
 	<head>
 	    
 		 <% include ../partials/ldOut %>
-		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
 		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-          <!--<link rel="stylesheet" href="style.css">-->
 	</head>
 	<style>
 		.modal-overlay {
@@ -120,6 +118,8 @@
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
 							        //window.location.reload();
 							        // alert('You are idle for more than '+sessionIdleTime+' minutes');
+							        var modal = document.getElementById('modalWarning');
+                                    modal.style.display = "block";
 							        $("#modalWarning").dialog();
 							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							    }
