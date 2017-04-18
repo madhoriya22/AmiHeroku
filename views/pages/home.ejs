@@ -1,11 +1,40 @@
 <html lang="en">
 	<head>
 	    
-		<% include ../partials/ldOut %>
+		 <% include ../partials/ldOut %>
 		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
-		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-         <link rel="stylesheet" href="style.css">
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+          <!--<link rel="stylesheet" href="style.css">-->
 	</head>
+	<style>
+		.modal-overlay {
+    		display: none; /* Hidden by default */
+    		position: fixed; /* Stay in place */
+    		z-index: 1; /* Sit on top */
+    		padding-top: 100px; /* Location of the box */
+    		left: 0;
+   			top: 0;
+    		width: 100%; /* Full width */
+    		height: 100%; /* Full height */
+    		overflow: auto; /* Enable scroll if needed */
+    		background-color: rgb(0,0,0); /* Fallback color */
+    		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		} 
+		
+		/* Session expiration warning popup*/
+		.warning-content {
+   			 background-color: #fefefe;
+   			 padding: 10px;
+   			 border: 1px solid #888;
+   			 border-radius: 2px;
+    		box-shadow:0 5px 15px rgba(0,0,0,.5);
+		}
+		/* End session expiration warning popup*/
+	
+	</style>
+	
+	
+	
 	<body>
 		<header>
 		</header>
@@ -44,10 +73,10 @@
 				}
 				
 				function isSafariBrowser(){
-				alert('@@ called isSafariBrowser');
+					//alert('@@ called isSafariBrowser');
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
-       					   alert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
+       					   //salert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
 					if(!navigator.cookieEnabled && isSafari){
         				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
         				$("#modalSafariEnable").dialog();
@@ -171,7 +200,7 @@
                 		<div class="warning-content clearfix">
                     		The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.
                     		<br/><br/>
-                    		<button style="float:right;width:100px;" class="btn btn-outline-info">Ok</button>
+                    		<button style="float:right;width:100px;" class="c btn-outline-info">Ok</button>
                		 	</div>
 					</div>
 					<div class="col-md-3"></div>
