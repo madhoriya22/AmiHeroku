@@ -116,8 +116,6 @@
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
-							        //window.location.reload();
-							        // alert('You are idle for more than '+sessionIdleTime+' minutes');
 							        console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
                                     document.getElementById('modalWarning').style.display = "block";
 							        console.log('ModalWarning check ::  11');
@@ -179,7 +177,7 @@
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 		
-		<div id="modalWarning" class="modal-overlay">
+		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
 			<div class="container">
     			<div class="row">
        				<div class="col-md-3"></div>
