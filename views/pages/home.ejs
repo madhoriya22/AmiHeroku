@@ -77,8 +77,9 @@
        					   //salert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
 					if(!navigator.cookieEnabled && isSafari){
         				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
-        				//$("#modalSafariEnable").dialog();
-        				 document.getElementById('modalSafariEnable').style.display = "block";
+        				console.log('ModalWarning check ::  ');
+        				$("#modalSafariEnable").dialog();
+        				// document.getElementById('modalSafariEnable').style.display = "block";
         			}
         			return false;
 				}
