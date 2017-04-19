@@ -50,7 +50,6 @@
 				    $("#modalWarning").hide();
 					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
-					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -75,12 +74,13 @@
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
 					if(!navigator.cookieEnabled && isSafari){
         				//$("#modalSafariEnable").dialog();
-        				 document.getElementById('modalSafariEnable').style.display = "block";
+        				return true;
         			} else {
-        			   LDLTCMPCreate();
+        			   return false;
         			}
 				}
 
+				
 				function LDLTCMPCreate() {
 				    alert('Called LDLTCMPCreate ');
 					var accessToken="<%= accesstoken %>";
@@ -96,7 +96,11 @@
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
-							LDT_loadComponent('onload', accessToken);
+							if(!isSafariCookiesDisable()){
+								LDT_loadComponent('onload', accessToken);
+							}else {
+							    document.getElementById('modalSafariEnable').style.display = "block";
+							}
 						}, sfdcurl, accessToken);
 						$(document).ready(function () {
 							var idleTime = 0;
@@ -169,7 +173,7 @@
 			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 			}
 			
-			SS.LightningActions.isSafariCookiesDisable();
+			SS.LightningActions.LDLTCMPCreate();
 		</script>
 		
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
