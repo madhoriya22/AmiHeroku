@@ -85,7 +85,7 @@
 				    $("#modalWarning").hide();
 					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
-					//isSafariBrowser();
+					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -113,9 +113,9 @@
 					if(!navigator.cookieEnabled && isSafari){
         				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
         				console.log('ModalWarning check :: 111 ');
-        				$("#modalSafariEnable").dialog();
+        				//$("#modalSafariEnable").dialog();
         				//$("#modalSafariEnable").style.display = "block";
-        			}
+        				document.getElementById('modalSafariEnable').style.display = "block";        			}
         			return false;
 				}
 				
