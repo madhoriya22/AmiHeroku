@@ -94,14 +94,15 @@
 					console.log('orgId= '+orgid);
 					console.log('sessionIdleTime : '+sessionIdleTime);
 				    try {
-						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							console.log('before calling load component');
-							if(!isSafariCookiesDisable()){
+						if(isSafariCookiesDisable()) {
+							console.log('before calling load component1');
+							document.getElementById('modalSafariEnable').style.display = "block";
+						} else {
+							$Lightning.use("<%= namespace %>LDLT", function(cmp){
+								console.log('before calling load component2');
 								LDT_loadComponent('onload', accessToken);
-							}else {
-							    document.getElementById('modalSafariEnable').style.display = "block";
-							}
-						}, sfdcurl, accessToken);
+							}, sfdcurl, accessToken);
+						}
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
