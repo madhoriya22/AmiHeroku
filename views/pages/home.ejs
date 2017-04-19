@@ -49,8 +49,8 @@
 				function onWinLoad() {
 				    $("#modalWarning").hide();
 					$("#modalSafariEnable").hide();
-					isSafariCookiesDisable();
 					var vars = getUrlVars();
+					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -70,12 +70,17 @@
 				    return vars;
 				}
 				
-			    function isSafariCookiesDisable(){
+			   function isSafariBrowser(){
+					//alert('@@ called isSafariBrowser');
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
+       					   //salert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
 					if(!navigator.cookieEnabled && isSafari){
-        				document.getElementById('modalSafariEnable').style.display = "block";
-        			} 
+        				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
+        				//$("#modalSafariEnable").dialog();
+        				 document.getElementById('modalSafariEnable').style.display = "block";
+        			}
+        			return false;
 				}
 				
 				function LDLTCMPCreate() {
@@ -92,7 +97,7 @@
 					console.log('sessionIdleTime : '+sessionIdleTime);
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							console.log('before calling load component2');
+							console.log('before calling load component');
 							LDT_loadComponent('onload', accessToken);
 						}, sfdcurl, accessToken);
 						$(document).ready(function () {
