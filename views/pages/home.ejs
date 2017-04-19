@@ -70,20 +70,20 @@
 				    return vars;
 				}
 				
-				function isSafariBrowser(){
-					//alert('@@ called isSafariBrowser');
+				function isSafariCookiesDisable(){
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
-       					   //salert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
 					if(!navigator.cookieEnabled && isSafari){
-        				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
-        				$("#modalSafariEnable").dialog();
+        				//$("#modalSafariEnable").dialog();
+        				return true;
         			}
         			return false;
 				}
 				
 				function LDLTCMPCreate() {
-				    alert('Called LDLTCMPCreate ');
+				   alert("Called LDLTCMPCreate 0");
+				   if(!isSafariCookiesDisable()){
+				    alert("Called LDLTCMPCreate 1");
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
@@ -124,6 +124,9 @@
 						});
 					} catch(err) {
 						console.log('err::'+err);
+					} else {
+					    //$("#modalSafariEnable").dialog();
+					     document.getElementById('modalSafariEnable').style.display = "block";
 					}
 				}
 			
