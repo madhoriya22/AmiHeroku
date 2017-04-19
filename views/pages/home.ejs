@@ -55,7 +55,7 @@
     		</div>
 		</div>
 		
-		<div id="modalSafariEnable" class="modal-overlay" style="width: 100%;height: 100%;">
+		<div id="modalSafariEnable" class="modal-overlay" style="width: 100%;height: 100%; display: block">
 			<div class="container">
     			<div class="row">
        				<div class="col-md-3"></div>
@@ -109,8 +109,8 @@
 					if(!navigator.cookieEnabled && isSafari){
         				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
         				console.log('ModalWarning check :: 111 ');
-        				//$("#modalSafariEnable").dialog();
-        				$("#modalSafariEnable").style.display = "block";
+        				$("#modalSafariEnable").dialog();
+        				//$("#modalSafariEnable").style.display = "block";
         			}
         			return false;
 				}
