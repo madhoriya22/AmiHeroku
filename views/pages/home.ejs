@@ -83,6 +83,7 @@
 				}
 				
 				function LDLTCMPCreate() {
+				    alert('Called LDLTCMPCreate ');
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
@@ -118,10 +119,6 @@
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
 							        console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
                                     document.getElementById('modalWarning').style.display = "block";
-							        console.log('ModalWarning check ::  11');
-							       // $("#modalWarning").dialog();
-							        console.log('ModalWarning check ::  22');
-							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							    }
 							}
 						});
@@ -148,16 +145,15 @@
 			}
 			
 			function getUrlVars(){
-				    var vars = [], hash;
-				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				    for(var i = 0; i < hashes.length; i++)
-				    {
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
 					hash = hashes[i].split('=');
 					vars.push(hash[0]);
 					vars[hash[0]] = hash[1];
-				    }
-				    return vars;
 				}
+				return vars;
+			}
 			
 			function okConfirmation() {
 				var accessToken="<%= accesstoken %>";
