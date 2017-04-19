@@ -70,20 +70,19 @@
 				    return vars;
 				}
 				
-				function isSafariCookiesDisable(){
+			    function isSafariCookiesDisable(){
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
 					if(!navigator.cookieEnabled && isSafari){
         				//$("#modalSafariEnable").dialog();
-        				return true;
+        				 document.getElementById('modalSafariEnable').style.display = "block";
+        			} else {
+        			   LDLTCMPCreate();
         			}
-        			return false;
 				}
-				
+
 				function LDLTCMPCreate() {
-				   alert("Called LDLTCMPCreate 0");
-				   if(!isSafariCookiesDisable()){
-				    alert("Called LDLTCMPCreate 1");
+				    alert('Called LDLTCMPCreate ');
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
@@ -124,9 +123,6 @@
 						});
 					} catch(err) {
 						console.log('err::'+err);
-					} else {
-					    //$("#modalSafariEnable").dialog();
-					     document.getElementById('modalSafariEnable').style.display = "block";
 					}
 				}
 			
@@ -173,7 +169,7 @@
 			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 			}
 			
-			SS.LightningActions.LDLTCMPCreate();
+			SS.LightningActions.isSafariCookiesDisable();
 		</script>
 		
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
