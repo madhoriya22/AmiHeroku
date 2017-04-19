@@ -50,7 +50,7 @@
 				    $("#modalWarning").hide();
 					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
-					isSafariBrowser();
+					//isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -102,6 +102,7 @@
 							LDT_loadComponent('onload', accessToken);
 						}, sfdcurl, accessToken);
 						$(document).ready(function () {
+						    isSafariBrowser();
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
 						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
