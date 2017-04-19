@@ -49,6 +49,7 @@
 				function onWinLoad() {
 				    $("#modalWarning").hide();
 					$("#modalSafariEnable").hide();
+					isSafariCookiesDisable();
 					var vars = getUrlVars();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
@@ -73,13 +74,9 @@
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
 					if(!navigator.cookieEnabled && isSafari){
-        				//$("#modalSafariEnable").dialog();
-        				return true;
-        			} else {
-        			   return false;
-        			}
+        				document.getElementById('modalSafariEnable').style.display = "block";
+        			} 
 				}
-
 				
 				function LDLTCMPCreate() {
 				    alert('Called LDLTCMPCreate ');
@@ -94,15 +91,10 @@
 					console.log('orgId= '+orgid);
 					console.log('sessionIdleTime : '+sessionIdleTime);
 				    try {
-						if(isSafariCookiesDisable()) {
-							console.log('before calling load component1');
-							document.getElementById('modalSafariEnable').style.display = "block";
-						} else {
-							$Lightning.use("<%= namespace %>LDLT", function(cmp){
-								console.log('before calling load component2');
-								LDT_loadComponent('onload', accessToken);
-							}, sfdcurl, accessToken);
-						}
+						$Lightning.use("<%= namespace %>LDLT", function(cmp){
+							console.log('before calling load component2');
+							LDT_loadComponent('onload', accessToken);
+						}, sfdcurl, accessToken);
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
@@ -174,6 +166,10 @@
 			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 			}
 			
+			function okConfirm() {
+				window.close();
+			}
+			
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 		
@@ -200,7 +196,7 @@
                 		<div class="warning-content clearfix">
                     		The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.
                     		<br/><br/>
-                    		<button style="float:right;width:100px;" class="c btn-outline-info">Ok</button>
+                    		<button style="float:right;width:100px;" class="c btn-outline-info" onclick="okConfirm();">Ok</button>
                		 	</div>
 					</div>
 					<div class="col-md-3"></div>
