@@ -1,5 +1,6 @@
 <html lang="en">
 	<head>
+	    
 		 <% include ../partials/ldOut %>
 		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	</head>
@@ -48,9 +49,8 @@
 				function onWinLoad() {
 				    $("#modalWarning").hide();
 					$("#modalSafariEnable").hide();
-					isSafariBrowser();
 					var vars = getUrlVars();
-					
+					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -71,18 +71,18 @@
 				}
 				
 				function isSafariBrowser(){
+					//alert('@@ called isSafariBrowser');
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-                    	navigator.userAgent && !navigator.userAgent.match('CriOS');
-       					console.log('isSafari : '+ isSafari + '  isCookies enable : '+ navigator.cookieEnabled);  
+                           navigator.userAgent && !navigator.userAgent.match('CriOS');
+       					   //salert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
 					if(!navigator.cookieEnabled && isSafari){
-        				//$("#modalSafariEnable").dialog();
-        				document.getElementById('modalSafariEnable').style.display = "block";
+        				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
+        				$("#modalSafariEnable").dialog();
         			}
         			return false;
 				}
 				
 				function LDLTCMPCreate() {
-				    alert('Calliing LDLTCMPCreate :: ');
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
@@ -116,7 +116,11 @@
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
+							        console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
                                     document.getElementById('modalWarning').style.display = "block";
+							        console.log('ModalWarning check ::  11');
+							       // $("#modalWarning").dialog();
+							        console.log('ModalWarning check ::  22');
 							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 							    }
 							}
@@ -139,21 +143,21 @@
 					onWinLoad : onWinLoad
 				};
 			}());
-			
 			window.onload =function(){
 				SS.LightningActions.onWinLoad();
 			}
 			
 			function getUrlVars(){
-		    	var vars = [], hash;
-				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				for(var i = 0; i < hashes.length; i++){
+				    var vars = [], hash;
+				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				    for(var i = 0; i < hashes.length; i++)
+				    {
 					hash = hashes[i].split('=');
 					vars.push(hash[0]);
 					vars[hash[0]] = hash[1];
+				    }
+				    return vars;
 				}
-				return vars;
-			}
 			
 			function okConfirmation() {
 				var accessToken="<%= accesstoken %>";
@@ -162,7 +166,10 @@
 				var id = getUrlVars()["renId"];
 				var sessionIdleTime = "<%= idletime %>";
 					
-				console.log(sfdcurl + ' accessToken : ' + accessToken + ' orgId : '+ orgId + ' sessionIdleTime : ' + sessionIdleTime );
+				console.log(sfdcurl);
+				console.log(accessToken);
+				console.log('orgId= '+orgid);
+				console.log('sessionIdleTime : '+sessionIdleTime);
 				console.log(' okConfirmation called   ');
 			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 			}
@@ -185,7 +192,7 @@
     		</div>
 		</div>
 		
-		<div id="modalSafariEnable" class="modal-overlay" style="width: 100%;height: 100%;">
+		<div id="modalSafariEnable" class="modal-overlay">
 			<div class="container">
     			<div class="row">
        				<div class="col-md-3"></div>
