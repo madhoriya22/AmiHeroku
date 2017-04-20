@@ -106,12 +106,9 @@
 				}
 				
 			   function isSafariBrowser(){
-					//alert('@@ called isSafariBrowser');
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
-       					   //salert('isSafari : '+ isSafari + '   isCookies enable : '+ navigator.cookieEnabled);  
 					if(!navigator.cookieEnabled && isSafari){
-        				//alert('The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.');
         				console.log('ModalWarning check :: 111 ');
         				$("#modalSafariEnable").dialog();
         				//$("#modalSafariEnable").style.display = "block";
@@ -120,7 +117,6 @@
 				}
 				
 				function LDLTCMPCreate() {
-				    alert('Called LDLTCMPCreate ');
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
@@ -156,8 +152,8 @@
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
 							        console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
-                                   // document.getElementById('modalWarning').style.display = "block";
-                                    $("#modalSafariEnable").dialog();s
+                                    document.getElementById('modalWarning').style.display = "block";
+                                   // $("#modalSafariEnable").dialog();s
 							    }
 							}
 						});
@@ -210,8 +206,19 @@
 			}
 			
 			function okConfirm() {
-				console.log(' okConfirm :: Safari   ');
-				window.close();
+			    var accessToken="<%= accesstoken %>";
+				var sfdcurl = "<%= sfdcurl %>";
+				var orgid = "<%= orgid %>";
+				var id = getUrlVars()["renId"];
+				var sessionIdleTime = "<%= idletime %>";
+					
+				console.log(sfdcurl);
+				console.log(accessToken);
+				console.log('orgId= '+orgid);
+				console.log('sessionIdleTime : '+sessionIdleTime);
+				console.log(' okConfirmation called   ');
+				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+                window.close();
 			}
 			
 			SS.LightningActions.LDLTCMPCreate();
