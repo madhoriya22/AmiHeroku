@@ -156,7 +156,8 @@
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
 							        console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
-                                    document.getElementById('modalWarning').style.display = "block";
+                                   // document.getElementById('modalWarning').style.display = "block";
+                                    $("#modalSafariEnable").dialog();s
 							    }
 							}
 						});
