@@ -5,9 +5,7 @@
 		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	</head>
 	<style>
-	    .no-close .ui-dialog-titlebar-close {
-    		display: none;
-		}
+
 		.modal-overlay {
 		    dialogClass: "no-close";
     		display: none; /* Hidden by default */
@@ -23,7 +21,6 @@
     		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 		} 
 		
-		/* Session expiration warning popup*/
 		.warning-content {
    			 background-color: #fefefe;
    			 padding: 10px;
@@ -31,7 +28,6 @@
    			 border-radius: 2px;
     		box-shadow:0 5px 15px rgba(0,0,0,.5);
 		}
-		/* End session expiration warning popup*/
 	
 	</style>
 	
@@ -116,7 +112,6 @@
         			return false;
 				}
 				
-				
 				function LDLTCMPCreate() {
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
@@ -176,6 +171,7 @@
 					onWinLoad : onWinLoad
 				};
 			}());
+			
 			window.onload =function(){
 				SS.LightningActions.onWinLoad();
 			}
@@ -221,7 +217,6 @@
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
-			
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 		
