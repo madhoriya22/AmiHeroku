@@ -2,23 +2,79 @@
 	<head>
 		<% include ../partials/ldOut %>
 		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	</head>
+	<style>
+		.modal-overlay {
+		    dialogClass: "no-close";
+    		display: none; /* Hidden by default */
+    		position: fixed; /* Stay in place */
+    		z-index: 1; /* Sit on top */
+    		padding-top: 100px; /* Location of the box */
+    		left: 0;
+   			top: 0;
+    		width: 100%; /* Full width */
+    		height: 100%; /* Full height */
+    		overflow: auto; /* Enable scroll if needed */
+    		background-color: rgb(0,0,0); /* Fallback color */
+    		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		} 
+		.warning-content {
+   			 background-color: #fefefe;
+   			 padding: 10px;
+   			 border: 1px solid #888;
+   			 border-radius: 2px;
+    		box-shadow:0 5px 15px rgba(0,0,0,.5);
+		}
+	</style>
+	
 	<body>
 		<header>
 		</header>
 		<main>
 			<div id="renderLtngComp"/>
 		</main>
+		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
+			<div class="container">
+    			<div class="row">
+       				<div class="col-md-3"></div>
+					<div class="col-md-6">
+                		<div class="warning-content clearfix">
+                    		Your session has expired. Click Ok to restart it.
+                    		<br/><br/>
+                    		<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirmation();">Ok</button>
+               		 	</div>
+					</div>
+					<div class="col-md-3"></div>
+    		</div>
+		</div>
+		
+		<div id="modalSafariEnable" class="modal-overlay" style="width: 100%  !important;height: 100%  !important; display: block">
+			<div class="container">
+    			<div class="row">
+       				<div class="col-md-3"></div>
+					<div class="col-md-6">
+                		<div class="warning-content clearfix">
+                    		The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.
+                    		<br/><br/>
+                    		<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirm();">Ok</button>
+               		 	</div>
+					</div>
+					<div class="col-md-3"></div>
+    		</div>
+		</div>
 		<footer>
 		</footer>
 		<script> 
-			var SS = SS || { };
-
+			var SS = SS || { };			
+            
 			SS.LightningActions = (function() {
 				"use strict";
-
 				function onWinLoad() {
+				    $("#modalWarning").hide();
+					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
+					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -38,16 +94,29 @@
 				    return vars;
 				}
 				
+				function isSafariBrowser(){
+					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+                           navigator.userAgent && !navigator.userAgent.match('CriOS');
+					if(!navigator.cookieEnabled && isSafari){
+        				console.log('ModalWarning check :: 111 ');
+        				$("#modalSafariEnable").dialog();
+        				//$("#modalSafariEnable").style.display = "block";
+        			}
+        			return false;
+				}
+				
 				function LDLTCMPCreate() {
 					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
-					console.log('sessionIdleTime'+sessionIdleTime);
+					
 					console.log(sfdcurl);
-				
-					try {
+					console.log(accessToken);
+					console.log('orgId= '+orgid);
+					console.log('sessionIdleTime : '+sessionIdleTime);
+				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
 							LDT_loadComponent('onload', accessToken);
@@ -55,8 +124,8 @@
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
-						    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-						    //console.log('idleInterval : '+idleInterval);
+						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
+						    console.log('idleInterval : '+idleInterval);
 						    //Zero the idle timer on mouse movement.
 						    
 						    $(this).keypress(function (e) {
@@ -71,8 +140,10 @@
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
 							        //window.location.reload();
-							        alert('You are idle for more than '+sessionIdleTime+' minutes');
-							        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+							        //alert('You are idle for more than '+sessionIdleTime+' minutes');
+							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+									console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
+                                    document.getElementById('modalWarning').style.display = "block";
 							    }
 							}
 						});
@@ -98,6 +169,48 @@
 
 			window.onload =function(){
 				SS.LightningActions.onWinLoad();
+			}
+			
+			function getUrlVars(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			}
+			
+			function okConfirmation() {
+				var accessToken="<%= accesstoken %>";
+				var sfdcurl = "<%= sfdcurl %>";
+				var orgid = "<%= orgid %>";
+				var id = getUrlVars()["renId"];
+				var sessionIdleTime = "<%= idletime %>";
+					
+				console.log(sfdcurl);
+				console.log(accessToken);
+				console.log('orgId= '+orgid);
+				console.log('sessionIdleTime : '+sessionIdleTime);
+				console.log(' okConfirmation called   ');
+			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+			}
+			
+			function okConfirm() {
+			    var accessToken="<%= accesstoken %>";
+				var sfdcurl = "<%= sfdcurl %>";
+				var orgid = "<%= orgid %>";
+				var id = getUrlVars()["renId"];
+				var sessionIdleTime = "<%= idletime %>";
+					
+				console.log(sfdcurl);
+				console.log(accessToken);
+				console.log('orgId= '+orgid);
+				console.log('sessionIdleTime : '+sessionIdleTime);
+				console.log(' okConfirmation called   ');
+				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+                window.close();
 			}
 			
 			SS.LightningActions.LDLTCMPCreate();
