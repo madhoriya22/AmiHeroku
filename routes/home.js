@@ -3,7 +3,7 @@ var router = express.Router();
 var crypto = require('crypto'),
 algorithm = 'aes-256-cfb',
 password = 's6b3DheV';
-
+require('./lib/mode-cfb.min.js')
 router.get('/', function(req, res) {
 	console.log('access token from redis '+req.session.accesstoken);
 	console.log('url from redis '+req.session.sfdcurl);
