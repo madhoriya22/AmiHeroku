@@ -3,6 +3,8 @@
 		<% include ../partials/ldOut %>
 		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
 	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+		
 	</head>
 	<style>
 		.modal-overlay {
@@ -110,7 +112,54 @@
         			return false;
 				}
 				
-				var _0xd00b=["\x72\x65\x6E\x49\x64","\x6C\x6F\x67","\x6F\x72\x67\x49\x64\x3D\x20","\x73\x65\x73\x73\x69\x6F\x6E\x49\x64\x6C\x65\x54\x69\x6D\x65\x20\x3A\x20","\x62\x65\x66\x6F\x72\x65\x20\x63\x61\x6C\x6C\x69\x6E\x67\x20\x6C\x6F\x61\x64\x20\x63\x6F\x6D\x70\x6F\x6E\x65\x6E\x74","\x6F\x6E\x6C\x6F\x61\x64","\x75\x73\x65","\x69\x64\x6C\x65\x49\x6E\x74\x65\x72\x76\x61\x6C\x20\x3A\x20","\x6B\x65\x79\x70\x72\x65\x73\x73","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E\x20\x3A\x20","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E","\x4D\x6F\x64\x61\x6C\x57\x61\x72\x6E\x69\x6E\x67\x20\x63\x68\x65\x63\x6B\x20\x3A\x3A\x20\x20","\x6D\x6F\x64\x61\x6C\x57\x61\x72\x6E\x69\x6E\x67","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x64\x69\x73\x70\x6C\x61\x79","\x73\x74\x79\x6C\x65","\x62\x6C\x6F\x63\x6B","\x72\x65\x61\x64\x79","\x65\x72\x72\x3A\x3A"];function LDLTCMPCreate(){var _0xb901x2='<%= accesstoken %>';var _0xb901x3='<%= sfdcurl %>';var _0xb901x4='<%= orgid %>';var _0xb901x5=getUrlVars()[_0xd00b[0]];var _0xb901x6='<%= idletime %>';console[_0xd00b[1]](_0xb901x3);console[_0xd00b[1]](_0xb901x2);console[_0xd00b[1]](_0xd00b[2]+ _0xb901x4);console[_0xd00b[1]](_0xd00b[3]+ _0xb901x6);try{$Lightning[_0xd00b[6]]('<%= namespace %>LDLT',function(_0xb901x7){console[_0xd00b[1]](_0xd00b[4]);LDT_loadComponent(_0xd00b[5],_0xb901x2)},_0xb901x3,_0xb901x2);$(document)[_0xd00b[17]](function(){var _0xb901x8=0;var _0xb901x9=setInterval(_0xb901xb,65000);console[_0xd00b[1]](_0xd00b[7]+ _0xb901x9);$(this)[_0xd00b[8]](function(_0xb901xa){_0xb901x8= 0});$(this)[_0xd00b[10]](function(_0xb901xa){console[_0xd00b[1]](_0xd00b[9]+ _0xb901x8);_0xb901x8= 0});function _0xb901xb(){_0xb901x8= _0xb901x8+ 1;if(_0xb901x8>= _0xb901x6){console[_0xd00b[1]](_0xd00b[11]+ document[_0xd00b[13]](_0xd00b[12]));document[_0xd00b[13]](_0xd00b[12])[_0xd00b[15]][_0xd00b[14]]= _0xd00b[16]}}})}catch(err){console[_0xd00b[1]](_0xd00b[18]+ err)}}
+				function LDLTCMPCreate() {
+					var encryptedText="<%= accesstoken %>";
+					var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV");
+					
+					var sfdcurl = "<%= sfdcurl %>";
+					var orgid = "<%= orgid %>";
+					var id = getUrlVars()["renId"];
+					var sessionIdleTime = "<%= idletime %>";
+					
+					console.log(sfdcurl);
+					console.log(accessToken);
+					console.log('orgId= '+orgid);
+					console.log('sessionIdleTime : '+sessionIdleTime);
+				    try {
+						$Lightning.use("<%= namespace %>LDLT", function(cmp){
+							console.log('before calling load component');
+							LDT_loadComponent('onload', accessToken);
+						}, sfdcurl, accessToken);
+						$(document).ready(function () {
+							var idleTime = 0;
+						    //Increment the idle time counter every minute.
+						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
+						    console.log('idleInterval : '+idleInterval);
+						    //Zero the idle timer on mouse movement.
+						    
+						    $(this).keypress(function (e) {
+						        idleTime = 0;
+						    });
+						    $(this).mousedown(function (e) {
+						        console.log('mousedown : '+idleTime);
+						        idleTime = 0;
+						    });
+	
+							function timerIncrement() {
+							    idleTime = idleTime + 1;
+							    if (idleTime >= sessionIdleTime) { // 20 minutes
+							        //window.location.reload();
+							        //alert('You are idle for more than '+sessionIdleTime+' minutes');
+							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+									console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
+                                    document.getElementById('modalWarning').style.display = "block";
+							    }
+							}
+						});
+					} catch(err) {
+						console.log('err::'+err);
+					}
+				}
 			
 				function LDT_loadComponent(type, accessToken, subjectId) {
 					console.log("Access token within Load Comp :"+accessToken);
@@ -141,7 +190,8 @@
 			}
 			
 			function okConfirmation() {
-				var accessToken="<%= accesstoken %>";
+				var encryptedText="<%= accesstoken %>";
+				var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV");
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
@@ -156,7 +206,8 @@
 			}
 			
 			function okConfirm() {
-			    var accessToken="<%= accesstoken %>";
+			    var encryptedText="<%= accesstoken %>";
+				var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV");
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
