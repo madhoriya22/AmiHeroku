@@ -114,7 +114,7 @@
 				
 				function LDLTCMPCreate() {
 					var encryptedText="<%= accesstoken %>";
-					var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV");
+					var accessToken  = CryptoJS.AES.decrypt(encryptedText, "s6b3DheV");
 					
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
@@ -191,7 +191,7 @@
 			
 			function okConfirmation() {
 				var encryptedText="<%= accesstoken %>";
-				var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV");
+				var accessToken  = CryptoJS.AES.decrypt(encryptedText, "s6b3DheV");
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
@@ -207,7 +207,7 @@
 			
 			function okConfirm() {
 			    var encryptedText="<%= accesstoken %>";
-				var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV");
+				var accessToken  = CryptoJS.AES.decrypt(encryptedText, "s6b3DheV");
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
