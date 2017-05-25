@@ -3,8 +3,6 @@
 		<% include ../partials/ldOut %>
 		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
 	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-cfb.min.js"></script>
 	</head>
 	<style>
 		.modal-overlay {
@@ -113,9 +111,7 @@
 				}
 				
 				function LDLTCMPCreate() {
-					var encryptedText="<%= accesstoken %>";
-					var accessToken  = CryptoJS.AES.decrypt(encryptedText, "s6b3DheV",{ mode: CryptoJS.mode.CFB });
-					 accessToken = accessToken.toString(CryptoJS.enc.Utf8)
+					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
@@ -190,8 +186,7 @@
 			}
 			
 			function okConfirmation() {
-				var encryptedText="<%= accesstoken %>";
-				var accessToken  = CryptoJS.AES.decrypt(encryptedText, "s6b3DheV");
+				var accessToken="<%= accesstoken %>";
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
@@ -206,8 +201,7 @@
 			}
 			
 			function okConfirm() {
-			    var encryptedText="<%= accesstoken %>";
-				var accessToken  = CryptoJS.AES.decrypt(encryptedText, "s6b3DheV");
+			    var accessToken="<%= accesstoken %>";
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
