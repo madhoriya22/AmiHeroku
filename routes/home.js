@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var cryptoMode = require('./lib/mode-cfb.min.js');
+var cryptoMode = require('../../lib/mode-cfb.min.js');
 var crypto = require('crypto'),
 algorithm = 'aes-256-cfb',
 password = 'd6F3Efeq';
