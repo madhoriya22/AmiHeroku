@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var cryptoAesCtr = require("crypto-aes-ctr");
+
 var crypto = require('crypto'),
 algorithm = 'aes-256-ctr',
 password = 'd6F3Efeq';
