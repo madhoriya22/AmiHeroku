@@ -115,7 +115,7 @@
 				function LDLTCMPCreate() {
 					var encryptedAES="<%= accesstoken %>";
 				    var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV",{ mode: CryptoJS.mode.CFB });
-					accessToken = accessToken.toString("UTF-8");
+					accessToken = accessToken.toString(CryptoJS.enc.Utf8);
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
