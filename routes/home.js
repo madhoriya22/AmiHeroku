@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto'),
-algorithm = 'aes-256-cbc',
+algorithm = 'aes-256-cfb',
 password = 's6b3DheV';
 
 router.get('/', function(req, res) {
