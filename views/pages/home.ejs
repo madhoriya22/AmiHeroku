@@ -5,6 +5,7 @@
 	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-cfb.min.js"></script>
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ctr.min.js"></script>
 	</head>
 	<style>
 		.modal-overlay {
@@ -113,9 +114,9 @@
 				}
 				
 				function LDLTCMPCreate() {
-					var accessToken="<%= accesstoken %>";
-				    /*var accessToken  = CryptoJS.AES.decrypt(encryptedAES, "s6b3DheV",{ mode: CryptoJS.mode.CFB });
-					accessToken = accessToken.toString(CryptoJS.enc.Utf8);*/
+					var encToken="<%= accesstoken %>";
+				    var accessToken  = CryptoJS.AES.decrypt(encToken, "d6F3Efeq",{ mode: CryptoJS.mode.CTR });
+					accessToken = accessToken.toString(CryptoJS.enc.Utf8);
 					
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";

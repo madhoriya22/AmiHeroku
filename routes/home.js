@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto'),
-algorithm = 'aes-256-cfb',
-password = 's6b3DheV';
+algorithm = 'aes-256-ctr',
+password = 'd6F3Efeq';
+
 router.get('/', function(req, res) {
 	console.log('access token from redis '+req.session.accesstoken);
 	console.log('url from redis '+req.session.sfdcurl);
 	    res.render('pages/home', {
-	    	accesstoken: req.session.accesstoken,
+	    	accesstoken: encrypt(req.session.accesstoken),
 	    	sfdcurl: req.session.sfdcurl,
 	    	orgid: req.session.orgid,
 	    	namespace: process.env['SF_NAMESPACE'],
