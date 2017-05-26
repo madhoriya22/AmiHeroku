@@ -77,7 +77,7 @@ var JsonFormatter = node_cryptojs.JsonFormatter;
 
  
 // convert CipherParams object to json string for transmission 
-var encrypted_json_str = encrypted.toString();
+var encrypted_json_str;
  
 console.log("serialized CipherParams object: ");
 console.log(encrypted_json_str);
