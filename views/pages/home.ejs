@@ -3,9 +3,11 @@
 		<% include ../partials/ldOut %>
 		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
 	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-		 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+		 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-cfb.min.js"></script>
-		 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ctr.min.js"></script>
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/mode-ctr.min.js"></script>-->
+		 <script type="text/javascript" src="http://chengxianga2008.github.com/node-cryptojs-aes/client/aes.js"></script>
+		 <script type="text/javascript" src="http://chengxianga2008.github.com/node-cryptojs-aes/client/jsonformatter.js"></script>
 	</head>
 	<style>
 		.modal-overlay {
@@ -117,6 +119,44 @@
 					var accessToken="<%= accesstoken %>";
 				    /*var accessToken  = CryptoJS.AES.decrypt(encToken, "d6F3Efeq",{ mode: CryptoJS.mode.CTR });
 					accessToken = accessToken.toString(CryptoJS.enc.Utf8);*/
+					
+					// retrieve encrypted json string when loading page
+					// define server cipherParams JSONP path
+					var encrypted_url = "https://ldlt-dheeraj-dev.herokuapp.com/crypto/encrypted?callback=?";
+					
+					// JSONP AJAX call to node.js server running on localhost:3000
+					$.getJSON(encrypted_url, function(data){
+						  var encrypted_json_str = data.encrypted;
+
+					    console.log("encrypted json string: ");
+					    console.log(encrypted_json_str);
+					}).done(function(){
+						//$("#decipher").removeAttr("disabled");
+					});		
+					
+					
+					var passphrase_url = "https://ldlt-dheeraj-dev.herokuapp.com/crypto/passphrase?callback=?";
+		
+					// JSONP AJAX call to node.js server running on localhost:3000
+					$.getJSON(passphrase_url, function(data){
+			
+						// retrieve passphrase string
+					    var r_pass_base64 = data.passphrase;
+			
+					    console.log("passphrase: ");
+					    console.log(r_pass_base64);
+					    
+					     var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
+
+					    // convert to Utf8 format unmasked data
+					    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted);
+			
+					    console.log("decrypted string: " + decrypted_str);
+					    
+					}).done(function(){
+						//$("#decipher").attr("disabled","disabled");
+					});
+							
 					
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
