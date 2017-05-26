@@ -23,7 +23,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
 	message = req.session.accesstoken;
-	 console.log("OAuth token ==>>  "+message);
+	 console.log("============== OAuth token ==>>  "+message);
 	res.redirect('/home?renId='+req.query.renId);
 });
 
