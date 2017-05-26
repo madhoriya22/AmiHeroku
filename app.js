@@ -11,7 +11,7 @@ app.use(sessions.createSession());
 // Require Routes js
 var routesHome = require('./routes/home');
 //message to cipher 
-var message = 'Test method crypto';
+var message = req.app.locals.oauthtoken;
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
