@@ -129,7 +129,8 @@ var JsonFormatter = {
 app.get('/crypto/encrypted', function(request, response) {
 	var encrypted = CryptoJS.AES.encrypt(request.app.locals.oauthtoken, r_pass_base64, { format: JsonFormatter });
     console.log("Acc"+request.app.locals.oauthtoken +" Encrypt "+encrypted);
-	//JSONP allow cross domain AJAX 
+    encrypted_json_str = encrypted.toString();
+    //JSONP allow cross domain AJAX 
     response.jsonp({
         encrypted : encrypted_json_str
     });
