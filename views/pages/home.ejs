@@ -123,10 +123,10 @@
 					// retrieve encrypted json string when loading page
 					// define server cipherParams JSONP path
 					var encrypted_url = "https://ldlt-dheeraj-dev.herokuapp.com/crypto/encrypted?callback=?";
-					
+					var encrypted_json_str;
 					// JSONP AJAX call to node.js server running on localhost:3000
 					$.getJSON(encrypted_url, function(data){
-						  var encrypted_json_str = data.encrypted;
+						   encrypted_json_str = data.encrypted;
 
 					    console.log("encrypted json string: ");
 					    console.log(encrypted_json_str);
