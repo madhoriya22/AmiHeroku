@@ -65,7 +65,7 @@ var CryptoJS = node_cryptojs.CryptoJS;
 var JsonFormatter = node_cryptojs.JsonFormatter;
  
 // message to cipher 
-var message = oauth.accessToken;;
+var message = 'Test method Tes';
  console.log("OAuth token ==>>  "+message);
 // encrypt plain text with passphrase and custom json serialization format, return CipherParams object 
 // r_pass_base64 is the passphrase generated from first stage 
