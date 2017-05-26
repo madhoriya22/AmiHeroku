@@ -10,7 +10,9 @@ app.use(sessions.createSession());
 
 // Require Routes js
 var routesHome = require('./routes/home');
-
+//message to cipher 
+var message = 'Test';
+ console.log("OAuth token ==>>  "+message);
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
@@ -20,6 +22,8 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
+	message = req.session.accesstoken;
+	res.redirect('/home?renId='+req.query.renId);
 });
 
 app.get('/accesstoken', function(req, res){
@@ -64,9 +68,7 @@ var CryptoJS = node_cryptojs.CryptoJS;
 // custom json serialization format 
 var JsonFormatter = node_cryptojs.JsonFormatter;
  
-// message to cipher 
-var message = 'Test method Tes';
- console.log("OAuth token ==>>  "+message);
+
 // encrypt plain text with passphrase and custom json serialization format, return CipherParams object 
 // r_pass_base64 is the passphrase generated from first stage 
 // message is the original plain text   
