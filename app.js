@@ -12,7 +12,7 @@ app.use(sessions.createSession());
 var routesHome = require('./routes/home');
 //message to cipher 
 var message = 'Test';
- console.log("OAuth token ==>>  "+message);
+
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
@@ -23,6 +23,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
 	message = req.session.accesstoken;
+	 console.log("OAuth token ==>>  "+message);
 	res.redirect('/home?renId='+req.query.renId);
 });
 
