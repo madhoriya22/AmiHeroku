@@ -114,9 +114,9 @@
 				}
 				
 				function LDLTCMPCreate() {
-					var encToken="<%= accesstoken %>";
-				    var accessToken  = CryptoJS.AES.decrypt(encToken, "d6F3Efeq",{ mode: CryptoJS.mode.CFB });
-					accessToken = accessToken.toString(CryptoJS.enc.Utf8);
+					var accessToken="<%= accesstoken %>";
+				    /*var accessToken  = CryptoJS.AES.decrypt(encToken, "d6F3Efeq",{ mode: CryptoJS.mode.CFB });
+					accessToken = accessToken.toString(CryptoJS.enc.Utf8);*/
 					
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
