@@ -23,8 +23,8 @@ router.get('/', function(req, res) {
 	console.log('access token from redis '+req.session.accesstoken);
 	console.log('url from redis '+req.session.sfdcurl);
 	var encrypted = CryptoJS.AES.encrypt(request.app.locals.oauthtoken, r_pass_base64, { format: JsonFormatter });
-    console.log("Acc"+request.app.locals.oauthtoken +" Encrypt "+encrypted);
-    encrypted_json_str = encrypted.toString();
+    //console.log("Acc"+request.app.locals.oauthtoken +" Encrypt "+encrypted);
+    var encrypted_json_str = encrypted.toString();
     
 	res.render('pages/home', {
 	    	accesstoken: encrypted_json_str,
