@@ -22,9 +22,12 @@ var JsonFormatter = node_cryptojs.JsonFormatter;
 router.get('/', function(req, res) {
 	console.log('access token from redis '+req.session.accesstoken);
 	console.log('url from redis '+req.session.sfdcurl);
+	    var jsonObj = {
+	    		encrypted:CryptoJS.AES.encrypt(req.session.accesstoken, r_pass_base64, { format: JsonFormatter }).toString()
+	    		};
 	    
 	res.render('pages/home', {
-	    	accesstoken: CryptoJS.AES.encrypt(req.session.accesstoken, r_pass_base64, { format: JsonFormatter }).toString(),
+	    	accesstoken: jsonObj,
 	    	sfdcurl: req.session.sfdcurl,
 	    	orgid: req.session.orgid,
 	    	namespace: process.env['SF_NAMESPACE'],
