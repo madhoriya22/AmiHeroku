@@ -15,7 +15,7 @@ var node_cryptojs = require('node-cryptojs-aes');
 // node-cryptojs-aes main object; 
 var CryptoJS = node_cryptojs.CryptoJS;
  
-// custom json serialization format 
+// custom json serialization format  
 var JsonFormatter = node_cryptojs.JsonFormatter;
 
 
