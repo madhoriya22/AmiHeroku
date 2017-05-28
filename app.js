@@ -22,10 +22,10 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
-	message = req.app.locals.oauthtoken;
+	/*message = req.app.locals.oauthtoken;
 	encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
 	encrypted_json_str = encrypted.toString();
-	console.log("============== OAuth token ==>> update "+message);
+	console.log("============== OAuth token ==>> update "+message);*/
 	
 });
 
