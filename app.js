@@ -26,7 +26,7 @@ app.get('/', function(req, res){
 	encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
 	encrypted_json_str = encrypted.toString();
 	console.log("============== OAuth token ==>> update "+message);*/
-	res.redirect('/home?renId='+req.query.renId);
+	
 });
 
 app.get('/accesstoken', function(req, res){
