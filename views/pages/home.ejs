@@ -157,7 +157,10 @@ var JsonFormatter = {
 				}
 				
 				function LDLTCMPCreate() {
-					var accessToken="<%= accesstoken %>";
+					var encrypted_json_str="<%= accesstoken %>";
+				    var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, 'D6sNp0SlPO', { format: JsonFormatter });
+				    var accessToken = CryptoJS.enc.Utf8.stringify(decrypted);
+				    
 				    /*var accessToken  = CryptoJS.AES.decrypt(encToken, "d6F3Efeq",{ mode: CryptoJS.mode.CTR });
 					accessToken = accessToken.toString(CryptoJS.enc.Utf8);*/
 					
