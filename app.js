@@ -129,7 +129,8 @@ var JsonFormatter = {
 
 //browser request serialized cipherParams object in path /crypto/encrypted, with JSONP support 
 app.get('/crypto/encrypted', function(request, response) {
- 
+	oauth.getAccessTokenInRes(request, response, app);
+	console.log("OAuth ==>> "+request.app.locals.oauthtoken);
     //JSONP allow cross domain AJAX 
     response.jsonp({
         encrypted : encrypted_json_str
