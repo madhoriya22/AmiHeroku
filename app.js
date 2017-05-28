@@ -76,10 +76,10 @@ var JsonFormatter = node_cryptojs.JsonFormatter;
 // r_pass_base64 is the passphrase generated from first stage 
 // message is the original plain text   
  
-var encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
+var encrypted;
  
 // convert CipherParams object to json string for transmission 
-var encrypted_json_str = encrypted.toString();
+var encrypted_json_str;
  
 console.log("serialized CipherParams object: ");
 console.log(encrypted_json_str);
@@ -131,8 +131,10 @@ var JsonFormatter = {
 app.get('/crypto/encrypted', function(request, response) {
 	//oauth.getAccessTokenInRes(request, response, app);
 	console.log("============================= Hell Yeah =========");
-	console.log("Tttttttooooo kkkeeenn  "+request.session.accesstoken);
-    //JSONP allow cross domain AJAX 
+	console.log("Tttttttooooo kkkeeenn  "+);
+	encrypted = CryptoJS.AES.encrypt(request.session.accesstoken, r_pass_base64, { format: JsonFormatter });
+	encrypted_json_str = encrypted.toString();
+	//JSONP allow cross domain AJAX 
     response.jsonp({
         encrypted : encrypted_json_str
     });
