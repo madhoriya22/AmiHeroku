@@ -11,7 +11,7 @@ app.use(sessions.createSession());
 // Require Routes js
 var routesHome = require('./routes/home');
 //message to cipher 
-var message = "Test Token";
+var message = 'Test method crypto';
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
@@ -23,7 +23,9 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
 	message = req.app.locals.oauthtoken;
-	 console.log("============== OAuth token ==>>  "+message);
+	encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
+	encrypted_json_str = encrypted.toString();
+	console.log("============== OAuth token ==>> update "+message);
 	res.redirect('/home?renId='+req.query.renId);
 });
 
@@ -74,10 +76,10 @@ var JsonFormatter = node_cryptojs.JsonFormatter;
 // r_pass_base64 is the passphrase generated from first stage 
 // message is the original plain text   
  
-
+var encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
  
 // convert CipherParams object to json string for transmission 
-var encrypted_json_str;
+var encrypted_json_str = encrypted.toString();
  
 console.log("serialized CipherParams object: ");
 console.log(encrypted_json_str);
@@ -127,9 +129,7 @@ var JsonFormatter = {
 
 //browser request serialized cipherParams object in path /crypto/encrypted, with JSONP support 
 app.get('/crypto/encrypted', function(request, response) {
-	var encrypted = CryptoJS.AES.encrypt(request.app.locals.oauthtoken, r_pass_base64, { format: JsonFormatter });
-    console.log("Acc"+request.app.locals.oauthtoken +" Encrypt "+encrypted);
-    encrypted_json_str = encrypted.toString();
+ 
     //JSONP allow cross domain AJAX 
     response.jsonp({
         encrypted : encrypted_json_str
