@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 	console.log('access token from redis '+req.session.accesstoken);
 	console.log('url from redis '+req.session.sfdcurl);
 	    var jsonObj =CryptoJS.AES.encrypt(req.session.accesstoken, r_pass_base64, { format: JsonFormatter });
-	    		};
+	    		
 	    
 	res.render('pages/home', {
 	    	accesstoken: jsonObj,
