@@ -131,7 +131,7 @@ var JsonFormatter = {
 app.get('/crypto/encrypted', function(request, response) {
 	oauth.getAccessTokenInRes(request, response, app);
 	console.log("============================= Hell Yeah =========");
-	console.log(request);
+	console.log("Tttttttooooo kkkeeenn  "+request.session.accesstoken);
     //JSONP allow cross domain AJAX 
     response.jsonp({
         encrypted : encrypted_json_str
