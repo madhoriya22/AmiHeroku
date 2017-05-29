@@ -256,10 +256,7 @@ var JsonFormatter = {
 				var id = getUrlVars()["renId"];
 				var sessionIdleTime = "<%= idletime %>";
 					
-				console.log(sfdcurl);
-				console.log('orgId= '+orgid);
-				console.log('sessionIdleTime : '+sessionIdleTime);
-				console.log(' okConfirmation called   ');
+				
 			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 			}
 			
@@ -270,10 +267,7 @@ var JsonFormatter = {
 				var id = getUrlVars()["renId"];
 				var sessionIdleTime = "<%= idletime %>";
 					
-				console.log(sfdcurl);
-				console.log('orgId= '+orgid);
-				console.log('sessionIdleTime : '+sessionIdleTime);
-				console.log(' okConfirmation called   ');
+				
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
