@@ -10,8 +10,7 @@ app.use(sessions.createSession());
 
 // Require Routes js
 var routesHome = require('./routes/home');
-//message to cipher 
-var message = '';
+
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
@@ -66,9 +65,6 @@ var CryptoJS = node_cryptojs.CryptoJS;
 var JsonFormatter = node_cryptojs.JsonFormatter;
  
 
-// encrypt plain text with passphrase and custom json serialization format, return CipherParams object 
-// r_pass_base64 is the passphrase generated from first stage 
-// message is the original plain text   
  
 var encrypted;
  
