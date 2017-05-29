@@ -195,19 +195,9 @@ var JsonFormatter = {
 					}).done(function(){
 			
 					});
-							
 					
-					
-					
-					console.log(sfdcurl);
-					console.log(accessToken);
-					console.log('orgId= '+orgid);
-					console.log('sessionIdleTime : '+sessionIdleTime);
-				    try {
-						/*$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							console.log('before calling load component');
-							LDT_loadComponent('onload', accessToken);
-						}, sfdcurl, accessToken);*/
+					try {
+						
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
@@ -226,11 +216,7 @@ var JsonFormatter = {
 							function timerIncrement() {
 							    idleTime = idleTime + 1;
 							    if (idleTime >= sessionIdleTime) { // 20 minutes
-							        //window.location.reload();
-							        //alert('You are idle for more than '+sessionIdleTime+' minutes');
-							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
-									console.log('ModalWarning check ::  '+ document.getElementById('modalWarning'));
-                                    document.getElementById('modalWarning').style.display = "block";
+							        document.getElementById('modalWarning').style.display = "block";
 							    }
 							}
 						});
@@ -239,12 +225,11 @@ var JsonFormatter = {
 					}
 				}
 			
-				function LDT_loadComponent(type, accessToken, subjectId) {
-					console.log("Access token within Load Comp :"+accessToken);
+				function LDT_loadComponent(type, str, subjectId) {
 					var id = getUrlVars()["renId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: accessToken}, "renderLtngComp");
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp");
 				}
 				
 				return {
