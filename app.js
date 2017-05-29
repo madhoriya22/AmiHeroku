@@ -130,8 +130,6 @@ var JsonFormatter = {
 //browser request serialized cipherParams object in path /crypto/encrypted, with JSONP support 
 app.get('/crypto/encrypted', function(request, response) {
 	//oauth.getAccessTokenInRes(request, response, app);
-	console.log("============================= Hell Yeah =========");
-
 	encrypted = CryptoJS.AES.encrypt(request.session.accesstoken, r_pass_base64, { format: JsonFormatter });
 	encrypted_json_str = encrypted.toString();
 	//JSONP allow cross domain AJAX 
