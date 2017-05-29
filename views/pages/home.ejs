@@ -64,7 +64,7 @@
 						<div class="warning-content clearfix">
 							The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.
 							<br/><br/>
-							<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirm();">Ok</button>
+							<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirm();">OK</button>
 						</div>
 					</div>
 					<div class="col-md-3"></div>
@@ -99,15 +99,12 @@ var JsonFormatter = {
 	},
 
 	parse: function (jsonStr) {
-		// parse json string
 		var jsonObj = JSON.parse(jsonStr);
 		
-		// extract ciphertext from json object, and create cipher params object
 		var cipherParams = CryptoJS.lib.CipherParams.create({
 			ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
 		});
 		
-		// optionally extract iv and salt
 		if (jsonObj.iv) {
 			cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
 		}
@@ -164,17 +161,17 @@ var JsonFormatter = {
 					var sessionIdleTime = "<%= idletime %>";
 					
 				    					
-					var encrypted_url = "/crypto/encrypted?orgid=<%= orgid %>&callback=?";
+					var encrypted_url = "/crypto/encrypted?callback=?";
 					var encrypted_json_str;
 					
 					$.getJSON(encrypted_url, function(data){
 						encrypted_json_str = data.encrypted;
 					}).done(function(){
 						
-					});		
+					});
 					
 					
-					var passphrase_url = "/crypto/passphrase?orgid=<%= orgid %>&callback=?";
+					var passphrase_url = "/crypto/passphrase?callback=?";
 		
 					$.getJSON(passphrase_url, function(data){
 					    var r_pass_base64 = data.passphrase;

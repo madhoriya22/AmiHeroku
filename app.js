@@ -11,7 +11,7 @@ app.use(sessions.createSession());
 // Require Routes js
 var routesHome = require('./routes/home');
 //message to cipher 
-var message = 'Test method crypto';
+var message = '';
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
@@ -22,10 +22,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
-	/*message = req.app.locals.oauthtoken;
-	encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
-	encrypted_json_str = encrypted.toString();
-	console.log("============== OAuth token ==>> update "+message);*/
+	
 	
 });
 
@@ -59,9 +56,6 @@ var r_pass = crypto.randomBytes(128);
 // convert passphrase to base64 format 
 var r_pass_base64 = r_pass.toString("base64");
  
-console.log("passphrase base64 format: ");
-console.log(r_pass_base64);
-
 //import node-cryptojs-aes modules to encrypt or decrypt data 
 var node_cryptojs = require('node-cryptojs-aes');
  
@@ -81,8 +75,6 @@ var encrypted;
 // convert CipherParams object to json string for transmission 
 var encrypted_json_str;
  
-console.log("serialized CipherParams object: ");
-console.log(encrypted_json_str);
 
 //create custom json serialization format 
 var JsonFormatter = {
