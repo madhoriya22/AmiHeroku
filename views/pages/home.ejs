@@ -253,32 +253,23 @@ var JsonFormatter = {
 			}
 			
 			function okConfirmation() {
-				var accessToken="<%= accesstoken %>";
+				var accessToken=str_temp;
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
 				var sessionIdleTime = "<%= idletime %>";
-					
-				console.log(sfdcurl);
-				console.log(accessToken);
-				console.log('orgId= '+orgid);
-				console.log('sessionIdleTime : '+sessionIdleTime);
-				console.log(' okConfirmation called   ');
+		
 			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 			}
 			
 			function okConfirm() {
-			    var accessToken="<%= accesstoken %>";
+			    var accessToken=str_temp;
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
 				var sessionIdleTime = "<%= idletime %>";
 					
-				console.log(sfdcurl);
-				console.log(accessToken);
-				console.log('orgId= '+orgid);
-				console.log('sessionIdleTime : '+sessionIdleTime);
-				console.log(' okConfirmation called   ');
+				
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
