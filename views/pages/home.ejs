@@ -75,7 +75,8 @@
 		<footer>
 		</footer>
 		<script> 
-			var SS = SS || { };			
+			var SS = SS || { };		
+			var str_temp='';	
             //create custom json serialization format
 var JsonFormatter = {
 	stringify: function (cipherParams) {
@@ -158,6 +159,11 @@ var JsonFormatter = {
 				
 				function LDLTCMPCreate() {
 					var accessToken="<%= accesstoken %>";
+					var sfdcurl = "<%= sfdcurl %>";
+					var orgid = "<%= orgid %>";
+					var id = getUrlVars()["renId"];
+					var sessionIdleTime = "<%= idletime %>";
+					
 				    /*var accessToken  = CryptoJS.AES.decrypt(encToken, "d6F3Efeq",{ mode: CryptoJS.mode.CTR });
 					accessToken = accessToken.toString(CryptoJS.enc.Utf8);*/
 					
@@ -173,41 +179,35 @@ var JsonFormatter = {
 					
 					var passphrase_url = "/crypto/passphrase?orgid=<%= orgid %>&callback=?";
 		
-					// JSONP AJAX call to node.js server running on localhost:3000
 					$.getJSON(passphrase_url, function(data){
-			
-						// retrieve passphrase string
 					    var r_pass_base64 = data.passphrase;
-			
-					    console.log("passphrase: ");
-					    console.log(r_pass_base64);
-					    
-					     var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
-
-					    // convert to Utf8 format unmasked data
+					    var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
 					    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted);
-			
-					    console.log("decrypted string: " + decrypted_str);
-					    
+						str_temp = decrypted_str;		    
+					    try{
+					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
+							console.log('before calling load component');
+							LDT_loadComponent('onload', accessToken);
+							}, sfdcurl, accessToken);
+					    }catch(err) {
+							console.log('err::'+err);
+						}
 					}).done(function(){
-						//$("#decipher").attr("disabled","disabled");
+			
 					});
 							
 					
-					var sfdcurl = "<%= sfdcurl %>";
-					var orgid = "<%= orgid %>";
-					var id = getUrlVars()["renId"];
-					var sessionIdleTime = "<%= idletime %>";
+					
 					
 					console.log(sfdcurl);
 					console.log(accessToken);
 					console.log('orgId= '+orgid);
 					console.log('sessionIdleTime : '+sessionIdleTime);
 				    try {
-						$Lightning.use("<%= namespace %>LDLT", function(cmp){
+						/*$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
 							LDT_loadComponent('onload', accessToken);
-						}, sfdcurl, accessToken);
+						}, sfdcurl, accessToken);*/
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
