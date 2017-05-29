@@ -158,15 +158,12 @@ var JsonFormatter = {
 				}
 				
 				function LDLTCMPCreate() {
-					var accessToken="<%= accesstoken %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
 					
-				    /*var accessToken  = CryptoJS.AES.decrypt(encToken, "d6F3Efeq",{ mode: CryptoJS.mode.CTR });
-					accessToken = accessToken.toString(CryptoJS.enc.Utf8);*/
-					
+				    					
 					var encrypted_url = "/crypto/encrypted?orgid=<%= orgid %>&callback=?";
 					var encrypted_json_str;
 					
@@ -188,7 +185,7 @@ var JsonFormatter = {
 					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
 							LDT_loadComponent('onload', decrypted_str);
-							}, sfdcurl, accessToken);
+							}, sfdcurl, decrypted_str);
 					    }catch(err) {
 							console.log('err::'+err);
 						}
