@@ -151,70 +151,7 @@
         			return false;
 				}
 				
-				function LDLTCMPCreate() {
-					var sfdcurl = "<%= sfdcurl %>";
-					var orgid = "<%= orgid %>";
-					var id = getUrlVars()["renId"];
-					var sessionIdleTime = "<%= idletime %>";
-					
-				    					
-					var encrypted_url = "/crypto/encrypted?callback=?";
-					var encrypted_json_str;
-					
-					$.getJSON(encrypted_url, function(data){
-						encrypted_json_str = data.encrypted;
-					}).done(function(){
-						
-					});
-					
-					
-					var passphrase_url = "/crypto/passphrase?callback=?";
-		
-					$.getJSON(passphrase_url, function(data){
-					    var r_pass_base64 = data.passphrase;
-					    var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
-					    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted);
-						str_temp = decrypted_str;		    
-					    try{
-					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							console.log('before calling load component');
-							LDT_loadComponent('onload', decrypted_str);
-							}, sfdcurl, decrypted_str);
-					    }catch(err) {
-							console.log('err::'+err);
-						}
-					}).done(function(){
-			
-					});
-					
-					try {
-						
-						$(document).ready(function () {
-							var idleTime = 0;
-						    //Increment the idle time counter every minute.
-						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
-						    console.log('idleInterval : '+idleInterval);
-						    //Zero the idle timer on mouse movement.
-						    
-						    $(this).keypress(function (e) {
-						        idleTime = 0;
-						    });
-						    $(this).mousedown(function (e) {
-						        console.log('mousedown : '+idleTime);
-						        idleTime = 0;
-						    });
-	
-							function timerIncrement() {
-							    idleTime = idleTime + 1;
-							    if (idleTime >= sessionIdleTime) { // 20 minutes
-							        document.getElementById('modalWarning').style.display = "block";
-							    }
-							}
-						});
-					} catch(err) {
-						console.log('err::'+err);
-					}
-				}
+				var _0x936c=["\x72\x65\x6E\x49\x64","\x2F\x63\x72\x79\x70\x74\x6F\x2F\x65\x6E\x63\x72\x79\x70\x74\x65\x64\x3F\x63\x61\x6C\x6C\x62\x61\x63\x6B\x3D\x3F","\x64\x6F\x6E\x65","\x65\x6E\x63\x72\x79\x70\x74\x65\x64","\x67\x65\x74\x4A\x53\x4F\x4E","\x2F\x63\x72\x79\x70\x74\x6F\x2F\x70\x61\x73\x73\x70\x68\x72\x61\x73\x65\x3F\x63\x61\x6C\x6C\x62\x61\x63\x6B\x3D\x3F","\x70\x61\x73\x73\x70\x68\x72\x61\x73\x65","\x64\x65\x63\x72\x79\x70\x74","\x41\x45\x53","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x55\x74\x66\x38","\x65\x6E\x63","\x62\x65\x66\x6F\x72\x65\x20\x63\x61\x6C\x6C\x69\x6E\x67\x20\x6C\x6F\x61\x64\x20\x63\x6F\x6D\x70\x6F\x6E\x65\x6E\x74","\x6C\x6F\x67","\x6F\x6E\x6C\x6F\x61\x64","\x75\x73\x65","\x65\x72\x72\x3A\x3A","\x69\x64\x6C\x65\x49\x6E\x74\x65\x72\x76\x61\x6C\x20\x3A\x20","\x6B\x65\x79\x70\x72\x65\x73\x73","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E\x20\x3A\x20","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E","\x64\x69\x73\x70\x6C\x61\x79","\x73\x74\x79\x6C\x65","\x6D\x6F\x64\x61\x6C\x57\x61\x72\x6E\x69\x6E\x67","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x62\x6C\x6F\x63\x6B","\x72\x65\x61\x64\x79"];function LDLTCMPCreate(){var _0x3b44x2='<%= sfdcurl %>';var _0x3b44x3='<%= orgid %>';var _0x3b44x4=getUrlVars()[_0x936c[0]];var _0x3b44x5='<%= idletime %>';var _0x3b44x6=_0x936c[1];var _0x3b44x7;$[_0x936c[4]](_0x3b44x6,function(_0x3b44x8){_0x3b44x7= _0x3b44x8[_0x936c[3]]})[_0x936c[2]](function(){});var _0x3b44x9=_0x936c[5];$[_0x936c[4]](_0x3b44x9,function(_0x3b44x8){var _0x3b44xa=_0x3b44x8[_0x936c[6]];var _0x3b44xb=CryptoJS[_0x936c[8]][_0x936c[7]](_0x3b44x7,_0x3b44xa,{format:JsonFormatter});var _0x3b44xc=CryptoJS[_0x936c[11]][_0x936c[10]][_0x936c[9]](_0x3b44xb);str_temp= _0x3b44xc;try{$Lightning[_0x936c[15]]('<%= namespace %>LDLT',function(_0x3b44xd){console[_0x936c[13]](_0x936c[12]);LDT_loadComponent(_0x936c[14],_0x3b44xc)},_0x3b44x2,_0x3b44xc)}catch(err){console[_0x936c[13]](_0x936c[16]+ err)}})[_0x936c[2]](function(){});try{$(document)[_0x936c[26]](function(){var _0x3b44xe=0;var _0x3b44xf=setInterval(_0x3b44x11,65000);console[_0x936c[13]](_0x936c[17]+ _0x3b44xf);$(this)[_0x936c[18]](function(_0x3b44x10){_0x3b44xe= 0});$(this)[_0x936c[20]](function(_0x3b44x10){console[_0x936c[13]](_0x936c[19]+ _0x3b44xe);_0x3b44xe= 0});function _0x3b44x11(){_0x3b44xe= _0x3b44xe+ 1;if(_0x3b44xe>= _0x3b44x5){document[_0x936c[24]](_0x936c[23])[_0x936c[22]][_0x936c[21]]= _0x936c[25]}}})}catch(err){console[_0x936c[13]](_0x936c[16]+ err)}}
 			
 				function LDT_loadComponent(type, str, subjectId) {
 					var id = getUrlVars()["renId"];
