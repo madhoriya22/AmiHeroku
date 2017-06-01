@@ -64,9 +64,6 @@ var CryptoJS = node_cryptojs.CryptoJS;
 // custom json serialization format 
 var JsonFormatter = node_cryptojs.JsonFormatter;
  
-
-  
- 
 var encrypted;
  
 // convert CipherParams object to json string for transmission 
