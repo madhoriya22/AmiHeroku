@@ -75,7 +75,44 @@
 			var SS = SS || { };		
 			var str_temp='';	
             //create custom json serialization format
+			var JsonFormatter = {
+				stringify: function (cipherParams) {
+					// create json object with ciphertext
+					var jsonObj = {
+						ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
+					};
+					
+					// optionally add iv and salt
+					if (cipherParams.iv) {
+						jsonObj.iv = cipherParams.iv.toString();
+					}
+					
+					if (cipherParams.salt) {
+						jsonObj.s = cipherParams.salt.toString();
+					}
 			
+					// stringify json object
+					return JSON.stringify(jsonObj)
+				},
+			
+				parse: function (jsonStr) {
+					var jsonObj = JSON.parse(jsonStr);
+					
+					var cipherParams = CryptoJS.lib.CipherParams.create({
+						ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
+					});
+					
+					if (jsonObj.iv) {
+						cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
+					}
+			            
+					if (jsonObj.s) {
+						cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
+					}
+					
+					return cipherParams;
+				}
+			};
 			SS.LightningActions = (function() {
 				"use strict";
 				function onWinLoad() {
@@ -126,67 +163,28 @@
 					
 					$.getJSON(encrypted_url, function(data){
 						encrypted_json_str = data.encrypted;
-					}).done(function(){
-						
-					});
-					
-					
-					var passphrase_url = "/crypto/passphrase?callback=?";
-					
-					$.getJSON(passphrase_url, function(data){
-					    var JsonFormatter = {
-							stringify: function (cipherParams) {
-								// create json object with ciphertext
-								var jsonObj = {
-									ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
-								};
-								
-								// optionally add iv and salt
-								if (cipherParams.iv) {
-									jsonObj.iv = cipherParams.iv.toString();
-								}
-								
-								if (cipherParams.salt) {
-									jsonObj.s = cipherParams.salt.toString();
-								}
-						
-								// stringify json object
-								return JSON.stringify(jsonObj)
-							},
-						
-							parse: function (jsonStr) {
-								var jsonObj = JSON.parse(jsonStr);
-								
-								var cipherParams = CryptoJS.lib.CipherParams.create({
-									ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
-								});
-								
-								if (jsonObj.iv) {
-									cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
-								}
-						            
-								if (jsonObj.s) {
-									cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
-								}
-								
-								return cipherParams;
+						var passphrase_url = "/crypto/passphrase?callback=?";
+		
+						$.getJSON(passphrase_url, function(data){
+						    var r_pass_base64 = data.passphrase;
+						    var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
+						    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted);
+							str_temp = decrypted_str;		    
+						    try{
+						    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
+								console.log('before calling load component');
+								LDT_loadComponent('onload', decrypted_str);
+								}, sfdcurl, decrypted_str);
+						    }catch(err) {
+								console.log('err::'+err);
 							}
-						};
-					    var r_pass_base64 = data.passphrase;
-					    var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
-					    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted);
-						str_temp = decrypted_str;		    
-					    try{
-					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							console.log('before calling load component');
-							LDT_loadComponent('onload', decrypted_str);
-							}, sfdcurl, decrypted_str);
-					    }catch(err) {
-							console.log('err::'+err);
-						}
+						}).done(function(){
+				
+						});
 					}).done(function(){
-			
+						
 					});
+					
 					
 					try {
 						
