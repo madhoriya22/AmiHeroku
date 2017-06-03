@@ -10,11 +10,11 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['My Application'],
+  app_name: ['ldlt-staging'],
   /**
    * Your New Relic license key.
    */
-  license_key: 'license key here',
+  license_key: '5f7188dd590b46b93321037f09e6957f6702de2a',
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
