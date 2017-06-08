@@ -1,4 +1,5 @@
 "use strict";
+var newrelic = require('newrelic');
 var express = require('express');
 var oauth = require('./lib/oAuth/oauth');
 var port = process.env.PORT || 3000;
@@ -63,9 +64,6 @@ var CryptoJS = node_cryptojs.CryptoJS;
  
 // custom json serialization format 
 var JsonFormatter = node_cryptojs.JsonFormatter;
- 
-
-  
  
 var encrypted;
  
