@@ -13,6 +13,30 @@ app.use(sessions.createSession());
 var routesHome = require('./routes/home');
 
 
+//import crypto module to generate random binary data 
+var crypto = require('crypto');
+
+//generate random passphrase binary data 
+var r_pass = crypto.randomBytes(128);
+
+//convert passphrase to base64 format 
+var r_pass_base64 = r_pass.toString("base64");
+
+//import node-cryptojs-aes modules to encrypt or decrypt data 
+var node_cryptojs = require('node-cryptojs-aes');
+
+//node-cryptojs-aes main object; 
+var CryptoJS = node_cryptojs.CryptoJS;
+
+//custom json serialization format 
+var JsonFormatter = node_cryptojs.JsonFormatter;
+
+var encrypted;
+
+//convert CipherParams object to json string for transmission 
+var encrypted_json_str;
+
+
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
@@ -47,28 +71,6 @@ app.get('/revokeAccess', function(req, res) {
 	oauth.revokeAccess(req,res);
 });
 
-//import crypto module to generate random binary data 
-var crypto = require('crypto');
- 
-// generate random passphrase binary data 
-var r_pass = crypto.randomBytes(128);
- 
-// convert passphrase to base64 format 
-var r_pass_base64 = r_pass.toString("base64");
- 
-//import node-cryptojs-aes modules to encrypt or decrypt data 
-var node_cryptojs = require('node-cryptojs-aes');
- 
-// node-cryptojs-aes main object; 
-var CryptoJS = node_cryptojs.CryptoJS;
- 
-// custom json serialization format 
-var JsonFormatter = node_cryptojs.JsonFormatter;
- 
-var encrypted;
- 
-// convert CipherParams object to json string for transmission 
-var encrypted_json_str;
  
 
 //browser request serialized cipherParams object in path /crypto/encrypted, with JSONP support 
