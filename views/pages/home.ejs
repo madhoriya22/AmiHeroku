@@ -1,21 +1,125 @@
 <html lang="en">
 	<head>
 		<% include ../partials/ldOut %>
+		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+		
 	</head>
-	<body class="slds">
+	<style>
+		.modal-overlay {
+		    dialogClass: "no-close";
+    		display: none; /* Hidden by default */
+    		position: fixed; /* Stay in place */
+    		z-index: 1; /* Sit on top */
+    		padding-top: 100px; /* Location of the box */
+    		left: 0;
+   			top: 0;
+    		width: 100%; /* Full width */
+    		height: 100%; /* Full height */
+    		overflow: auto; /* Enable scroll if needed */
+    		background-color: rgb(0,0,0); /* Fallback color */
+    		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		} 
+		.warning-content {
+   			 background-color: #fefefe;
+   			 padding: 10px;
+   			 border: 1px solid #888;
+   			 border-radius: 2px;
+    		box-shadow:0 5px 15px rgba(0,0,0,.5);
+		}
+	</style>
+	
+	<body>
 		<header>
 		</header>
 		<main>
 			<div id="renderLtngComp"/>
 		</main>
+		
+		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
+		  	<div class="container">
+    				<div class="row">
+       					<div class="col-md-3"></div>
+					<div class="col-md-6">
+                				<div class="warning-content clearfix">
+                    					Your session has expired. Click OK to restart it.
+                    					<br/><br/>
+                    					<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirmation();">OK</button>
+               		 			</div>
+					</div>
+					<div class="col-md-3"></div>
+    				</div>
+			</div>
+		</div>
+		
+		<div id="modalSafariEnable" class="modal-overlay" style="width: 100%  !important;height: 100%  !important; display: none">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<div class="warning-content clearfix">
+							The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.
+							<br/><br/>
+							<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirm();">OK</button>
+						</div>
+					</div>
+					<div class="col-md-3"></div>
+				</div>
+			</div>
+		</div>
+		
 		<footer>
 		</footer>
 		<script> 
-			var SS = SS || { };
+			var SS = SS || { };		
+			var str_temp='';	
+            //create custom json serialization format
+			var JsonFormatter = {
+				stringify: function (cipherParams) {
+					// create json object with ciphertext
+					var jsonObj = {
+						ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
+					};
+					
+					// optionally add iv and salt
+					if (cipherParams.iv) {
+						jsonObj.iv = cipherParams.iv.toString();
+					}
+					
+					if (cipherParams.salt) {
+						jsonObj.s = cipherParams.salt.toString();
+					}
+			
+					// stringify json object
+					return JSON.stringify(jsonObj)
+				},
+			
+				parse: function (jsonStr) {
+					var jsonObj = JSON.parse(jsonStr);
+					
+					var cipherParams = CryptoJS.lib.CipherParams.create({
+						ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
+					});
+					
+					if (jsonObj.iv) {
+						cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
+					}
+			            
+					if (jsonObj.s) {
+						cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
+					}
+					
+					return cipherParams;
+				}
+			};
 			SS.LightningActions = (function() {
 				"use strict";
 				function onWinLoad() {
+				    $("#modalWarning").hide();
+					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
+					isSafariBrowser();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -35,83 +139,25 @@
 				    return vars;
 				}
 				
-				function LDLTCMPCreate() {
-					var accessToken="<%= accesstoken %>";
-					var sfdcurl = "<%= sfdcurl %>";
-					var orgid = "<%= orgid %>";
-					var id = getUrlVars()["renId"];
-					var sessionIdleTime = "<%= idletime %>";
-					console.log(sfdcurl);
-					console.log(accessToken);
-					console.log('orgId= '+orgid);
-					console.log('sessionIdleTime : '+sessionIdleTime);
-				    try {
-						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							console.log('before calling load component');
-							LDT_loadComponent('onload', accessToken);
-						}, sfdcurl, accessToken);
-						$(document).ready(function () {
-							var idleTime = 0;
-							var sessionTime = 0;
-						    //Increment the idle time counter every minute.
-						    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-						
-						    //Zero the idle timer on mouse movement.
-						    $(this).keypress(function (e) {
-						        idleTime = 0;
-						    });
-						    $(this).mousedown(function (e) {
-						        console.log('mousedown : '+idleTime);
-						        idleTime = 0;
-						    });
-	
-							function timerIncrement() {
-							    idleTime = idleTime + 1;
-							    if (idleTime >= sessionIdleTime && sessionTime == 0) { // 20 minutes
-							        sessionTime = sessionIdleTime;
-							        //alert('You are idle for more than '+idletime+' minutes');
-							        //window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
-							        var dynamicDialog = $('<div id="conformBox">'+
-							        '<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">'+
-							        '</span>For your security, your session will be refresh, due to '+sessionIdleTime+' minutes of Idle time. <br/> Do you want to refresh the Session? </div>');
-							        dynamicDialog.dialog({
-							                title : "Session Expiration Warning",
-							                closeOnEscape: false,
-							                modal : true,
-							                resizable: false,
-							                height: "auto",
-							                position: ['center',80],
-							                width: 700,
-							        
-							                buttons : 
-					                        [{
-					                                text : "Refresh Session",
-					                                click : function() {
-					                                        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
-					                                }
-					                        },
-					                        {
-					                                text : "Close the app",
-					                                click : function() {							                                        
-					                                        window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
-					                                        window.close();
-					                                }
-					                        }]
-							        });
-							    }
-							}
-						});
-					} catch(err) {
-						console.log('err::'+err);
-					}
+				function isSafariBrowser(){
+					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+                           navigator.userAgent && !navigator.userAgent.match('CriOS');
+					if(!navigator.cookieEnabled && isSafari){
+        				console.log('ModalWarning check :: 111 ');
+					$("#modalSafariEnable").show();
+        				//$("#modalSafariEnable").dialog();
+        				//$("#modalSafariEnable").style.display = "block";
+        			}
+        			return false;
 				}
+				
+				var _0x9cb2=["\x72\x65\x6E\x49\x64","\x2F\x63\x72\x79\x70\x74\x6F\x2F\x65\x6E\x63\x72\x79\x70\x74\x65\x64\x3F\x63\x61\x6C\x6C\x62\x61\x63\x6B\x3D\x3F","\x64\x6F\x6E\x65","\x65\x6E\x63\x72\x79\x70\x74\x65\x64","\x2F\x63\x72\x79\x70\x74\x6F\x2F\x70\x61\x73\x73\x70\x68\x72\x61\x73\x65\x3F\x63\x61\x6C\x6C\x62\x61\x63\x6B\x3D\x3F","\x70\x61\x73\x73\x70\x68\x72\x61\x73\x65","\x64\x65\x63\x72\x79\x70\x74","\x41\x45\x53","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x55\x74\x66\x38","\x65\x6E\x63","\x62\x65\x66\x6F\x72\x65\x20\x63\x61\x6C\x6C\x69\x6E\x67\x20\x6C\x6F\x61\x64\x20\x63\x6F\x6D\x70\x6F\x6E\x65\x6E\x74","\x6C\x6F\x67","\x6F\x6E\x6C\x6F\x61\x64","\x75\x73\x65","\x65\x72\x72\x3A\x3A","\x67\x65\x74\x4A\x53\x4F\x4E","\x69\x64\x6C\x65\x49\x6E\x74\x65\x72\x76\x61\x6C\x20\x3A\x20","\x6B\x65\x79\x70\x72\x65\x73\x73","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E\x20\x3A\x20","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E","\x64\x69\x73\x70\x6C\x61\x79","\x73\x74\x79\x6C\x65","\x6D\x6F\x64\x61\x6C\x57\x61\x72\x6E\x69\x6E\x67","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x62\x6C\x6F\x63\x6B","\x72\x65\x61\x64\x79"];function LDLTCMPCreate(){var _0x6537x2='<%= sfdcurl %>';var _0x6537x3='<%= orgid %>';var _0x6537x4=getUrlVars()[_0x9cb2[0]];var _0x6537x5='<%= idletime %>';var _0x6537x6=_0x9cb2[1];var _0x6537x7;$[_0x9cb2[16]](_0x6537x6,function(_0x6537x8){_0x6537x7= _0x6537x8[_0x9cb2[3]];var _0x6537x9=_0x9cb2[4];$[_0x9cb2[16]](_0x6537x9,function(_0x6537x8){var _0x6537xa=_0x6537x8[_0x9cb2[5]];var _0x6537xb=CryptoJS[_0x9cb2[7]][_0x9cb2[6]](_0x6537x7,_0x6537xa,{format:JsonFormatter});var _0x6537xc=CryptoJS[_0x9cb2[10]][_0x9cb2[9]][_0x9cb2[8]](_0x6537xb);str_temp= _0x6537xc;try{$Lightning[_0x9cb2[14]]('<%= namespace %>LDLT',function(_0x6537xd){console[_0x9cb2[12]](_0x9cb2[11]);LDT_loadComponent(_0x9cb2[13],_0x6537xc)},_0x6537x2,_0x6537xc)}catch(err){console[_0x9cb2[12]](_0x9cb2[15]+ err)}})[_0x9cb2[2]](function(){})})[_0x9cb2[2]](function(){});try{$(document)[_0x9cb2[26]](function(){var _0x6537xe=0;var _0x6537xf=setInterval(_0x6537x11,65000);console[_0x9cb2[12]](_0x9cb2[17]+ _0x6537xf);$(this)[_0x9cb2[18]](function(_0x6537x10){_0x6537xe= 0});$(this)[_0x9cb2[20]](function(_0x6537x10){console[_0x9cb2[12]](_0x9cb2[19]+ _0x6537xe);_0x6537xe= 0});function _0x6537x11(){_0x6537xe= _0x6537xe+ 1;if(_0x6537xe>= _0x6537x5){document[_0x9cb2[24]](_0x9cb2[23])[_0x9cb2[22]][_0x9cb2[21]]= _0x9cb2[25]}}})}catch(err){console[_0x9cb2[12]](_0x9cb2[15]+ err)}}
 			
-				function LDT_loadComponent(type, accessToken, subjectId) {
-					//console.log("Access token within Load Comp :"+accessToken);
+				function LDT_loadComponent(type, str, subjectId) {
 					var id = getUrlVars()["renId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: accessToken}, "renderLtngComp");
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp");
 				}
 				
 				return {
@@ -121,6 +167,35 @@
 			}());
 			window.onload =function(){
 				SS.LightningActions.onWinLoad();
+			}
+			
+			function getUrlVars(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			}
+			
+			function okConfirmation() {
+				
+				var sfdcurl = "<%= sfdcurl %>";
+				var orgid = "<%= orgid %>";
+				var id = getUrlVars()["renId"];
+				var sessionIdleTime = "<%= idletime %>";
+				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+			}
+			
+			function okConfirm() {			    
+				var sfdcurl = "<%= sfdcurl %>";
+				var orgid = "<%= orgid %>";
+				var id = getUrlVars()["renId"];
+				var sessionIdleTime = "<%= idletime %>";				
+				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+                window.close();
 			}
 			
 			SS.LightningActions.LDLTCMPCreate();
