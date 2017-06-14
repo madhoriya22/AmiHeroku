@@ -135,11 +135,19 @@
 	
 	<body>
 		<header>
+		
 		</header>
 		<main>
 			<div id="renderLtngComp"/>
 		</main>
-		
+		<div id="spinnerDiv" class="spinner-modal-overlay">
+        <div class="spinner-modal-content">
+            <div class="spinner-container">
+                <div class="spinner"></div>
+            </div>
+            Loading..
+        </div>
+    </div>
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
 		  	<div class="container">
     				<div class="row">
@@ -334,14 +342,7 @@
 			}());
 			window.onload =function(){
 				console.log("spinner");
-				<div id="spinnerDiv" class="spinner-modal-overlay">
-		        <div class="spinner-modal-content">
-		            <div class="spinner-container">
-		                <div class="spinner"></div>
-		            </div>
-		            Loading..
-		        </div>
-		    </div>
+				document.getElementById('spinnerDiv').style.display = "block";
 				SS.LightningActions.onWinLoad();
 			}
 			
