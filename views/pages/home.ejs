@@ -141,13 +141,13 @@
 			<div id="renderLtngComp"/>
 		</main>
 		<div id="spinnerDiv" class="spinner-modal-overlay">
-        <div class="spinner-modal-content">
-            <div class="spinner-container">
-                <div class="spinner"></div>
+        	<div class="spinner-modal-content">
+	            <div class="spinner-container">
+	                <div class="spinner"></div>
+	            </div>
+	            Loading..
             </div>
-            Loading..
         </div>
-    </div>
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
 		  	<div class="container">
     				<div class="row">
@@ -286,7 +286,7 @@
 					    try{
 					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
-							
+							$("#spinnerDiv").hide();
 							LDT_loadComponent('onload', decrypted_str);
 							}, sfdcurl, decrypted_str);
 					    }catch(err) {
@@ -342,7 +342,8 @@
 			}());
 			window.onload =function(){
 				console.log("spinner");
-				document.getElementById('spinnerDiv').style.display = "block";
+				//document.getElementById('spinnerDiv').style.display = "block";
+				$("#spinnerDiv").hide();
 				SS.LightningActions.onWinLoad();
 			}
 			
