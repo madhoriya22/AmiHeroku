@@ -286,7 +286,7 @@
 					    try{
 					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
 							console.log('before calling load component');
-							$("#spinnerDiv").hide();
+							
 							LDT_loadComponent('onload', decrypted_str);
 							}, sfdcurl, decrypted_str);
 					    }catch(err) {
@@ -332,7 +332,10 @@
 					var id = getUrlVars()["renId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp");
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp",
+						function(cmp) {
+							$("#spinnerDiv").hide();						
+					});
 				}
 				
 				return {
