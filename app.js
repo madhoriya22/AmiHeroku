@@ -61,7 +61,7 @@ app.get('/oauthcallback', function(req, res) {
 });
 
 app.get('/renewUserAccess', function(req, res) {
-	console.log('renewUserAccess call');
+	console.log('renewUserAccess call : : '+req.query.env);
 	req.session.sfdcurl = req.query.sfdcurl;
 	oauth.redirectAuthURI(res);
 });
