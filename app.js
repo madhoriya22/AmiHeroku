@@ -64,7 +64,7 @@ app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call : '+req.query.env);
 	req.session.sfdcurl = req.query.sfdcurl;
 	req.session.env = req.query.env;
-	oauth.redirectAuthURI(res);
+	oauth.redirectAuthURI(res,req);
 });
 
 app.get('/revokeAccess', function(req, res) {
