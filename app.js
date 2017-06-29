@@ -56,13 +56,14 @@ app.get('/accesstoken', function(req, res){
 });
 
 app.get('/oauthcallback', function(req, res) {
-	console.log('oauthcallback call'+req.query.env);
+	console.log('oauthcallback call'+req.session.env);
 	oauth.authenticate(req, res, app);
 });
 
 app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call : : '+req.query.env);
 	req.session.sfdcurl = req.query.sfdcurl;
+	req.session.env = req.query.env;
 	oauth.redirectAuthURI(res,req);
 });
 
