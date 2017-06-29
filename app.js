@@ -56,7 +56,7 @@ app.get('/accesstoken', function(req, res){
 });
 
 app.get('/oauthcallback', function(req, res) {
-	console.log('oauthcallback call');
+	console.log('oauthcallback call'+req.query.env);
 	oauth.authenticate(req, res, app);
 });
 
