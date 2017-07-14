@@ -96,7 +96,8 @@ app.get('/crypto/passphrase', function(request, response) {
     //JSONP allow cross domain AJAX 
 	console.log("Encrypted Data == "+r_pass_base64);
 	response.jsonp({
-        passphrase : r_pass_base64
+        passphrase : r_pass_base64,
+        JsonFormatter : JsonFormatter
     });
  
 });
