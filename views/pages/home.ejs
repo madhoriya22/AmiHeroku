@@ -103,11 +103,11 @@
 					});
 					
 					if (jsonObj.iv) {
-						cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
+						cipherParams.iv = CryptoJS.enc.Base64.parse(jsonObj.iv);
 					}
 			            
 					if (jsonObj.s) {
-						cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
+						cipherParams.salt = CryptoJS.enc.Base64.parse(jsonObj.s);
 					}
 					
 					return cipherParams;
