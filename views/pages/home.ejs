@@ -163,13 +163,13 @@
 					var encrypted_json_str;
 					
 					$.getJSON(encrypted_url, function(data){
-						encrypted_json_str = data.encrypted;
+						encrypted_json_str = data.encrypted.trim();
 						var passphrase_url = "/crypto/passphrase?callback=?";
 		
 					$.getJSON(passphrase_url, function(data){
 					    var r_pass_base64 = data.passphrase;
 					    var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
-					    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted);
+					    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted).trim();
 						str_temp = decrypted_str;		    
 					    try{
 					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
