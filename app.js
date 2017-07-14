@@ -79,6 +79,7 @@ app.get('/crypto/encrypted', function(request, response) {
 	//oauth.getAccessTokenInRes(request, response, app);
 	encrypted = CryptoJS.AES.encrypt(request.session.accesstoken, r_pass_base64, { format: JsonFormatter });
 	encrypted_json_str = encrypted.toString();
+	console.log("Api Key "+r_pass_base64);
 	//JSONP allow cross domain AJAX 
     console.log("Encrypted Data == "+encrypted_json_str);
 	response.jsonp({
@@ -90,6 +91,7 @@ app.get('/crypto/encrypted', function(request, response) {
 // browser request passphrase in path /crypto/passphrase, with JSONP support 
 app.get('/crypto/passphrase', function(request, response) {
  
+	console.log("Api Key "+r_pass_base64);
     //JSONP allow cross domain AJAX 
 	console.log("Encrypted Data == "+r_pass_base64);
 	response.jsonp({
