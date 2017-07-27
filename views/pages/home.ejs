@@ -108,10 +108,8 @@
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
 					if(!navigator.cookieEnabled && isSafari){
-        				console.log('ModalWarning check :: 111 ');
+        				//console.log('ModalWarning check :: 111 ');
 					$("#modalSafariEnable").show();
-        				//$("#modalSafariEnable").dialog();
-        				//$("#modalSafariEnable").style.display = "block";
         			}
         			return false;
 				}
@@ -123,27 +121,27 @@
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
 					
-					console.log(sfdcurl);
+					/*console.log(sfdcurl);
 					console.log(str);
 					console.log('orgId= '+orgid);
-					console.log('sessionIdleTime : '+sessionIdleTime);
+					console.log('sessionIdleTime : '+sessionIdleTime);*/
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							console.log('before calling load component');
+							//console.log('before calling load component');
 							LDT_loadComponent('onload', str);
 						}, sfdcurl, str);
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
 						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
-						    console.log('idleInterval : '+idleInterval);
+						    //console.log('idleInterval : '+idleInterval);
 						    //Zero the idle timer on mouse movement.
 						    
 						    $(this).keypress(function (e) {
 						        idleTime = 0;
 						    });
 						    $(this).mousedown(function (e) {
-						        console.log('mousedown : '+idleTime);
+						        //console.log('mousedown : '+idleTime);
 						        idleTime = 0;
 						    });
 	
