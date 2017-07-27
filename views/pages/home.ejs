@@ -34,7 +34,13 @@
 		<main>
 			<div id="renderLtngComp"/>
 		</main>
-		
+		<div id="spinnerDiv" class="spinner-modal-overlay">
+	    	<div class="spinner-modal-content">
+	            <div class="spinner-container">
+	                <div class="spinner"></div>
+	            </div>
+	        </div>
+	    </div>
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
 		  	<div class="container">
     				<div class="row">
@@ -157,7 +163,10 @@
 					var id = getUrlVars()["renId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp");
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp",
+						function(cmp) {
+							$("#spinnerDiv").hide();						
+					});
 				}
 				
 				return {
@@ -166,6 +175,7 @@
 				};
 			}());
 			window.onload =function(){
+				$("#spinnerDiv").show();
 				SS.LightningActions.onWinLoad();
 			}
 			
