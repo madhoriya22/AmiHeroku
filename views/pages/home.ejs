@@ -41,6 +41,8 @@
 	            </div>
 	        </div>
 	    </div>
+	    <div id="result"></div>
+	    
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
 		  	<div class="container">
     				<div class="row">
@@ -85,6 +87,12 @@
 					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
 					isSafariBrowser();
+					detectPrivateMode(
+					        function(is_private) {
+					        	console.log('IN Private : '+is_private);
+					            document.getElementById('result').innerHTML = typeof is_private === 'undefined' ? 'cannot detect' : is_private ? 'private' : 'not private';
+					        }
+					    );
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -112,6 +120,71 @@
 					$("#modalSafariEnable").show();
         			}
         			return false;
+				}
+				
+				function retry(isDone, next) {
+				    var current_trial = 0, max_retry = 50, interval = 10, is_timeout = false;
+				    var id = window.setInterval(
+				        function() {
+				            if (isDone()) {
+				                window.clearInterval(id);
+				                next(is_timeout);
+				            }
+				            if (current_trial++ > max_retry) {
+				                window.clearInterval(id);
+				                is_timeout = true;
+				                next(is_timeout);
+				            }
+				        },
+				        10
+				    );
+				}
+
+
+				function detectPrivateMode(callback) {
+				    var is_private;
+
+				    if (window.webkitRequestFileSystem) {
+				        window.webkitRequestFileSystem(
+				            window.TEMPORARY, 1,
+				            function() {
+				                is_private = false;
+				            },
+				            function(e) {
+				                console.log(e);
+				                is_private = true;
+				            }
+				        );
+				    } else if (window.indexedDB && /Firefox/.test(window.navigator.userAgent)) {
+				        var db;
+				        try {
+				            db = window.indexedDB.open('test');
+				        } catch(e) {
+				            is_private = true;
+				        }
+
+				        if (typeof is_private === 'undefined') {
+				            retry(
+				                function isDone() {
+				                    return db.readyState === 'done' ? true : false;
+				                },
+				                function next(is_timeout) {
+				                    if (!is_timeout) {
+				                        is_private = db.result ? false : true;
+				                    }
+				                }
+				            );
+				        }
+				    } 
+
+				    retry(
+				        function isDone() {
+				            return typeof is_private !== 'undefined' ? true : false;
+				        },
+				        function next(is_timeout) {
+				            callback(is_private);
+				        }
+				    );
 				}
 				
 				function LDLTCMPCreate() {
