@@ -87,12 +87,13 @@
 					$("#modalSafariEnable").hide();
 					var vars = getUrlVars();
 					isSafariBrowser();
-					detectPrivateMode(
+					/*detectPrivateMode(
 					        function(is_private) {
 					        	console.log('IN Private : '+is_private);
 					            document.getElementById('result').innerHTML = typeof is_private === 'undefined' ? 'cannot detect' : is_private ? 'private' : 'not private';
 					        }
-					    );
+					    );*/
+					whenNoTrackingProtection();
 					if(vars["action"]=="oauth"){
 						alert("OAuth Successful");
 						window.open(window.location.href, '_self', '');
@@ -120,6 +121,28 @@
 					$("#modalSafariEnable").show();
         			}
         			return false;
+				}
+				
+				function whenNoTrackingProtection() {
+				    if (!whenNoTrackingProtection.promise) {
+				        var dfd = new $.Deferred();
+				        whenNoTrackingProtection.promise = dfd.promise();
+
+				        var time = Date.now();
+				        $('<img/>')
+				            .attr('src', '//apps.facebook.com/favicon.ico')
+				            .on('load', dfd.resolve)
+				            .on('error', function() {
+				                if ((Date.now() - time) < 50) {
+				                    dfd.reject();
+				                } else {
+				                    // the request took to long, it seams this is a real network error
+				                    dfd.resolve();
+				                }
+				            });
+				    }
+				    console.log('IN d tracking '+whenNoTrackingProtection.promise);	
+				    return whenNoTrackingProtection.promise;
 				}
 				
 				function retry(isDone, next) {
