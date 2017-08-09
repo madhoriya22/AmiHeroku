@@ -116,6 +116,8 @@
 				function isSafariBrowser(){
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
+					var decodedCookie = decodeURIComponent(document.cookie);
+					console.log('decodedCookie '+decodedCookie);
 					if(!navigator.cookieEnabled && isSafari){
         				//console.log('ModalWarning check :: 111 ');
 						$("#modalSafariEnable").show();
