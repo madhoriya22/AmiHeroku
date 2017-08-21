@@ -20,7 +20,7 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
-	res.send('Welcome');
+	res.render('page/welcome');
 	oauth.redirectToHome(req, res, app);
 });
 
