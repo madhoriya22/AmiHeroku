@@ -1,4 +1,5 @@
 "use strict";
+var newrelic = require('newrelic');
 var express = require('express');
 var oauth = require('./lib/oAuth/oauth');
 var port = process.env.PORT || 3000;
@@ -33,9 +34,10 @@ app.get('/oauthcallback', function(req, res) {
 });
 
 app.get('/renewUserAccess', function(req, res) {
-	console.log('renewUserAccess call');
+	console.log('renewUserAccess call : '+req.query.env);
 	req.session.sfdcurl = req.query.sfdcurl;
-	oauth.redirectAuthURI(res);
+	req.session.env = req.query.env;
+	oauth.redirectAuthURI(res,req);
 });
 
 app.get('/revokeAccess', function(req, res) {

@@ -1,8 +1,11 @@
 <html lang="en">
 	<head>
+		<!--<meta http-equiv="Content-Security-Policy" content="child-src 'self'"> -->
 		<% include ../partials/ldOut %>
 		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
 	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+		  
 	</head>
 	<style>
 		.modal-overlay {
@@ -34,13 +37,7 @@
 		<main>
 			<div id="renderLtngComp"/>
 		</main>
-		<div id="spinnerDiv" class="spinner-modal-overlay">
-	    	<div class="spinner-modal-content">
-	            <div class="spinner-container">
-	                <div class="spinner"></div>
-	            </div>
-	        </div>
-	    </div>
+		
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
 		  	<div class="container">
     				<div class="row">
@@ -76,8 +73,47 @@
 		<footer>
 		</footer>
 		<script> 
-			var SS = SS || { };			
-            
+			var SS = SS || { };		
+			var str_temp='';	
+            //create custom json serialization format
+			var JsonFormatter = {
+				stringify: function (cipherParams) {
+					// create json object with ciphertext
+					var jsonObj = {
+						ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
+					};
+					
+					// optionally add iv and salt
+					if (cipherParams.iv) {
+						jsonObj.iv = cipherParams.iv.toString();
+					}
+					
+					if (cipherParams.salt) {
+						jsonObj.s = cipherParams.salt.toString();
+					}
+			
+					// stringify json object
+					return JSON.stringify(jsonObj)
+				},
+			
+				parse: function (jsonStr) {
+					var jsonObj = JSON.parse(jsonStr);
+					
+					var cipherParams = CryptoJS.lib.CipherParams.create({
+						ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
+					});
+					
+					if (jsonObj.iv) {
+						cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
+					}
+			            
+					if (jsonObj.s) {
+						cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
+					}
+					
+					return cipherParams;
+				}
+			};
 			SS.LightningActions = (function() {
 				"use strict";
 				function onWinLoad() {
@@ -108,40 +144,65 @@
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            navigator.userAgent && !navigator.userAgent.match('CriOS');
 					if(!navigator.cookieEnabled && isSafari){
-        				//console.log('ModalWarning check :: 111 ');
+        				console.log('ModalWarning check :: 111 ');
 					$("#modalSafariEnable").show();
+        				//$("#modalSafariEnable").dialog();
+        				//$("#modalSafariEnable").style.display = "block";
         			}
         			return false;
 				}
 				
 				function LDLTCMPCreate() {
-					var str="<%= str %>";
 					var sfdcurl = "<%= sfdcurl %>";
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
 					
-					/*console.log(sfdcurl);
-					console.log(str);
-					console.log('orgId= '+orgid);
-					console.log('sessionIdleTime : '+sessionIdleTime);*/
-				    try {
-						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							//console.log('before calling load component');
-							LDT_loadComponent('onload', str);
-						}, sfdcurl, str);
+				    					
+					var encrypted_url = "/crypto/encrypted?callback=?";
+					var encrypted_json_str;
+					
+					$.getJSON(encrypted_url, function(data){
+						encrypted_json_str = data.encrypted;
+						var passphrase_url = "/crypto/passphrase?callback=?";
+		
+					$.getJSON(passphrase_url, function(data){
+					    var r_pass_base64 = data.passphrase;
+					    var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
+					    var decrypted_str = CryptoJS.enc.Utf8.stringify(decrypted);
+						str_temp = decrypted_str;		    
+					    try{
+					    	$Lightning.use("<%= namespace %>LDLT", function(cmp){
+							console.log('before calling load component');
+							LDT_loadComponent('onload', decrypted_str);
+							}, sfdcurl, decrypted_str);
+					    }catch(err) {
+							console.log('err::'+err);
+						}
+						}).done(function(){
+				
+						});
+					}).done(function(){
+						
+					});
+					
+					
+					
+					
+					try {
+						
 						$(document).ready(function () {
 							var idleTime = 0;
 						    //Increment the idle time counter every minute.
 						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
-						    //console.log('idleInterval : '+idleInterval);
+						    console.log('idleInterval : '+idleInterval);
 						    //Zero the idle timer on mouse movement.
 						    
 						    $(this).keypress(function (e) {
 						        idleTime = 0;
 						    });
 						    $(this).mousedown(function (e) {
-						        //console.log('mousedown : '+idleTime);
+						        console.log('mousedown : '+idleTime);
 						        idleTime = 0;
 						    });
 	
@@ -161,10 +222,7 @@
 					var id = getUrlVars()["renId"];
 					var successflag = getUrlVars()["successflag"];
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp",
-						function(cmp) {
-							$("#spinnerDiv").hide();						
-					});
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp");
 				}
 				
 				return {
@@ -173,7 +231,6 @@
 				};
 			}());
 			window.onload =function(){
-				$("#spinnerDiv").show();
 				SS.LightningActions.onWinLoad();
 			}
 			
@@ -189,20 +246,19 @@
 			}
 			
 			function okConfirmation() {
+				
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
 				var sessionIdleTime = "<%= idletime %>";
-					
-			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
 			}
 			
-			function okConfirm() {
-			    var sfdcurl = "<%= sfdcurl %>";
+			function okConfirm() {			    
+				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
-				var sessionIdleTime = "<%= idletime %>";
-					
+				var sessionIdleTime = "<%= idletime %>";				
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
