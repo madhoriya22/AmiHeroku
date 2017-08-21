@@ -18,12 +18,9 @@ app.use(express.static(__dirname + '/public'));
 app.use('/home', routesHome);
  
 app.set('view engine', 'ejs');
-
-app.get('/welcome', function(req, res){
-	res.send('Welcome');
-});
 	
 app.get('/', function(req, res){
+	res.send('Welcome');
 	oauth.redirectToHome(req, res, app);
 });
 
