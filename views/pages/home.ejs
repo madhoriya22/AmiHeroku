@@ -158,8 +158,8 @@
 				}
 			
 				function LDT_loadComponent(type, str, subjectId) {
-					var id = getUrlVars()["renId"];
 					var urlParams = getUrlVars();
+					var id = urlParams["renId"];
 					console.log('urlParams --> '+urlParams);
 					document.getElementById("renderLtngComp").innerHTML = "";
 					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParamsJson}, "renderLtngComp",
