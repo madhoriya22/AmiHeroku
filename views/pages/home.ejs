@@ -29,11 +29,10 @@
 	</style>
 	
 	<body>
-		<h1>Processing...</h1>
 		<header>
 		</header>
 		<main>
-			<div id="renderLtngComp"/>
+			<div id="renderLtngComp"></div>
 		</main>
 		<div id="spinnerDiv" class="spinner-modal-overlay">
 	    	<div class="spinner-modal-content">
@@ -91,18 +90,6 @@
 						window.open(window.location.href, '_self', '');
 							window.close();
 					}
-				}
-				
-				function getUrlVars(){
-				    var vars = {}, hash;
-				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				    for(var i = 0; i < hashes.length; i++)
-				    {
-					hash = hashes[i].split('=');
-					//vars.push(hash[0]);
-					vars[hash[0]] = hash[1];
-				    }
-				    return vars;
 				}
 				
 				function isSafariBrowser(){
