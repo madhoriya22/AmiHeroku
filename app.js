@@ -11,13 +11,11 @@ app.use(sessions.createSession());
 
 // Require Routes js
 var routesHome = require('./routes/home');
-var routesWelcom = require('./routes/welcome');
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
 app.use('/home', routesHome);
-app.use('/welcome', routesWelcome);
  
 app.set('view engine', 'ejs');
 	
