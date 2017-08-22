@@ -22,6 +22,7 @@ app.use('/welcome', routesWelcome);
 app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
+	console.log('Whole query -> ' +req.query);
 	oauth.redirectToHome(req, res, app);
 });
 
