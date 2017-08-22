@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/welcome', function(req, res) {
+	res.render('pages/welcome');
+    });
+});
+
 router.get('/', function(req, res) {
 	console.log('access token from redis '+req.session.accesstoken);
 	console.log('url from redis '+req.session.sfdcurl);
