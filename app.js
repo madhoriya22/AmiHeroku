@@ -26,6 +26,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/welcome', function(req, res){
+	console.log('Whole query -> ' +req.query);
 	res.render('pages/welcome');
 });
 
