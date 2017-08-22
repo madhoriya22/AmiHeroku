@@ -23,7 +23,7 @@ app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
 	console.log('Whole query -> ' +req.query);
-	res.render('pages/welcome');
+	res.render('pages/welcome?'+req.query);
 });
 
 app.get('/process', function(req, res){
