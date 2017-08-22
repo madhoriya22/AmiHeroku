@@ -21,12 +21,12 @@ app.use('/welcome', routesWelcome);
  
 app.set('view engine', 'ejs');
 	
-app.get('/', function(req, res){
+app.get('/welcome', function(req, res){
 	console.log('Whole query -> ' +req.query);
 	res.render('pages/welcome?'+req.query);
 });
 
-app.get('/process', function(req, res){
+app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
 });
 
