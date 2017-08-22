@@ -22,7 +22,10 @@ app.use('/welcome', routesWelcome);
 app.set('view engine', 'ejs');
 	
 app.get('/welcome', function(req, res){
-	res.render('pages/welcome');
+	res.render('pages/welcome', {
+	    	orgId: req.query.orgId,
+	    	renId: req.query.renId
+    	});
 });
 
 app.get('/', function(req, res){
