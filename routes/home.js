@@ -9,16 +9,13 @@ router.get('/welcome', function(req, res) {
 router.get('/', function(req, res) {
 	console.log('access token from redis '+req.session.accesstoken);
 	console.log('url from redis '+req.session.sfdcurl);
-	res.render('pages/welcome');
-	/*
-	    res.render('pages/home', {
-	    	str: req.session.accesstoken,
-	    	sfdcurl: req.session.sfdcurl,
-	    	orgid: req.session.orgid,
-	    	namespace: process.env['SF_NAMESPACE'],
-	    	idletime: process.env['SESSION_IDLE_TIME']
-	*/
-    });
+	res.render('pages/home', {
+		str: req.session.accesstoken,
+		sfdcurl: req.session.sfdcurl,
+		orgid: req.session.orgid,
+		namespace: process.env['SF_NAMESPACE'],
+		idletime: process.env['SESSION_IDLE_TIME']
+	});
 });
 
 module.exports = router;
