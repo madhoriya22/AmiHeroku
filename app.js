@@ -25,6 +25,10 @@ app.get('/', function(req, res){
 	oauth.redirectToHome(req, res, app);
 });
 
+app.get('/welcome', function(req, res){
+	res.render('pages/welcome');
+});
+
 app.get('/accesstoken', function(req, res){
 	console.log('Redis Session - '+JSON.stringify(req.session));
 	oauth.redirectToHome(req, res, app);
