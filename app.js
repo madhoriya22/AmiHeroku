@@ -23,12 +23,11 @@ app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
 	console.log('Whole query -> ' +req.query);
-	oauth.redirectToHome(req, res, app);
+	res.render('pages/welcome');
 });
 
-app.get('/welcome', function(req, res){
-	console.log('Whole query -> ' +req.query);
-	res.render('pages/welcome');
+app.get('/process', function(req, res){
+	oauth.redirectToHome(req, res, app);
 });
 
 app.get('/accesstoken', function(req, res){
