@@ -48,4 +48,5 @@ app.get('/revokeAccess', function(req, res) {
 });
 // Served Localhost
 console.log('Served: http://localhost:' + port);
+console.log('About to serve');
 app.listen(port);
