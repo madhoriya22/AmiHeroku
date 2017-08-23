@@ -5,12 +5,15 @@
 
 <script>
   function getUrlVars(){
-    return window.location.href.replace("welcome", "");
+    var hrefVal = window.location.href;
+    var removeWelcome = hrefVal.replace("welcome", "");
+    return removeWelcome;
+    
   }
 
   var vars = getUrlVars();      
   setTimeout(function() {
-    window.location.replace(window.location.orgin+"/?"+vars);
+    //window.location.replace(window.location.orgin+"/?"+vars);
   }, 2000);
 </script>
 </body>
