@@ -17,18 +17,17 @@ var routesWelcome = require('./routes/welcome');
 app.use(express.static(__dirname + '/public'));
 
 app.use('/home', routesHome);
-app.use('/welcome', routesWelcome);
  
 app.set('view engine', 'ejs');
 	
-app.get('/welcome', function(req, res){
+app.get('/', function(req, res){
 	res.render('pages/welcome', {
 	    	orgId: req.query.orgId,
 	    	renId: req.query.renId
     	});
 });
 
-app.get('/', function(req, res){
+app.get('/authenticate', function(req, res){
 	oauth.redirectToHome(req, res, app);
 });
 
