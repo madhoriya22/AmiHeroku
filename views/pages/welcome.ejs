@@ -6,14 +6,14 @@
 <script>
   function getUrlVars(){
     var hrefVal = window.location.href;
-    var removeWelcome = hrefVal.replace("welcome", "");
-    return removeWelcome;
+    var returnURL = hrefVal.replace("welcome", "");
+    return returnURL;
     
   }
 
-  var vars = getUrlVars();      
+  var returnURL = getUrlVars();      
   setTimeout(function() {
-    //window.location.replace(window.location.orgin+"/?"+vars);
+    window.location.replace(returnURL);
   }, 2000);
 </script>
 </body>
