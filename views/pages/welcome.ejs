@@ -13,9 +13,9 @@
       vars.push(hash[0]);
       vars[hash[0]] = hash[1];
     }
-      return vars;
-    }
+    return vars;
   }
+
   var vars = getUrlVars();      
   setTimeout(function() {
     window.location.replace("/?"+vars);
