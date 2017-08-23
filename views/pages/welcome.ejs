@@ -6,7 +6,7 @@
 <script>
   function getUrlVars(){
     var hrefVal = window.location.href;
-    var returnURL = hrefVal.replace("welcome", "");
+    var returnURL = hrefVal.replace(window.location.origin+"/", window.location.origin + "/authenticate");
     return returnURL;
     
   }
