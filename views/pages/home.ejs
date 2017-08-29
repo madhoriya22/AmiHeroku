@@ -210,4 +210,230 @@
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 	</body>
+=======
+<html lang="en">
+	<head>
+		<% include ../partials/ldOut %>
+		 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	</head>
+	<style>
+		.modal-overlay {
+		    dialogClass: "no-close";
+    		display: none; /* Hidden by default */
+    		position: fixed; /* Stay in place */
+    		z-index: 1; /* Sit on top */
+    		padding-top: 100px; /* Location of the box */
+    		left: 0;
+   			top: 0;
+    		width: 100%; /* Full width */
+    		height: 100%; /* Full height */
+    		overflow: auto; /* Enable scroll if needed */
+    		background-color: rgb(0,0,0); /* Fallback color */
+    		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		} 
+		.warning-content {
+   			 background-color: #fefefe;
+   			 padding: 10px;
+   			 border: 1px solid #888;
+   			 border-radius: 2px;
+    		box-shadow:0 5px 15px rgba(0,0,0,.5);
+		}
+	</style>
+	
+	<body>
+		<header>
+		</header>
+		<main>
+			<div id="renderLtngComp"/>
+		</main>
+		<div id="spinnerDiv" class="spinner-modal-overlay">
+	    	<div class="spinner-modal-content">
+	            <div class="spinner-container">
+	                <div class="spinner"></div>
+	            </div>
+	        </div>
+	    </div>
+	    <div id="result"></div>
+	    
+		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
+		  	<div class="container">
+    				<div class="row">
+       					<div class="col-md-3"></div>
+					<div class="col-md-6">
+                				<div class="warning-content clearfix">
+                    					Your session has expired. Click OK to restart it.
+                    					<br/><br/>
+                    					<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirmation();">OK</button>
+               		 			</div>
+					</div>
+					<div class="col-md-3"></div>
+    				</div>
+			</div>
+		</div>
+		
+		<div id="modalSafariEnable" class="modal-overlay" style="width: 100%  !important;height: 100%  !important; display: none">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<div class="warning-content clearfix">
+							The webpage cannot open because cookies are not enabled. Enable cookies in your browser and then retry, or use another browser.
+							<br/><br/>
+							<button style="float:right;width:100px;" class="btn btn-outline-info" onclick="okConfirm();">OK</button>
+						</div>
+					</div>
+					<div class="col-md-3"></div>
+				</div>
+			</div>
+		</div>
+		
+		<footer>
+		</footer>
+		<script> 
+			var SS = SS || { };			
+            
+			SS.LightningActions = (function() {
+				"use strict";
+				function onWinLoad() {
+				    $("#modalWarning").hide();
+					$("#modalSafariEnable").hide();
+					var vars = getUrlVars();
+					isSafariBrowser();
+					/*detectPrivateMode(
+					        function(is_private) {
+					        	console.log('IN Private : '+is_private);
+					            document.getElementById('result').innerHTML = typeof is_private === 'undefined' ? 'cannot detect' : is_private ? 'private' : 'not private';
+					        }
+					    );*/
+					//whenNoTrackingProtection();
+					if(vars["action"]=="oauth"){
+						alert("OAuth Successful");
+						window.open(window.location.href, '_self', '');
+							window.close();
+					}
+				}
+				
+				function getUrlVars(){
+				    var vars = [], hash;
+				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				    for(var i = 0; i < hashes.length; i++)
+				    {
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				    }
+				    return vars;
+				}
+				
+				function isSafariBrowser(){
+					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+                           navigator.userAgent && !navigator.userAgent.match('CriOS');
+					var decodedCookie = decodeURIComponent(document.cookie);
+					console.log('decodedCookie '+decodedCookie);
+					if(!navigator.cookieEnabled && isSafari){
+        				//console.log('ModalWarning check :: 111 ');
+						$("#modalSafariEnable").show();
+        			}
+        			return false;
+				}
+				
+				
+				
+				function LDLTCMPCreate() {
+					var str="<%= str %>";
+					var sfdcurl = "<%= sfdcurl %>";
+					var orgid = "<%= orgid %>";
+					var id = getUrlVars()["renId"];
+					var sessionIdleTime = "<%= idletime %>";
+					
+					/*console.log(sfdcurl);
+					console.log(str);
+					console.log('orgId= '+orgid);
+					console.log('sessionIdleTime : '+sessionIdleTime);*/
+				    try {
+						$Lightning.use("<%= namespace %>LDLT", function(cmp){
+							//console.log('before calling load component');
+							LDT_loadComponent('onload', str);
+						}, sfdcurl, str);
+						$(document).ready(function () {
+							var idleTime = 0;
+						    //Increment the idle time counter every minute.
+						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
+						    //console.log('idleInterval : '+idleInterval);
+						    //Zero the idle timer on mouse movement.
+						    
+						    $(this).keypress(function (e) {
+						        idleTime = 0;
+						    });
+						    $(this).mousedown(function (e) {
+						        //console.log('mousedown : '+idleTime);
+						        idleTime = 0;
+						    });
+	
+							function timerIncrement() {
+							    idleTime = idleTime + 1;
+							    if (idleTime >= sessionIdleTime) { // 20 minutes
+							        document.getElementById('modalWarning').style.display = "block";
+							    }
+							}
+						});
+					} catch(err) {
+						console.log('err::'+err);
+					}
+				}
+			
+				function LDT_loadComponent(type, str, subjectId) {
+					var id = getUrlVars()["renId"];
+					var successflag = getUrlVars()["successflag"];
+					document.getElementById("renderLtngComp").innerHTML = "";
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp",
+						function(cmp) {
+							$("#spinnerDiv").hide();						
+					});
+				}
+				
+				return {
+					LDLTCMPCreate : LDLTCMPCreate,
+					onWinLoad : onWinLoad
+				};
+			}());
+			window.onload =function(){
+				$("#spinnerDiv").show();
+				SS.LightningActions.onWinLoad();
+			}
+			
+			function getUrlVars(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			}
+			
+			function okConfirmation() {
+				var sfdcurl = "<%= sfdcurl %>";
+				var orgid = "<%= orgid %>";
+				var id = getUrlVars()["renId"];
+				var sessionIdleTime = "<%= idletime %>";
+					
+			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+			}
+			
+			function okConfirm() {
+			    var sfdcurl = "<%= sfdcurl %>";
+				var orgid = "<%= orgid %>";
+				var id = getUrlVars()["renId"];
+				var sessionIdleTime = "<%= idletime %>";
+					
+				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+                window.close();
+			}
+			
+			SS.LightningActions.LDLTCMPCreate();
+		</script>
+	</body>
 </html>
