@@ -18,8 +18,15 @@ app.use(express.static(__dirname + '/public'));
 app.use('/home', routesHome);
  
 app.set('view engine', 'ejs');
-
+	
 app.get('/', function(req, res){
+	res.render('pages/welcome', {
+	    	orgId: req.query.orgId,
+	    	renId: req.query.renId
+    	});
+});
+
+app.get('/authenticate', function(req, res){
 	oauth.redirectToHome(req, res, app);
 });
 
@@ -46,4 +53,5 @@ app.get('/revokeAccess', function(req, res) {
 });
 // Served Localhost
 console.log('Served: http://localhost:' + port);
+console.log('About to serve');
 app.listen(port);
