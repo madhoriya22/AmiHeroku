@@ -109,13 +109,8 @@
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
 					
-					/*console.log(sfdcurl);
-					console.log(str);
-					console.log('orgId= '+orgid);
-					console.log('sessionIdleTime : '+sessionIdleTime);*/
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							//console.log('before calling load component');
 							LDT_loadComponent('onload', str);
 						}, sfdcurl, str);
 						$(document).ready(function () {
