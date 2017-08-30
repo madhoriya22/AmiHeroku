@@ -108,9 +108,10 @@
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
-					
+					var lightningLoaded = false;
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
+							lightningLoaded = true;
 							LDT_loadComponent('onload', str);
 						}, sfdcurl, str);
 						$(document).ready(function () {
@@ -138,6 +139,11 @@
 					} catch(err) {
 						console.log('err::'+err);
 					}
+					settimeout(function(){	
+						if (lightningLoaded==false){
+							console.log('Error loading lightning components');
+						}
+					}, 5000);
 				}
 			
 				function LDT_loadComponent(type, str, subjectId) {
