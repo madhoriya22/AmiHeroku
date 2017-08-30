@@ -172,7 +172,6 @@
                     document.getElementById("loading-spinner").classList.add('hide');
                 } else {
                     gotoQuote();
-
                 }
             }
             // https://stackoverflow.com/questions/2167310/how-to-show-a-message-only-if-cookies-are-disabled-in-browser
@@ -195,13 +194,11 @@
                 } while (!(persist = !persist));
                 return null;
             };
-
             function getUrlVars(){
               var hrefVal = window.location.href;
               var returnURL = hrefVal.replace(window.location.origin+"/", window.location.origin + "/authenticate");
               return returnURL;
             }
-
           function gotoQuote() {
                 window.location.replace(getUrlVars());
             }
