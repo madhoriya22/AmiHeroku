@@ -193,7 +193,7 @@
 			</div>
 		</div>
 		
-		<div id="no-cookies" class="overlay error-overlay">
+		<div id="no-cookies" class="overlay error-overlay hide">
 		    <div>
 			<h2 style="color:#f36969;border-bottom:1px solid lightgray;padding-bottom:10px;">
 			    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -290,9 +290,9 @@
 					}
 					setTimeout(function(){	
 						if (lightningLoaded==false){
-							console.log('Error loading lightning components');
+							$("#no-cookies").classList.remove("hide");
 						}
-					}, 5000);
+					}, 1000);
 				}
 			
 				function LDT_loadComponent(type, str, subjectId) {
@@ -313,7 +313,6 @@
 				};
 			}());
 			window.onload =function(){
-				$("#spinnerDiv").show();
 				SS.LightningActions.onWinLoad();
 			}
 			
