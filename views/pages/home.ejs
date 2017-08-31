@@ -29,7 +29,7 @@
 	</style>
 	
 	<body>
-		<div id="initialSpinner" class="spinner-modal-overlay">
+		<div id="initialSpinner" class="spinner-modal-overlay cREN_LT_Spinner">
 			<div class="spinner-modal-content" >
 				<div class="spinner-container">
 					<div class="spinner"></div>
@@ -154,8 +154,9 @@
 					document.getElementById("renderLtngComp").innerHTML = "";
 					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParams}, "renderLtngComp",
 						function(cmp) {
-							$("#spinnerDiv").hide();						
-					});
+							$("#initialSpinner").hide();						
+						}
+					);
 				}
 				
 				return {
