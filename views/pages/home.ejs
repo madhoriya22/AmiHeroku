@@ -243,7 +243,7 @@
 				
 				function isSafariBrowser(){
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-                           navigator.userAgent && !navigator.userAgent.match('CriOS');
+                           			navigator.userAgent && !navigator.userAgent.match('CriOS');
 					if(!navigator.cookieEnabled && isSafari){
         				//console.log('ModalWarning check :: 111 ');
 					$("#modalSafariEnable").show();
@@ -290,7 +290,8 @@
 					}
 					setTimeout(function(){	
 						if (lightningLoaded==false){
-							$("#no-cookies").classList.remove("hide");
+							document.getElementById("initialSpinner").classList.add('hide');
+							document.getElementById("no-cookies").classList.remove('hide');
 						}
 					}, 1000);
 				}
