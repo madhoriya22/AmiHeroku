@@ -243,8 +243,7 @@
 				function isSafariBrowser(){
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                            			navigator.userAgent && !navigator.userAgent.match('CriOS');
-					//if(!navigator.cookieEnabled && isSafari){
-					if(!navigator.cookieEnabled){
+					if(!navigator.cookieEnabled && isSafari){
 	        				//console.log('ModalWarning check :: 111 ');
 						$("#modalSafariEnable").show();
         				}
