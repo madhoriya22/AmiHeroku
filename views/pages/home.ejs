@@ -292,7 +292,7 @@
 							document.getElementById("initialSpinner").classList.add('hide');
 							document.getElementById("no-cookies").classList.remove('hide');
 						}
-					}, 3000);
+					}, 4000);
 				}
 			
 				function LDT_loadComponent(type, str, subjectId) {
@@ -330,9 +330,14 @@
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
+				var unSub = getUrlVars()["UNSC"];
+				var unsubscribeParam = '';
+				if(unSub) {
+					unsubscribeParam = '&UNSC='+unSub;
+				}
 				var sessionIdleTime = "<%= idletime %>";
 					
-			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+			    window.open('/accesstoken?orgid='+orgid+'&renId='+id+unsubscribeParam, '_self', '');
 			}
 			
 			function okConfirm() {
