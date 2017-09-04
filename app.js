@@ -11,24 +11,22 @@ app.use(sessions.createSession());
 
 // Require Routes js
 var routesHome = require('./routes/home');
-var routesWelcome = require('./routes/welcome');
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
 app.use('/home', routesHome);
-app.use('/welcome', routesWelcome);
  
 app.set('view engine', 'ejs');
 	
-app.get('/welcome', function(req, res){
+app.get('/', function(req, res){
 	res.render('pages/welcome', {
 	    	orgId: req.query.orgId,
 	    	renId: req.query.renId
     	});
 });
 
-app.get('/', function(req, res){
+app.get('/authenticate', function(req, res){
 	oauth.redirectToHome(req, res, app);
 });
 
@@ -54,6 +52,6 @@ app.get('/revokeAccess', function(req, res) {
 	oauth.revokeAccess(req,res);
 });
 // Served Localhost
-console.log('Served: http://localhost:' + port);
-console.log('About to serve');
+//console.log('Served: http://localhost:' + port);
+
 app.listen(port);
