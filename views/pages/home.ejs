@@ -330,9 +330,13 @@
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
-				var sessionIdleTime = "<%= idletime %>";
+				var unSub = getUrlVars()["UNSC"];
+				var unsubscribeParam = '';
+				if(unSub) {
+					unsubscribeParam = '&UNSC='+unSub;
+				}
 					
-			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+			    window.open('/accesstoken?orgid='+orgid+'&renId='+id+unsubscribeParam, '_self', '');
 			}
 			
 			function okConfirm() {
