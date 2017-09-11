@@ -256,10 +256,10 @@
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
-					var lightningLoaded = false;
+					//var lightningLoaded = false;
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							lightningLoaded = true;
+							//lightningLoaded = true;
 							LDT_loadComponent('onload', str);
 						}, sfdcurl, str);
 						$(document).ready(function () {
@@ -287,12 +287,14 @@
 					} catch(err) {
 						console.log('err::'+err);
 					}
+					/*
 					setTimeout(function(){	
 						if (lightningLoaded==false){
 							document.getElementById("initialSpinner").classList.add('hide');
 							document.getElementById("no-cookies").classList.remove('hide');
 						}
 					}, 6000);
+					*/
 				}
 			
 				function LDT_loadComponent(type, str, subjectId) {
