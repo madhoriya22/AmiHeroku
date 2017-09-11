@@ -8,36 +8,161 @@
 		  
 	</head>
 	<style>
+	
+		.show {
+		    display: block;
+		}
+		.hide {
+		    display: none;
+		}
+
+		.spinner-container {
+			box-sizing: border-box;
+		    position: relative;
+		    height: 71px;
+		    width: 71px;
+		    margin: auto;
+		}
+
+		.spinner {
+			/*Change height and width to change the size of circle*/
+		    box-sizing: border-box;
+		    height: 50px;
+		    width: 50px;
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    /*margin is half the size of spinner circle*/
+		    margin: -25px 0 0 -25px;
+		    -webkit-animation: rotation 1s infinite linear;
+		    -moz-animation: rotation 1s infinite linear;
+		    -o-animation: rotation 1s infinite linear;
+		    animation: rotation 1s infinite linear;
+		    border: 6px solid rgba(0, 0, 0, .2);
+		    border-radius: 100%;
+		    z-index: 999999;
+		}
+
+		.spinner:before {
+			box-sizing: inherit;
+		    content: "";
+		    display: block;
+		    position: absolute;
+		    left: 0;
+		    top: -6px;
+		    height: 100%;
+		    width: 100%;
+		    border-top: 6px solid rgba(0, 0, 0, .8);
+		    border-left: 6px solid transparent;
+		    border-bottom: 6px solid transparent;
+		    border-right: 6px solid transparent;
+		    border-radius: 100%;
+		}
+
+		.overlay {
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		}
+		
+		.error-overlay {
+		    padding: 50px; /* Location of the box */
+		    background-color: white;
+		}
+
+		.spinner-overlay {
+		    padding-top: 100px; /* Location of the box */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		/* Modal Content */
+		.spinner-modal-content {
+		    background-color: #fefefe;
+		    margin: auto;
+		    padding: 10px;
+		    border: 6px solid #888;
+		    border-radius: 10%;
+		    width: 120px;
+		    text-align: center;
+		}
+
+		@-webkit-keyframes rotation {
+		    from {
+			-webkit-transform: rotate(0deg);
+		    }
+		    to {
+			-webkit-transform: rotate(359deg);
+		    }
+		}
+
+		@-moz-keyframes rotation {
+		    from {
+			-moz-transform: rotate(0deg);
+		    }
+		    to {
+			-moz-transform: rotate(359deg);
+		    }
+		}
+
+		@-o-keyframes rotation {
+		    from {
+			-o-transform: rotate(0deg);
+		    }
+		    to {
+			-o-transform: rotate(359deg);
+		    }
+		}
+
+		@keyframes rotation {
+		    from {
+			transform: rotate(0deg);
+		    }
+		    to {
+			transform: rotate(359deg);
+		    }
+		}
+	
 		.modal-overlay {
-		    dialogClass: "no-close";
-    		display: none; /* Hidden by default */
-    		position: fixed; /* Stay in place */
-    		z-index: 1; /* Sit on top */
-    		padding-top: 100px; /* Location of the box */
-    		left: 0;
-   			top: 0;
-    		width: 100%; /* Full width */
-    		height: 100%; /* Full height */
-    		overflow: auto; /* Enable scroll if needed */
-    		background-color: rgb(0,0,0); /* Fallback color */
-    		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			dialogClass: "no-close";
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			padding-top: 100px; /* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 		} 
 		.warning-content {
    			 background-color: #fefefe;
    			 padding: 10px;
    			 border: 1px solid #888;
    			 border-radius: 2px;
-    		box-shadow:0 5px 15px rgba(0,0,0,.5);
+    			box-shadow:0 5px 15px rgba(0,0,0,.5);
 		}
 	</style>
 	
 	<body>
+		<div id="initialSpinner" class="overlay spinner-overlay">
+			<div class="spinner-modal-content" >
+				<div class="spinner-container">
+					<div class="spinner"></div>
+				</div>
+			</div>
+		</div>
 		<header>
 		</header>
 		<main>
-			<div id="renderLtngComp"/>
+			<div id="renderLtngComp"></div>
 		</main>
-		
 		<div id="modalWarning" class="modal-overlay" style="width: 100%;height: 100%;">
 		  	<div class="container">
     				<div class="row">
@@ -70,6 +195,35 @@
 			</div>
 		</div>
 		
+		<div id="no-cookies" class="overlay error-overlay hide">
+		    <div>
+			<h2 style="color:#f36969;border-bottom:1px solid lightgray;padding-bottom:10px;">
+			    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 511.999 511.999" width="30px" 3eight="40px" style="margin-bottom: -5px;margin-right: 5px;" xml:space="preserve">
+				<g>
+					<g>
+						<g>
+							<path d="M506.43,421.537L291.573,49.394c-15.814-27.391-55.327-27.401-71.147,0L5.568,421.537
+								c-15.814,27.391,3.934,61.616,35.574,61.616h429.714C502.485,483.153,522.25,448.938,506.43,421.537z M470.856,445.51H41.142
+								c-2.67,0-4.313-2.835-2.975-5.152L253.024,68.215c1.335-2.313,4.611-2.318,5.949,0L473.83,440.357
+								C475.166,442.671,473.533,445.51,470.856,445.51z"/>
+							<path d="M255.999,184.991c-10.394,0-18.821,8.427-18.821,18.821v107.89c0,10.394,8.427,18.821,18.821,18.821
+								s18.821-8.427,18.821-18.821v-107.89C274.821,193.418,266.394,184.991,255.999,184.991z"/>
+							<path d="M255.999,354.975c-10.394,0-18.821,8.427-18.821,18.821v11.239c0,10.394,8.427,18.821,18.821,18.821
+								s18.821-8.427,18.821-18.821v-11.239C274.821,363.4,266.394,354.975,255.999,354.975z"/>
+						</g>
+					</g>
+				</g>
+
+			    </svg>Cookies Disabled! 
+			</h2>Your browser seems to have cookies disabled. Cookies are required to view this site. Normally cookies can be enabled in your browser's settings. Here are some helpful articles to enable cookies in your browser.
+			<ul>
+			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
+			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Chrome</a></li>
+			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Firefox</a></li>
+			</ul>
+		    </div>
+		</div>
 		<footer>
 		</footer>
 		<script> 
@@ -128,37 +282,77 @@
 					}
 				}
 				
-				function getUrlVars(){
-				    var vars = [], hash;
-				    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				    for(var i = 0; i < hashes.length; i++)
-				    {
-					hash = hashes[i].split('=');
-					vars.push(hash[0]);
-					vars[hash[0]] = hash[1];
-				    }
-				    return vars;
-				}
-				
 				function isSafariBrowser(){
 					var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-                           navigator.userAgent && !navigator.userAgent.match('CriOS');
+                           			navigator.userAgent && !navigator.userAgent.match('CriOS');
 					if(!navigator.cookieEnabled && isSafari){
-        				console.log('ModalWarning check :: 111 ');
-					$("#modalSafariEnable").show();
-        				//$("#modalSafariEnable").dialog();
-        				//$("#modalSafariEnable").style.display = "block";
-        			}
+	        				//console.log('ModalWarning check :: 111 ');
+						$("#modalSafariEnable").show();
+        				}
         			return false;
 				}
 				
-				var _0x9cb2=["\x72\x65\x6E\x49\x64","\x2F\x63\x72\x79\x70\x74\x6F\x2F\x65\x6E\x63\x72\x79\x70\x74\x65\x64\x3F\x63\x61\x6C\x6C\x62\x61\x63\x6B\x3D\x3F","\x64\x6F\x6E\x65","\x65\x6E\x63\x72\x79\x70\x74\x65\x64","\x2F\x63\x72\x79\x70\x74\x6F\x2F\x70\x61\x73\x73\x70\x68\x72\x61\x73\x65\x3F\x63\x61\x6C\x6C\x62\x61\x63\x6B\x3D\x3F","\x70\x61\x73\x73\x70\x68\x72\x61\x73\x65","\x64\x65\x63\x72\x79\x70\x74","\x41\x45\x53","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x55\x74\x66\x38","\x65\x6E\x63","\x62\x65\x66\x6F\x72\x65\x20\x63\x61\x6C\x6C\x69\x6E\x67\x20\x6C\x6F\x61\x64\x20\x63\x6F\x6D\x70\x6F\x6E\x65\x6E\x74","\x6C\x6F\x67","\x6F\x6E\x6C\x6F\x61\x64","\x75\x73\x65","\x65\x72\x72\x3A\x3A","\x67\x65\x74\x4A\x53\x4F\x4E","\x69\x64\x6C\x65\x49\x6E\x74\x65\x72\x76\x61\x6C\x20\x3A\x20","\x6B\x65\x79\x70\x72\x65\x73\x73","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E\x20\x3A\x20","\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E","\x64\x69\x73\x70\x6C\x61\x79","\x73\x74\x79\x6C\x65","\x6D\x6F\x64\x61\x6C\x57\x61\x72\x6E\x69\x6E\x67","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x62\x6C\x6F\x63\x6B","\x72\x65\x61\x64\x79"];function LDLTCMPCreate(){var _0x6537x2='<%= sfdcurl %>';var _0x6537x3='<%= orgid %>';var _0x6537x4=getUrlVars()[_0x9cb2[0]];var _0x6537x5='<%= idletime %>';var _0x6537x6=_0x9cb2[1];var _0x6537x7;$[_0x9cb2[16]](_0x6537x6,function(_0x6537x8){_0x6537x7= _0x6537x8[_0x9cb2[3]];var _0x6537x9=_0x9cb2[4];$[_0x9cb2[16]](_0x6537x9,function(_0x6537x8){var _0x6537xa=_0x6537x8[_0x9cb2[5]];var _0x6537xb=CryptoJS[_0x9cb2[7]][_0x9cb2[6]](_0x6537x7,_0x6537xa,{format:JsonFormatter});var _0x6537xc=CryptoJS[_0x9cb2[10]][_0x9cb2[9]][_0x9cb2[8]](_0x6537xb);str_temp= _0x6537xc;try{$Lightning[_0x9cb2[14]]('<%= namespace %>LDLT',function(_0x6537xd){console[_0x9cb2[12]](_0x9cb2[11]);LDT_loadComponent(_0x9cb2[13],_0x6537xc)},_0x6537x2,_0x6537xc)}catch(err){console[_0x9cb2[12]](_0x9cb2[15]+ err)}})[_0x9cb2[2]](function(){})})[_0x9cb2[2]](function(){});try{$(document)[_0x9cb2[26]](function(){var _0x6537xe=0;var _0x6537xf=setInterval(_0x6537x11,65000);console[_0x9cb2[12]](_0x9cb2[17]+ _0x6537xf);$(this)[_0x9cb2[18]](function(_0x6537x10){_0x6537xe= 0});$(this)[_0x9cb2[20]](function(_0x6537x10){console[_0x9cb2[12]](_0x9cb2[19]+ _0x6537xe);_0x6537xe= 0});function _0x6537x11(){_0x6537xe= _0x6537xe+ 1;if(_0x6537xe>= _0x6537x5){document[_0x9cb2[24]](_0x9cb2[23])[_0x9cb2[22]][_0x9cb2[21]]= _0x9cb2[25]}}})}catch(err){console[_0x9cb2[12]](_0x9cb2[15]+ err)}}
+
+				function LDLTCMPCreate() {
+					var str="<%= str %>";
+					var sfdcurl = "<%= sfdcurl %>";
+					var orgid = "<%= orgid %>";
+					var id = getUrlVars()["renId"];
+					var sessionIdleTime = "<%= idletime %>";
+					var lightningLoaded = false;
+				    try {
+						$Lightning.use("<%= namespace %>LDLT", function(cmp){
+							lightningLoaded = true;
+							LDT_loadComponent('onload', str);
+						}, sfdcurl, str);
+						$(document).ready(function () {
+							var idleTime = 0;
+						    //Increment the idle time counter every minute.
+						    var idleInterval = setInterval(timerIncrement, 65000); // 1 minute
+						    //console.log('idleInterval : '+idleInterval);
+						    //Zero the idle timer on mouse movement.
+						    
+						    $(this).keypress(function (e) {
+						        idleTime = 0;
+						    });
+						    $(this).mousedown(function (e) {
+						        //console.log('mousedown : '+idleTime);
+						        idleTime = 0;
+						    });
+	
+							function timerIncrement() {
+							    idleTime = idleTime + 1;
+							    if (idleTime >= sessionIdleTime) { // 20 minutes
+							        document.getElementById('modalWarning').style.display = "block";
+							    }
+							}
+						});
+					} catch(err) {
+						console.log('err::'+err);
+					}
+					setTimeout(function(){	
+						if (lightningLoaded==false){
+							document.getElementById("initialSpinner").classList.add('hide');
+							document.getElementById("no-cookies").classList.remove('hide');
+						}
+					}, 4000);
+				}
+
 			
 				function LDT_loadComponent(type, str, subjectId) {
-					var id = getUrlVars()["renId"];
-					var successflag = getUrlVars()["successflag"];
+
+					var urlParams = getUrlVars();
+					var id = urlParams["renId"];
+					console.log('urlParams --> '+urlParams);
+
 					document.getElementById("renderLtngComp").innerHTML = "";
-					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {type: type, subjectId: subjectId, renId:id, oauthId: str}, "renderLtngComp");
+
+					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParams}, "renderLtngComp",
+						function(cmp) {
+							$("#initialSpinner").hide();						
+						}
+					);
+
 				}
 				
 				return {
@@ -171,30 +365,41 @@
 			}
 			
 			function getUrlVars(){
-				var vars = [], hash;
+			    var vars = {}, hash;
 				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 				for(var i = 0; i < hashes.length; i++){
 					hash = hashes[i].split('=');
-					vars.push(hash[0]);
 					vars[hash[0]] = hash[1];
 				}
 				return vars;
 			}
 			
 			function okConfirmation() {
-				
+
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
-				var sessionIdleTime = "<%= idletime %>";
-				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+
+				var unSub = getUrlVars()["UNSC"];
+				var unsubscribeParam = '';
+				if(unSub) {
+					unsubscribeParam = '&UNSC='+unSub;
+				}
+					
+			    window.open('/accesstoken?orgid='+orgid+'&renId='+id+unsubscribeParam, '_self', '');
+
 			}
 			
-			function okConfirm() {			    
-				var sfdcurl = "<%= sfdcurl %>";
+
+			function okConfirm() {
+			    var sfdcurl = "<%= sfdcurl %>";
+
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
-				var sessionIdleTime = "<%= idletime %>";				
+
+				var sessionIdleTime = "<%= idletime %>";
+					
+
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
