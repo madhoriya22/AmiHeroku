@@ -216,11 +216,12 @@
 			</h2>Your browser seems to have cookies disabled. Cookies are required to view this site. Normally cookies can be enabled in your browser's settings. Here are some helpful articles to enable cookies in your browser.
 			<ul>
 			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
-			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
-			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
+			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Chrome</a></li>
+			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Firefox</a></li>
 			</ul>
 		    </div>
 		</div>
+	
 		<footer>
 		</footer>
 		<script> 
@@ -287,12 +288,14 @@
 					} catch(err) {
 						console.log('err::'+err);
 					}
+					
 					setTimeout(function(){	
 						if (lightningLoaded==false){
 							document.getElementById("initialSpinner").classList.add('hide');
 							document.getElementById("no-cookies").classList.remove('hide');
 						}
-					}, 4000);
+					}, 6000);
+					
 				}
 			
 				function LDT_loadComponent(type, str, subjectId) {
@@ -302,7 +305,9 @@
 					document.getElementById("renderLtngComp").innerHTML = "";
 					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParams}, "renderLtngComp",
 						function(cmp) {
-							$("#initialSpinner").hide();						
+							$("#initialSpinner").hide();
+							$A.eventService.addHandler({ "event": "<%= namespace %>myEvent", "handler" : visualForceFunction});
+													
 						}
 					);
 				}
@@ -335,7 +340,6 @@
 				if(unSub) {
 					unsubscribeParam = '&UNSC='+unSub;
 				}
-				var sessionIdleTime = "<%= idletime %>";
 					
 			    window.open('/accesstoken?orgid='+orgid+'&renId='+id+unsubscribeParam, '_self', '');
 			}
@@ -349,7 +353,10 @@
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
-			
+			var visualForceFunction = function(event){
+						    var myEventData = event.getParam("data");
+						    console.log(myEventData);
+						};
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 	</body>
