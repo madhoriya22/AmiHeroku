@@ -357,12 +357,16 @@
 			    var myEventData = event.getParam("data");
 			    //console.log(myEventData);
 			    
-			    var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
+			    var win = window.open("","temp","width="+w+",height="+h+",menubar=yes,toolbar=yes,location=yes,status=yes,scrollbars=auto,resizable=yes");
+			    win.location.href = myEventData;
+			    win.focus();
+			    
+			    /*var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
 			    
 			    var x = window.open();
 		        x.document.open();
 		        x.document.write(iframe);
-		        x.document.close();
+		        x.document.close();*/
 					        
 			};
 			SS.LightningActions.LDLTCMPCreate();
