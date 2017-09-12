@@ -356,12 +356,16 @@
 			var visualForceFunction = function(event){
 						    var myEventData = event.getParam("data");
 						    //console.log(myEventData);
-						    var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
-						    
-						    var x = window.open();
-					        x.document.open();
-					        x.document.write(iframe);
-					        x.document.close();
+						    if ($.browser.msie && ($.browser.version &lt; 9.0)) {
+							  frm.location.href = myEventData;
+							}else{
+							    var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
+							    
+							    var x = window.open();
+						        x.document.open();
+						        x.document.write(iframe);
+						        x.document.close();
+					        }
 						};
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
