@@ -394,6 +394,9 @@
 			    //window.location.href = myEventData;
 			    
 			    if ($.browser.msie && $.browser.version > 6){
+			    	var win = window.open("","temp","width='100%',height='100%',menubar=yes,toolbar=yes,location=yes,status=yes,scrollbars=auto,resizable=yes");
+				    win.location.href = myEventData;
+				    win.focus();
 			    	console.log("IE");
 			    }else{
 			    	console.log("chrome");
