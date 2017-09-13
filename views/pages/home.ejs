@@ -393,7 +393,7 @@
 			    //console.log(myEventData);
 			    //window.location.href = myEventData;
 			    
-			    if ($.browser.msie && $.browser.version > 6){
+			    if (($.browser.mozilla || $.browser.msie) && $.browser.version > 6){
 			    	onsole.log("in IE ");
 				    var byteCharacters = atob(myEventData);
 				    var byteNumbers = new Array(byteCharacters.length);
