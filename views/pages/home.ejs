@@ -392,11 +392,7 @@
 			    var myEventData = event.getParam("data");
 			    //console.log(myEventData);
 			    //window.location.href = myEventData;
-			    var parser = new UAParser();
-				var result = parser.getResult();
-				
-				var name = result.browser.name;
-				var version = result.browser.version;
+			    console.log(window.navigator.userAgent.indexOf("Edge"));
 				
 			    if (($.browser.mozilla || $.browser.msie) && $.browser.version > 6){
 			    	 var index = myEventData.indexOf(",");
