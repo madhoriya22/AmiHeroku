@@ -394,7 +394,7 @@
 			    //window.location.href = myEventData;
 			    
 			    if ($.browser.msie && $.browser.version > 6){
-			    	
+			    	onsole.log("in IE ");
 				    var byteCharacters = atob(myEventData);
 				    var byteNumbers = new Array(byteCharacters.length);
 				    for (var i = 0; i < byteCharacters.length; i++) {
@@ -404,7 +404,7 @@
 				    var blob = new Blob([byteArray], {type: 'application/pdf'});
 				    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");
 				    
-			    	console.log("IE");
+			    	console.log(" out IE");
 			    }else{
 			    	console.log("chrome");
 				    var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
