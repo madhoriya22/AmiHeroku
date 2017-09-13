@@ -341,7 +341,7 @@
 					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParams}, "renderLtngComp",
 						function(cmp) {
 							$("#initialSpinner").hide();
-							$A.eventService.addHandler({ "event": "<%= namespace %>myEvent", "handler" : visualForceFunction});
+							$A.eventService.addHandler({ "event": "<%= namespace %>openPDFEvent", "handler" : showPDF});
 													
 						}
 					);
@@ -388,15 +388,15 @@
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
-			var visualForceFunction = function(event){
+			var showPDF = function(event){
 			    var myEventData = event.getParam("data");
 			    //console.log(myEventData);
 			    //window.location.href = myEventData;
 			    
 			    if ($.browser.msie && $.browser.version > 6){
-			    	var win = window.open("","temp","width='100%',height='100%',menubar=yes,toolbar=yes,location=yes,status=yes,scrollbars=auto,resizable=yes");
+			    	
 				    win.location.href = myEventData;
-				    win.focus();
+				    
 			    	console.log("IE");
 			    }else{
 			    	console.log("chrome");
