@@ -392,7 +392,12 @@
 			    var myEventData = event.getParam("data");
 			    //console.log(myEventData);
 			    //window.location.href = myEventData;
-			    
+			    var parser = new UAParser();
+				var result = parser.getResult();
+				
+				var name = result.browser.name;
+				var version = result.browser.version;
+				
 			    if (($.browser.mozilla || $.browser.msie) && $.browser.version > 6){
 			    	 var index = myEventData.indexOf(",");
 			    	 var dataBase64 = myEventData.substr(index+1,myEventData.length);
@@ -403,8 +408,8 @@
 					    }
 					    var byteArray = new Uint8Array(byteNumbers);
 					    var blob = new Blob([byteArray], {type: 'application/pdf'});
-					    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");
-			    	console.log(" out IE");
+					    window.navigator.msOpenBlob(blob, "QuotePDF");
+			    		console.log(" out IE");
 			    }else{
 			    	console.log("chrome");
 				    var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
