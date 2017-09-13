@@ -403,7 +403,7 @@
 					    }
 					    var byteArray = new Uint8Array(byteNumbers);
 					    var blob = new Blob([byteArray], {type: 'application/pdf'});
-					    window.navigator.msOpenBlob(blob, "QuotePDF");
+					    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");
 			    		console.log(" out IE");
 			    }else{
 			    	console.log("chrome");
