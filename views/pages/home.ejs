@@ -341,7 +341,7 @@
 					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParams}, "renderLtngComp",
 						function(cmp) {
 							$("#initialSpinner").hide();
-							$A.eventService.addHandler({ "event": "<%= namespace %>openPDFEvent", "handler" : showPDF});
+							$A.eventService.addHandler({ "event": "<%= namespace %>REN_LT_OpenPDFEvent", "handler" : showPDF});
 													
 						}
 					);
