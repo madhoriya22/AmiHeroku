@@ -394,10 +394,14 @@
 			    //window.location.href = myEventData;
 			    
 			    if (($.browser.mozilla || $.browser.msie) && $.browser.version > 6){
-			    	txtArea1.document.open("content type", "replace");
-			        txtArea1.document.write(myEventData);
-			        txtArea1.document.close();
-			        txtArea1.focus();
+			    	 var byteCharacters = window.atob(myEventData);
+					    var byteNumbers = new Array(byteCharacters.length);
+					    for (var i = 0; i < byteCharacters.length; i++) {
+					        byteNumbers[i] = byteCharacters.charCodeAt(i);
+					    }
+					    var byteArray = new Uint8Array(byteNumbers);
+					    var blob = new Blob([byteArray], {type: 'application/pdf'});
+					    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");
 			    	console.log(" out IE");
 			    }else{
 			    	console.log("chrome");
