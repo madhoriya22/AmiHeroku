@@ -395,7 +395,7 @@
 			    
 			    if (($.browser.mozilla || $.browser.msie) && $.browser.version > 6){
 			    	txtArea1.document.open("content type", "replace");
-			        txtArea1.document.write(base64encodedstring);
+			        txtArea1.document.write(myEventData);
 			        txtArea1.document.close();
 			        txtArea1.focus();
 			    	console.log(" out IE");
