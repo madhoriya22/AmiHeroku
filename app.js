@@ -12,17 +12,20 @@ app.use(sessions.createSession());
 // Require Routes js
 var routesHome = require('./routes/home');
 
+var routesWelcome = require('./routes/welcome');
+
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
 app.use('/home', routesHome);
- 
+
+app.use('/welcome',routesWelcome);
+
 app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
-	console.log("Going to call wlcome");
+	console.log("Going to call welcome");
 	oauth.getCommunityURL(req,res);
-	
 });
 
 app.get('/authenticate', function(req, res){
