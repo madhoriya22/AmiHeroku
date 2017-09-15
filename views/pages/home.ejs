@@ -392,11 +392,33 @@
 			    var myEventData = event.getParam("data");
 			    //console.log(myEventData);
 			    //window.location.href = myEventData;
-			   var index = myEventData.indexOf(",");
+			    var index = myEventData.indexOf(",");
+		    	var dataBase64 = myEventData.substr(index+1,myEventData.length);
+		    	var byteCharacters = window.atob(dataBase64);
+				initiate_user_download('QuotePDF1'+((new Date).getTime())+'', 'application/pdf', byteCharacters); 				
+			    
+			    if (window.navigator.userAgent.indexOf("Edge")>-1 || ($.browser.msie && $.browser.version > 6)){
+			    	/* var index = myEventData.indexOf(",");
 			    	 var dataBase64 = myEventData.substr(index+1,myEventData.length);
 			    	 var byteCharacters = window.atob(dataBase64);
-					 initiate_user_download('QuotePDF1'+((new Date).getTime())+'.pdf', 'application/pdf', dataBase64); 				
-			    
+					 var byteNumbers = new Array(byteCharacters.length);
+				     for (var i = 0; i < byteCharacters.length; i++) {
+				         byteNumbers[i] = byteCharacters.charCodeAt(i);
+				     }
+				     var byteArray = new Uint8Array(byteNumbers);
+				     var blob = new Blob([byteArray], {type: 'application/pdf'});
+				     window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");*/
+		    		 console.log(" out IE");
+			    }else{
+			    	/*var index = myEventData.indexOf(",");
+			    	var dataBase64 = myEventData.substr(index+1,myEventData.length);
+				    initiate_user_download('QuotePDF1.pdf', 'application/pdf', dataBase64);*/
+				    /*var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
+				    var x = window.open();
+			        x.document.open();
+			        x.document.write(iframe);
+			        x.document.close();*/
+				}
 			};
 			
 			var initiate_user_download = function(file_name, mime_type, text) {
@@ -412,6 +434,7 @@
 			    }
 			    // IE-specific code
 			    else {
+			    				    
 			        var charCodeArr = new Array(text.length);
 			        for (var i = 0; i < text.length; ++i) {
 			            var charCode = text.charCodeAt(i);
