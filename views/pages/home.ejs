@@ -397,20 +397,24 @@
 			    	 var index = myEventData.indexOf(",");
 			    	 var dataBase64 = myEventData.substr(index+1,myEventData.length);
 			    	 var byteCharacters = window.atob(dataBase64);
-					    var byteNumbers = new Array(byteCharacters.length);
+					 initiate_user_download('QuotePDF1.pdf', 'application/pdf', dataBase64);  
+					   /* var byteNumbers = new Array(byteCharacters.length);
 					    for (var i = 0; i < byteCharacters.length; i++) {
 					        byteNumbers[i] = byteCharacters.charCodeAt(i);
 					    }
 					    var byteArray = new Uint8Array(byteNumbers);
 					    var blob = new Blob([byteArray], {type: 'application/pdf'});
-					    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");
+					    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");*/
 			    		console.log(" out IE");
 			    }else{
-			    	console.log("chrome");
+			    	/*console.log("chrome");
 			    	var link = document.createElement('a');
 				    link.download = "QuotePDF.pdf";
 				    link.href = myEventData;
-				    link.click();
+				    link.click();*/
+				    var index = myEventData.indexOf(",");
+			    	 var dataBase64 = myEventData.substr(index+1,myEventData.length);
+				    initiate_user_download('QuotePDF1.pdf', 'application/pdf', dataBase64);
 				    /*var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
 				    var x = window.open();
 			        x.document.open();
@@ -418,6 +422,31 @@
 			        x.document.close();*/
 				}
 			};
+			
+			var initiate_user_download = function(file_name, mime_type, text) {
+			    // Anything but IE works here
+			    if (undefined === window.navigator.msSaveOrOpenBlob) {
+			        var e = document.createElement('a');
+			        var href = 'data:' + mime_type + ';charset=utf-8,' + encodeURIComponent(text);
+			        e.setAttribute('href', href);
+			        e.setAttribute('download', file_name);
+			        document.body.appendChild(e);
+			        e.click();
+			        document.body.removeChild(e);
+			    }
+			    // IE-specific code
+			    else {
+			        var charCodeArr = new Array(text.length);
+			        for (var i = 0; i < text.length; ++i) {
+			            var charCode = text.charCodeAt(i);
+			            charCodeArr[i] = charCode;
+			        }
+			        var blob = new Blob([new Uint8Array(charCodeArr)], {type: mime_type});
+			        window.navigator.msSaveOrOpenBlob(blob, file_name);
+			    }
+			}
+						
+			
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 	</body>
