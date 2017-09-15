@@ -23,7 +23,6 @@ app.get('/', function(req, res){
 	console.log("Going to call wlcome");
 	oauth.getCommunityURL(req,res);
 	
-	
 });
 
 app.get('/authenticate', function(req, res){

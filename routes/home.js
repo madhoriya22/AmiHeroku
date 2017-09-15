@@ -9,7 +9,8 @@ router.get('/', function(req, res) {
 		sfdcurl: req.session.sfdcurl,
 		orgid: req.session.orgid,
 		namespace: process.env['SF_NAMESPACE'],
-		idletime: process.env['SESSION_IDLE_TIME']
+		idletime: process.env['SESSION_IDLE_TIME'],
+		communityUrl:req.session.communityUrl
 	});
 });
 
