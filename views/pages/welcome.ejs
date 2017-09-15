@@ -158,15 +158,15 @@
 	    function doChecks() {
             	var isSafari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
                 console.log("Test");
-                alert("<% communityUrl %>");
+                alert("<%= communityUrl %>");
                 if (!getCookieSupport()) {
                     document.getElementById("no-cookies").classList.remove('hide');
                     document.getElementById("initialSpinner").classList.add('hide');
                 } else if(isSafari && !$.cookie('fixed')) {
-		    forwardToCookieFix();
-                }else{
-		  gotoQuote();
-		}
+				    forwardToCookieFix();
+		        }else{
+				    gotoQuote();
+				}
             }
             // https://stackoverflow.com/questions/2167310/how-to-show-a-message-only-if-cookies-are-disabled-in-browser
             // Find out what cookies are supported. Returns:
