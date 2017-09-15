@@ -22,11 +22,8 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
 	console.log("Going to call wlcome");
 	oauth.getCommunityURL(req,res);
-	res.render('pages/welcome', {
-	    	orgId: req.query.orgId,
-	    	renId: req.query.renId,
-	    	communityUrl:req.query.communityUrl
-    	});
+	
+	
 });
 
 app.get('/authenticate', function(req, res){
