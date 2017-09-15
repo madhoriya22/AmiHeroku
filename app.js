@@ -20,10 +20,7 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
-	res.render('pages/welcome', {
-	    	orgId: req.query.orgId,
-	    	renId: req.query.renId
-    	});
+	oauth.getCommunityURL(req,res);
 });
 
 app.get('/authenticate', function(req, res){
