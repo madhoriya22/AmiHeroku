@@ -157,6 +157,7 @@
 	<script> 
 	    function doChecks() {
             	var isSafari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
+                console.log("Test");
                 alert("<% communityUrl %>");
                 if (!getCookieSupport()) {
                     document.getElementById("no-cookies").classList.remove('hide');
