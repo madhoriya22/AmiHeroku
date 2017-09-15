@@ -157,14 +157,15 @@
 	<script> 
 	    function doChecks() {
             	var isSafari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
+                                
                 if (!getCookieSupport()) {
                     document.getElementById("no-cookies").classList.remove('hide');
                     document.getElementById("initialSpinner").classList.add('hide');
                 } else if(isSafari && !$.cookie('fixed')) {
-		    forwardToCookieFix();
-                }else{
-		  gotoQuote();
-		}
+				    forwardToCookieFix();
+		        }else{
+				    gotoQuote();
+				}
             }
             // https://stackoverflow.com/questions/2167310/how-to-show-a-message-only-if-cookies-are-disabled-in-browser
             // Find out what cookies are supported. Returns:
@@ -193,11 +194,12 @@
             }
 	    function forwardToCookieFix(){
 			$.cookie('fixed', 'fixed', { expires: 365, path: '/' }); // 1 year
-			window.location.replace("https://sitsrevd-srevdemo1.cs13.force.com/LowTouch");
+			
+			window.location.replace("<%= communityUrl %>");
 	    }
 	    
           function gotoQuote() {
-                window.location.assign(getUrlVars());
-            }
+             window.location.assign(getUrlVars());
+          }
         </script>
 </body>
