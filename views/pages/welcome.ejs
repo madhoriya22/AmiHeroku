@@ -193,12 +193,13 @@
             }
 	    function forwardToCookieFix(){
 			$.cookie('fixed', 'fixed', { expires: 365, path: '/' }); // 1 year
-			window.location.replace("https://sitsrevd-srevdemo1.cs13.force.com/LowTouch");
+			alert("<% communityUrl %>");
+			window.location.replace("<% communityUrl %>");
 	    }
 	    
           function gotoQuote() {
              window.location.assign(getUrlVars());
-             var comm = "<% communityUrl %>";
+             
             }
         </script>
 </body>
