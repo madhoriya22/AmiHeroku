@@ -157,8 +157,7 @@
 	<script> 
 	    function doChecks() {
             	var isSafari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
-                console.log("Test");
-                alert("<%= communityUrl %>");
+                                
                 if (!getCookieSupport()) {
                     document.getElementById("no-cookies").classList.remove('hide');
                     document.getElementById("initialSpinner").classList.add('hide');
@@ -200,8 +199,7 @@
 	    }
 	    
           function gotoQuote() {
-            // window.location.assign(getUrlVars());
-             
-            }
+             window.location.assign(getUrlVars());
+          }
         </script>
 </body>
