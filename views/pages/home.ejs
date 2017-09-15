@@ -393,7 +393,7 @@
 			    //console.log(myEventData);
 			    //window.location.href = myEventData;
 			    				
-			    if (window.navigator.userAgent.indexOf("Edge")>-1 || (($.browser.mozilla || $.browser.msie) && $.browser.version > 6)){
+			    if (window.navigator.userAgent.indexOf("Edge")>-1 || ($.browser.msie && $.browser.version > 6)){
 			    	 var index = myEventData.indexOf(",");
 			    	 var dataBase64 = myEventData.substr(index+1,myEventData.length);
 			    	 var byteCharacters = window.atob(dataBase64);
