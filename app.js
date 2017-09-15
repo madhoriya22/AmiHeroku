@@ -19,7 +19,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/home', routesHome);
 
-app.use('/welcome',routesWelcome);
+app.use('/',routesWelcome);
 
 app.set('view engine', 'ejs');
 	
