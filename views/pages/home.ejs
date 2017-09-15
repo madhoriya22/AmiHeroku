@@ -407,11 +407,15 @@
 			    		console.log(" out IE");
 			    }else{
 			    	console.log("chrome");
-				    var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
+			    	var link = document.createElement('a');
+				    link.download = "QuotePDF.pdf";
+				    link.href = myEventData;
+				    link.click();
+				    /*var iframe = "<iframe width='100%' height='100%' src='" + myEventData + "'></iframe>"
 				    var x = window.open();
 			        x.document.open();
 			        x.document.write(iframe);
-			        x.document.close();
+			        x.document.close();*/
 				}
 			};
 			SS.LightningActions.LDLTCMPCreate();
