@@ -392,24 +392,41 @@
 			    var myEventData = event.getParam("data");
 			    //console.log(myEventData);
 			    //window.location.href = myEventData;
-			    var index = myEventData.indexOf(",");
+			    /*var index = myEventData.indexOf(",");
 		    	var dataBase64 = myEventData.substr(index+1,myEventData.length);
 		    	var byteCharacters = window.atob(dataBase64);
-				initiate_user_download('QuotePDF1'+((new Date).getTime())+'', 'application/pdf', byteCharacters); 				
+				initiate_user_download('QuotePDF1'+((new Date).getTime())+'', 'application/pdf', byteCharacters);*/ 				
 			    
-			    if (window.navigator.userAgent.indexOf("Edge")>-1 || ($.browser.msie && $.browser.version > 6)){
-			    	/* var index = myEventData.indexOf(",");
-			    	 var dataBase64 = myEventData.substr(index+1,myEventData.length);
-			    	 var byteCharacters = window.atob(dataBase64);
-					 var byteNumbers = new Array(byteCharacters.length);
-				     for (var i = 0; i < byteCharacters.length; i++) {
-				         byteNumbers[i] = byteCharacters.charCodeAt(i);
-				     }
-				     var byteArray = new Uint8Array(byteNumbers);
-				     var blob = new Blob([byteArray], {type: 'application/pdf'});
-				     window.navigator.msSaveOrOpenBlob(blob, "QuotePDF");*/
-		    		 console.log(" out IE");
+			    if (undefined === window.navigator.msSaveOrOpenBlob) {
+			    	 var e = document.createElement('a');
+			        
+			         e.setAttribute('href', myEventData);
+			         e.setAttribute('download', "QuotePDF"+((new Date).getTime()));
+			         document.body.appendChild(e);
+			         e.click();
+			         document.body.removeChild(e);
+				    
+			    	 
 			    }else{
+			    	
+			    	var index = myEventData.indexOf(",");
+			    	var dataBase64 = myEventData.substr(index+1,myEventData.length);
+			    	var byteCharacters = window.atob(dataBase64);
+					var byteNumbers = new Array(byteCharacters.length);
+				    for (var i = 0; i < byteCharacters.length; i++) {
+				        byteNumbers[i] = byteCharacters.charCodeAt(i);
+				    }
+				    var byteArray = new Uint8Array(byteNumbers);
+				    var blob = new Blob([byteArray], {type: 'application/pdf'});
+				    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime()));
+		    		console.log(" out IE");
+			    	
+			    	/*var link = document.createElement('a');
+				    link.download = "QuotePDF.pdf";
+				    link.href = myEventData;
+				    link.click();*/
+				    
+				    
 			    	/*var index = myEventData.indexOf(",");
 			    	var dataBase64 = myEventData.substr(index+1,myEventData.length);
 				    initiate_user_download('QuotePDF1.pdf', 'application/pdf', dataBase64);*/
