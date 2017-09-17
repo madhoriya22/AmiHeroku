@@ -401,7 +401,7 @@
 			    	 var e = document.createElement('a');
 			        
 			         e.setAttribute('href', myEventData);
-			         e.setAttribute('download', "QuotePDF"+((new Date).getTime()));
+			         e.setAttribute('download', "QuotePDF"+((new Date).getTime())+".pdf");
 			         document.body.appendChild(e);
 			         e.click();
 			         document.body.removeChild(e);
