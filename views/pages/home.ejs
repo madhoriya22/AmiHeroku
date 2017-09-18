@@ -324,12 +324,14 @@
 						console.log('err::'+err);
 					}
 					/*
-					setTimeout(function(){	
-						if (lightningLoaded==false){
-							document.getElementById("initialSpinner").classList.add('hide');
-							document.getElementById("no-cookies").classList.remove('hide');
-						}
-					}, 6000);
+					if("<%= cookiesTimeOut %>"){
+						setTimeout(function(){	
+							if (lightningLoaded==false){
+								document.getElementById("initialSpinner").classList.add('hide');
+								document.getElementById("no-cookies").classList.remove('hide');
+							}
+						}, <%= cookiesTimeOut %> * 1000);
+					}
 					*/
 				}
 			
