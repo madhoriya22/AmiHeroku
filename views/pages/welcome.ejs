@@ -194,8 +194,7 @@
             }
 	    function forwardToCookieFix(){
 			$.cookie('fixed', 'fixed', { expires: 365, path: '/' }); // 1 year
-			
-			window.location.replace("<% communityUrl %>");
+			window.location.replace("<%= communityUrl %>");
 	    }
 	    
           function gotoQuote() {

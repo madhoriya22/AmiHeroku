@@ -323,13 +323,15 @@
 					} catch(err) {
 						console.log('err::'+err);
 					}
-					
-					setTimeout(function(){	
-						if (lightningLoaded==false){
-							document.getElementById("initialSpinner").classList.add('hide');
-							document.getElementById("no-cookies").classList.remove('hide');
-						}
-					}, 20000);
+					if(<%= cookiesTimeOut %>){
+						console.log("Timeout val = "+<%= cookiesTimeOut %>);
+						setTimeout(function(){	
+							if (lightningLoaded==false){
+								document.getElementById("initialSpinner").classList.add('hide');
+								document.getElementById("no-cookies").classList.remove('hide');
+							}
+						}, (parseInt("<%= cookiesTimeOut %>")*1000));
+					}
 					
 				}
 			

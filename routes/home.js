@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 		orgid: req.session.orgid,
 		namespace: process.env['SF_NAMESPACE'],
 		idletime: process.env['SESSION_IDLE_TIME'],
-		communityUrl:req.session.communityUrl
+		cookiesTimeOut:process.env['COOKIES_TIMEOUT']
 	});
 });
 
