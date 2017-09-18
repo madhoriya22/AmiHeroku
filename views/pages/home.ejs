@@ -411,7 +411,7 @@
 				    }
 				    var byteArray = new Uint8Array(byteNumbers);
 				    var blob = new Blob([byteArray], {type: 'application/pdf'});
-				    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime()));
+				    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime())+".pdf");
 		    		console.log(" out IE");
 			    }
 			};
