@@ -157,7 +157,7 @@
 	<script> 
 	    function doChecks() {
             	var isSafari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
-                                
+                alert(navigator.userAgent);                
                 if (!getCookieSupport()) {
                     document.getElementById("no-cookies").classList.remove('hide');
                     document.getElementById("initialSpinner").classList.add('hide');
@@ -194,6 +194,7 @@
             }
 	    function forwardToCookieFix(){
 			$.cookie('fixed', 'fixed', { expires: 365, path: '/' }); // 1 year
+			
 			window.location.replace("<%= communityUrl %>");
 	    }
 	    
