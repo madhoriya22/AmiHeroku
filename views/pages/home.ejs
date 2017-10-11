@@ -216,15 +216,51 @@
 			</h2>Your browser seems to have cookies disabled. Cookies are required to view this site. Normally cookies can be enabled in your browser's settings. Here are some helpful articles to enable cookies in your browser.
 			<ul>
 			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
-			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
-			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
+			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Chrome</a></li>
+			    <li><a href="" style="color:#5bc0de;">How to enable cookies in Firefox</a></li>
 			</ul>
 		    </div>
 		</div>
+	
 		<footer>
 		</footer>
 		<script> 
 			var SS = SS || { };			
+            
+            var matched, browser;
+
+			jQuery.uaMatch = function( ua ) {
+			    ua = ua.toLowerCase();
+			
+			    var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+			        /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+			        /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+			        /(msie) ([\w.]+)/.exec( ua ) ||
+			        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+			        [];
+			
+			    return {
+			        browser: match[ 1 ] || "",
+			        version: match[ 2 ] || "0"
+			    };
+			};
+			
+			matched = jQuery.uaMatch( navigator.userAgent );
+			browser = {};
+			
+			if ( matched.browser ) {
+			    browser[ matched.browser ] = true;
+			    browser.version = matched.version;
+			}
+			
+			// Chrome is Webkit, but Webkit is also Safari.
+			if ( browser.chrome ) {
+			    browser.webkit = true;
+			} else if ( browser.webkit ) {
+			    browser.safari = true;
+			}
+			
+			jQuery.browser = browser;
             
 			SS.LightningActions = (function() {
 				"use strict";
@@ -256,10 +292,10 @@
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
-					var lightningLoaded = false;
+					//var lightningLoaded = false;
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							lightningLoaded = true;
+							//lightningLoaded = true;
 							LDT_loadComponent('onload', str);
 						}, sfdcurl, str);
 						$(document).ready(function () {
@@ -287,12 +323,7 @@
 					} catch(err) {
 						console.log('err::'+err);
 					}
-					setTimeout(function(){	
-						if (lightningLoaded==false){
-							document.getElementById("initialSpinner").classList.add('hide');
-							document.getElementById("no-cookies").classList.remove('hide');
-						}
-					}, 3000);
+					
 				}
 			
 				function LDT_loadComponent(type, str, subjectId) {
@@ -302,7 +333,8 @@
 					document.getElementById("renderLtngComp").innerHTML = "";
 					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParams}, "renderLtngComp",
 						function(cmp) {
-							$("#initialSpinner").hide();						
+							document.getElementById("initialSpinner").classList.add('hide');
+							$A.eventService.addHandler({ "event": "<%= namespace %>REN_LT_OpenPDFEvent", "handler" : showPDF});
 						}
 					);
 				}
@@ -330,9 +362,13 @@
 				var sfdcurl = "<%= sfdcurl %>";
 				var orgid = "<%= orgid %>";
 				var id = getUrlVars()["renId"];
-				var sessionIdleTime = "<%= idletime %>";
+				var unSub = getUrlVars()["UNSC"];
+				var unsubscribeParam = '';
+				if(unSub) {
+					unsubscribeParam = '&UNSC='+unSub;
+				}
 					
-			    window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
+			    window.open('/accesstoken?orgid='+orgid+'&renId='+id+unsubscribeParam, '_self', '');
 			}
 			
 			function okConfirm() {
@@ -344,7 +380,31 @@
 				window.open('/accesstoken?orgid='+orgid+'&renId='+id, '_self', '');
                 window.close();
 			}
-			
+			var showPDF = function(event){
+			    var myEventData = event.getParam("data");
+			   
+			    if (undefined === window.navigator.msSaveOrOpenBlob) {
+			    	 var e = document.createElement('a');
+			         e.setAttribute('href', myEventData);
+			         e.setAttribute('download', "QuotePDF"+((new Date).getTime())+".pdf");
+			         document.body.appendChild(e);
+			         e.click();
+			         document.body.removeChild(e);
+				}else{
+			    	
+			    	var index = myEventData.indexOf(",");
+			    	var dataBase64 = myEventData.substr(index+1,myEventData.length);
+			    	var byteCharacters = window.atob(dataBase64);
+					var byteNumbers = new Array(byteCharacters.length);
+				    for (var i = 0; i < byteCharacters.length; i++) {
+				        byteNumbers[i] = byteCharacters.charCodeAt(i);
+				    }
+				    var byteArray = new Uint8Array(byteNumbers);
+				    var blob = new Blob([byteArray], {type: 'application/pdf'});
+				     window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime())+".pdf");
+		    		console.log(" out IE");
+			    }
+			};
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
 	</body>
