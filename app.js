@@ -21,7 +21,8 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
-	oauth.getCommunityURL(req,res);
+	//oauth.getCommunityURL(req,res);
+	oauth.redirectToHome(req, res, app);
 });
 
 app.get('/authenticate', function(req, res){
