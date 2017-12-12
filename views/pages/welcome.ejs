@@ -267,7 +267,7 @@
 			$lt(".toggle-content").click(function(){
 				var link = $lt(this).attr("href");
 				var eleId =  link.replace("#", "");
-				$lt(eleId).show("slow");
+				$lt("#"+eleId).show("slow");
 				console.log("Testing flow");
 			});
 		});
