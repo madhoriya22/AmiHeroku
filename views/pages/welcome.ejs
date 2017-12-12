@@ -1,14 +1,14 @@
 <html>
 
 <head>
-    
+   <!-- <% include ../../public/resource/jquery-3.2.1.min.js %> -->
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
     <style>
 		.show {
 		    display: block;
 		}
-			
+	
 		.hide {
 		    display: none;
 		}
@@ -147,25 +147,17 @@
                     </svg>Cookies Disabled! 
                 </h2>Your browser seems to have cookies disabled. Cookies are required to view this site. Normally cookies can be enabled in your browser's settings. Here are some helpful articles to enable cookies in your browser.
                 <ul>
-                    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
-                    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
-                    <li><a href="" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
+                    <li><a class="toggle-content" href="#6966" style="color:#5bc0de;">How to enable cookies in Chrome</a></li>
+                    <li><a class="toggle-content" href="#6162" style="color:#5bc0de;">How to enable cookies in Firefox</a></li>
+                    <li><a class="toggle-content" href="#1654" style="color:#5bc0de;">How to enable cookies in Safari</a></li>
+                    <li><a class="toggle-content" href="#6970" style="color:#5bc0de;">How to enable cookies in IE</a></li>
                 </ul>
             </div>
             <div>
            		<div class="hiq-t" id="ext-gen321">
 				  	<ul class="breadcrumbs"><li><span>Help &amp; Support</span></li></ul>  	
-					  	<p>Cookies are required to view the Renewals website in your browser. You can enable cookies in your browser&nbsp;settings for your desktop, laptop, or mobile phone device.&nbsp;Refer to the procedures listed below to enable cookies for&nbsp;the browser and the device you use.</p>
-					
-						<p>&nbsp;</p>
-						
-						<p>Refer to&nbsp;<a href="https://help.salesforce.com/articleView?id=getstart_browser_overview.htm&amp;type=5">Salesforce help</a>&nbsp;for a list of supported browsers.</p>
-						
-						<p>&nbsp;</p>
-						
-						<p><strong><a class="toggle-content" href="#6966" id="ext-gen334">Chrome</a></strong></p>
-						
-						<div id="6966" style="visibility: visible; position: static; left: auto; top: auto; z-index: auto;">
+					  		
+						<div id="6966" style="visibility: visible; position: static; display: none;left: auto; top: auto; z-index: auto;">
 						<ol>
 							<li>Click the Kebab icon <a href="https://dzf8vqv24eqhg.cloudfront.net/userfiles/1193/7188/ckfinder/images/kebab_icon.png?width=19&amp;height=19" lb="orginal" rel="lightbox"><img alt="" lb="custom,19,19" src="https://dzf8vqv24eqhg.cloudfront.net/userfiles/1193/7188/ckfinder/images/kebab_icon.png" style="width:19px;height:19px"></a>&nbsp;and select&nbsp;<strong>Settings</strong>.&nbsp;</li>
 							<li>Click&nbsp;<strong>Show Advanced Settings</strong> at the bottom of the page.</li>
@@ -174,8 +166,6 @@
 							<li>In the Cookies section select&nbsp;<strong>Allow local data to be set (recommended)</strong>&nbsp;and click&nbsp;<strong>Done</strong>.</li>
 						</ol>
 						</div>
-						
-						<p><strong><a class="toggle-content" href="#6162" id="ext-gen337">Firefox</a>&nbsp;</strong></p>
 						
 						<div id="6162" style="visibility: visible; position: static; display: none; left: auto; top: auto; z-index: auto;">
 						<ol>
@@ -188,8 +178,6 @@
 							<li>Close the Preferences page (changes are automatically saved).&nbsp;</li>
 						</ol>
 						</div>
-						
-						<p><strong><a class="toggle-content" href="#6970" id="ext-gen340">Internet Explorer</a></strong></p>
 						
 						<div id="6970" style="visibility: visible; position: static; display: none; left: auto; top: auto; z-index: auto;">
 						<p>Windows 7 through 8.1 desktop browser (IE versions 8 through 11):</p>
@@ -223,7 +211,6 @@
 						</ol>
 						</div>
 						
-						<p><strong><a class="toggle-content" href="#7552" id="ext-gen343">Chrome for Mac</a>&nbsp;</strong></p>
 						
 						<div id="7552" style="visibility: visible; position: static; display: none; left: auto; top: auto; z-index: auto;">
 						<ol>
@@ -234,8 +221,6 @@
 							<li>In the Cookies section select&nbsp;<strong>Allow local data to be set (recommended)</strong>&nbsp;and click&nbsp;<strong>Done</strong>.</li>
 						</ol>
 						</div>
-						
-						<p>&#8203;<strong><a class="toggle-content" href="#1654" id="ext-gen360">Safari for Mac</a></strong></p>
 						
 						<div id="1654" style="visibility: visible; position: static; display: none; left: auto; top: auto; z-index: auto;">
 						<p>v10.10</p>
@@ -248,7 +233,6 @@
 						</ol>
 						</div>
 						
-						<p><strong><a class="toggle-content" href="#4665" id="ext-gen363">Android&nbsp;for mobile devices</a></strong></p>
 						
 						<div id="4665" style="visibility: visible; position: static; display: none; left: auto; top: auto; z-index: auto;">
 						<ol>
@@ -261,7 +245,6 @@
 						</ol>
 						</div>
 						
-						<p><strong><a class="toggle-content" href="#2482" id="ext-gen366">Safari for iOS (iPhone, iPad)</a></strong></p>
 						
 						<div id="2482" style="visibility: visible; position: static; display: none; left: auto; top: auto; z-index: auto;">
 						<ol>
@@ -279,6 +262,15 @@
         <script src="//cdn.jsdelivr.net/g/jquery@1.11.0"></script>
         <script src="//cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
 	<script> 
+		$lt = jQuery.noConflict();
+		$lt(document).ready(function(){
+			$lt(".toggle-content").click(function(){
+				var link = $lt(this).attr("href");
+				var eleId =  link.replace("#", "");
+				$lt(eleId).show("slow");
+				console.log("Testing flow");
+			});
+		});
 	    function doChecks() {
             	var isSafari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
                 //alert(navigator.userAgent);                
@@ -287,6 +279,7 @@
                 if (!getCookieSupport()) {
                     document.getElementById("no-cookies").classList.remove('hide');
                     document.getElementById("initialSpinner").classList.add('hide');
+                	
                 } else if(isSafari && !$.cookie('fixed')) {
 				    forwardToCookieFix();
 		        }else{
