@@ -12,18 +12,16 @@ app.use(sessions.createSession());
 // Require Routes js
 var routesHome = require('./routes/home');
 
+
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
 app.use('/home', routesHome);
- 
+
 app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
-	res.render('pages/welcome', {
-	    	orgId: req.query.orgId,
-	    	renId: req.query.renId
-    	});
+	oauth.getCommunityURL(req,res);
 });
 
 app.get('/authenticate', function(req, res){
@@ -44,6 +42,7 @@ app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call : '+req.query.env);
 	req.session.sfdcurl = req.query.sfdcurl;
 	req.session.env = req.query.env;
+	req.session.communityUrl = req.query.communityUrl;
 	oauth.redirectAuthURI(res,req);
 });
 
