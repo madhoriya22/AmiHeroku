@@ -283,7 +283,7 @@
 			$lt(".toggle-content").click(function(){
 				var link = $lt(this).attr("href");
 				var eleId =  link.replace("#", "");
-				if($lt("#"+eleId).visible()){
+				if($lt("#"+eleId).is(':visible')){
 					$lt("#"+eleId).hide("slow");
 				}else{
 					$lt("#"+eleId).show("slow");
