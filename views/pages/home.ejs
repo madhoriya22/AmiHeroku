@@ -403,7 +403,7 @@
 			    if (undefined === window.navigator.msSaveOrOpenBlob) {
 			    	 var e = document.createElement('a');
 			         e.setAttribute('href', myEventData);
-			         e.setAttribute('download', "QuotePDF"+((new Date).getTime())+".pdf");
+			         e.setAttribute('download', "QuotePDF"+((new Date).getTime())+"."+ext);
 			         document.body.appendChild(e);
 			         e.click();
 			         document.body.removeChild(e);
