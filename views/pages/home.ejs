@@ -399,7 +399,7 @@
 			}
 			var showPDF = function(event){
 			    var myEventData = event.getParam("data");
-			   
+			    var ext = event.getParam("extension");
 			    if (undefined === window.navigator.msSaveOrOpenBlob) {
 			    	 var e = document.createElement('a');
 			         e.setAttribute('href', myEventData);
@@ -418,7 +418,7 @@
 				    }
 				    var byteArray = new Uint8Array(byteNumbers);
 				    var blob = new Blob([byteArray], {type: 'application/pdf'});
-				     window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime())+".pdf");
+				     window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime())+"."+ext);
 		    		console.log(" out IE");
 			    }
 			};
