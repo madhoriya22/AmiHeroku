@@ -9,17 +9,6 @@ var app = express()
 
 app.use(sessions.createSession());
 
-/*Allow CORS*/
-app.use(function(req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization,X-Authorization'); 
-	res.setHeader('Access-Control-Allow-Methods', '*');
-	res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
-	res.setHeader('Access-Control-Max-Age', '1000');
-	  
-	next();
-});
-
 // Require Routes js
 var routesHome = require('./routes/home');
 
@@ -30,26 +19,26 @@ app.use('/home', routesHome);
 
 app.set('view engine', 'ejs');
 	
-app.get('/', function(req, res, next){
+app.get('/', function(req, res){
 	oauth.getCommunityURL(req,res);
 	//oauth.redirectToHome(req, res, app);
 });
 
-app.get('/authenticate', function(req, res, next){
+app.get('/authenticate', function(req, res){
 	oauth.redirectToHome(req, res, app);
 });
 
-app.get('/accesstoken', function(req, res, next){
+app.get('/accesstoken', function(req, res){
 	console.log('Redis Session - '+JSON.stringify(req.session));
 	oauth.redirectToHome(req, res, app);
 });
 
-app.get('/oauthcallback', function(req, res, next) {
+app.get('/oauthcallback', function(req, res) {
 	console.log('oauthcallback call');
 	oauth.authenticate(req, res, app);
 });
 
-app.get('/renewUserAccess', function(req, res, next) {
+app.get('/renewUserAccess', function(req, res) {
 	console.log('renewUserAccess call : '+req.query.env);
 	req.session.sfdcurl = req.query.sfdcurl;
 	req.session.env = req.query.env;
@@ -57,7 +46,7 @@ app.get('/renewUserAccess', function(req, res, next) {
 	oauth.redirectAuthURI(res,req);
 });
 
-app.get('/revokeAccess', function(req, res, next) {
+app.get('/revokeAccess', function(req, res) {
 	console.log('revokeAccess call');
 	oauth.revokeAccess(req,res);
 });
