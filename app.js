@@ -7,6 +7,14 @@ var port = process.env.PORT || 3000;
 var app = express()
 , sessions = require('./lib/Services/sessions.js');
 
+app.all('*', function(req, res, next) {
+     var origin = req.get('origin'); 
+     res.header('Access-Control-Allow-Origin', origin);
+     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+     res.header('Access-Control-Allow-Headers', 'Content-Type');
+     next();
+});`
+
 app.use(sessions.createSession());
 
 // Require Routes js
@@ -19,7 +27,7 @@ app.use('/home', routesHome);
 
 app.set('view engine', 'ejs');
 	
-app.get('/', function(req, res){
+app.get('/', function(req, res, next){
 	oauth.getCommunityURL(req,res);
 	//oauth.redirectToHome(req, res, app);
 });
