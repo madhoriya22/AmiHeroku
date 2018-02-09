@@ -18,13 +18,24 @@ app.use(express.static(__dirname + '/public'));
 app.use('/home', routesHome);
 
 app.set('view engine', 'ejs');
+
+/*Allow CORS*/
+app.all('*', function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization,X-Authorization'); 
+	res.setHeader('Access-Control-Allow-Methods', '*');
+	res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+	res.setHeader('Access-Control-Max-Age', '1000');
+	  
+	next();
+});
 	
-app.get('/', function(req, res){
+app.get('/', function(req, res, next){
 	oauth.getCommunityURL(req,res);
 	//oauth.redirectToHome(req, res, app);
 });
 
-app.get('/authenticate', function(req, res){
+app.get('/authenticate', function(req, res, next){
 	oauth.redirectToHome(req, res, app);
 });
 
