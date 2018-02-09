@@ -9,9 +9,14 @@ var app = express()
 
 app.use(sessions.createSession());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Require Routes js
 var routesHome = require('./routes/home');
-
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
