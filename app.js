@@ -12,7 +12,6 @@ app.use(sessions.createSession());
 // Require Routes js
 var routesHome = require('./routes/home');
 
-
 // Serve static files
 app.use(express.static(__dirname + '/public'));
 
@@ -21,8 +20,8 @@ app.use('/home', routesHome);
 app.set('view engine', 'ejs');
 	
 app.get('/', function(req, res){
-	console.log("Going to call welcome");
 	oauth.getCommunityURL(req,res);
+	//oauth.redirectToHome(req, res, app);
 });
 
 app.get('/authenticate', function(req, res){

@@ -292,10 +292,10 @@
 					var orgid = "<%= orgid %>";
 					var id = getUrlVars()["renId"];
 					var sessionIdleTime = "<%= idletime %>";
-					var lightningLoaded = false;
+					//var lightningLoaded = false;
 				    try {
 						$Lightning.use("<%= namespace %>LDLT", function(cmp){
-							lightningLoaded = true;
+							//lightningLoaded = true;
 							LDT_loadComponent('onload', str);
 						}, sfdcurl, str);
 						$(document).ready(function () {
@@ -333,9 +333,8 @@
 					document.getElementById("renderLtngComp").innerHTML = "";
 					$Lightning.createComponent("<%= namespace %>REN_LT_MainComponent", {renId:id, oauthId: str, urlParamsJson: urlParams}, "renderLtngComp",
 						function(cmp) {
-							$("#initialSpinner").hide();
+							document.getElementById("initialSpinner").classList.add('hide');
 							$A.eventService.addHandler({ "event": "<%= namespace %>REN_LT_OpenPDFEvent", "handler" : showPDF});
-													
 						}
 					);
 				}
@@ -402,12 +401,12 @@
 				    }
 				    var byteArray = new Uint8Array(byteNumbers);
 				    var blob = new Blob([byteArray], {type: 'application/pdf'});
-				    window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime())+".pdf");
+				     window.navigator.msSaveOrOpenBlob(blob, "QuotePDF"+((new Date).getTime())+".pdf");
 		    		console.log(" out IE");
 			    }
 			};
-			
 			SS.LightningActions.LDLTCMPCreate();
 		</script>
+	     <link href="https://file.myfontastic.com/LXhCCjRcxtbsybpmZqEkaQ/icons.css" rel="stylesheet">		 
 	</body>
 </html>
